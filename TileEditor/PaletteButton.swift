@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import Cocoa
+
+class PaletteButton: NSButton {
+    
+    override var wantsUpdateLayer: Bool {
+        return true
+    }
+    
+    
+    func resetState() {
+        title = ""
+        state = 0
+    }
+}
