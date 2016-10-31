@@ -1,5 +1,8 @@
 # TileEditor
-NES Tile Editor for editing CHR on the MAC
+NES Tile Editor for editing CHR on the macOS
+
+Still in development and thus not functional.
+Project is written using Swift3. 
 
 ### TODO:
 * Read CHR file from hard disk and display into FileViewer
