@@ -1,5 +1,5 @@
 # TileEditor
-NES Tile Editor for CHR
+NES Tile Editor for editing CHR on the MAC
 
 ### TODO:
 * Read CHR file from hard disk and display into FileViewer
