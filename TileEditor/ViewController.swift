@@ -57,13 +57,15 @@ class ViewController: NSViewController, TileViewEditorProtocol, PaletteSelectorP
         default:
             numberOfPixels = .p8x8
         }
+        // By changing the NxN TileViewer, this will update the selection of tiles, which will call dataSelectedAtLocation(x:y:)
         tileViewer?.updateView(selectionSize: numberOfPixels)
-        
-        tileViewEditor?.needsDisplay = true
     }
+    //MARK: TileViewEditor Protocols
     func pixelDataChanged(pixelData: [[UInt]]) {
         
     }
+    
+    //MARK: FileViewer Protocols
     internal func dataSelectedAtLocation(x: UInt, y: UInt) {
         var newPixelData: [[UInt]] = []
         let tempNumberOfPixels = Int(numberOfPixels.rawValue)
@@ -76,6 +78,8 @@ class ViewController: NSViewController, TileViewEditorProtocol, PaletteSelectorP
         }
         tileViewEditor?.updateEditorWith(pixelData: newPixelData)
     }
+    
+    //MARK: PaletteSelection
     func paletteSelectionChanged(value: UInt, paletteType: UInt) {
         tileViewEditor?.colorFromPalette = value
     }

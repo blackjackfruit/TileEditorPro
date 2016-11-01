@@ -32,6 +32,19 @@ class FileViewer: NSView {
     var boxSelection: CGRect? = nil
     var cursorLocation: (x: UInt, y: UInt) = (x: 0, y: 0)
     
+    var numberOfPixelsVertically = 32
+    var numberOfTilesVertically: UInt {
+        let widthPerPixel: CGFloat = frame.size.width/CGFloat(numberOfPixelsVertically)
+        let tselectionSize = CGFloat(selectionSize.rawValue)*widthPerPixel
+        let numberOfTiles = frame.size.width/tselectionSize
+        return UInt(numberOfTiles)
+    }
+    var numberOfPixelsHorizontally = 64
+    var numberOfTilesHorizontally: UInt {
+        return 0
+    }
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         let wh = frame.size.width/4.0
@@ -74,28 +87,32 @@ class FileViewer: NSView {
     
     func updateView(selectionSize: SelectionSize) {
         self.selectionSize = selectionSize
-        var wh: CGFloat = 0
-        switch selectionSize {
-        case .p8x8:
-            wh = frame.size.width/4.0
-            break
-        case .p16x16:
-            wh = frame.size.width/2.0
-            break
-        case .p32x32:
-            wh = frame.size.width/1.0
-            break
-        default:
-            wh = frame.size.width/4.0
-            break
-        }
         
         if let bs = boxSelection {
-            boxSelection = CGRect(x: CGFloat(bs.origin.x)*widthAndHeightPerTile,
-                                  y: CGFloat(bs.origin.y)*widthAndHeightPerTile,
-                                  width: wh,
-                                  height: wh)
-            delegate?.dataSelectedAtLocation(x: cursorLocation.x, y: cursorLocation.y)
+            var tSelectionSize: UInt = 0
+            switch selectionSize {
+            case .p8x8:
+                tSelectionSize = 1
+                break
+            case .p16x16:
+                tSelectionSize = 2
+                break
+            case .p32x32:
+                tSelectionSize = 4
+                break
+            }
+            cursorLocation = adjustCursor(x: cursorLocation.x,
+                                          y: cursorLocation.y,
+                                          sizeOfSelection: tSelectionSize,
+                                          numberOfSelectionVertically: 4,
+                                          numberOfSelectionHorizontally: 8)
+            
+            boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
+                                  y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
+                                  width: 60*CGFloat(tSelectionSize),
+                                  height: 60*CGFloat(tSelectionSize))
+            
+            delegate?.dataSelectedAtLocation(x: cursorLocation.x*8, y: cursorLocation.y*8)
             needsDisplay = true
         }
         
@@ -129,7 +146,6 @@ class FileViewer: NSView {
                 yTileNumber += 1
             }
         }
-        cursorLocation = (xTileNumber, yTileNumber)
         
         return (x: xTileNumber,
                 y: yTileNumber,
@@ -141,30 +157,88 @@ class FileViewer: NSView {
         let s = convert(p, from: nil)
         
         if let boxLocation = findBoxSelectionLocation(point: s) {
-            var multiplySize: CGFloat = 0
+            var tSelectionSize: UInt = 0
             switch selectionSize {
             case .p8x8:
-                multiplySize = 1
+                tSelectionSize = 1
                 break
             case .p16x16:
-                multiplySize = 2
+                tSelectionSize = 2
                 break
             case .p32x32:
-                multiplySize = 4
+                tSelectionSize = 4
                 break
             }
             
-            boxSelection = CGRect(x: CGFloat(boxLocation.x)*widthAndHeightPerTile,
-                                  y: CGFloat(boxLocation.y)*widthAndHeightPerTile,
-                                  width: boxLocation.width*CGFloat(multiplySize),
-                                  height: boxLocation.height*CGFloat(multiplySize))
+            cursorLocation = adjustCursor(x: boxLocation.x,
+                                          y: boxLocation.y,
+                                          sizeOfSelection: tSelectionSize,
+                                          numberOfSelectionVertically: 4,
+                                          numberOfSelectionHorizontally: 8)
             
-            delegate?.dataSelectedAtLocation(x: boxLocation.x*8,
-                                             y: boxLocation.y*8)
+            boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
+                                  y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
+                                  width: boxLocation.width*CGFloat(tSelectionSize),
+                                  height: boxLocation.height*CGFloat(tSelectionSize))
+            
+            delegate?.dataSelectedAtLocation(x: cursorLocation.x*8,
+                                             y: cursorLocation.y*8)
             needsDisplay = true
         }
+    }
+    
+    // Adjust the cursor in case the user tries to access an invalid area by going out of bounds based off of the selection of boxes
+    // The selection parameters is the number of selectable areas from one point of the view to the other side
+    private func adjustCursor(x: UInt,
+                              y: UInt,
+                              sizeOfSelection: UInt,
+                              numberOfSelectionVertically: UInt,
+                              numberOfSelectionHorizontally: UInt) -> (x: UInt, y: UInt) {
+        var newCursorLocation: (x: UInt, y: UInt) = (x: 0, y: 0)
         
+        // these temp will just make it clearer to visualize a NxN that does not start at 0
+        // if the cursor is x = 3 and y = 0 on a 4x4 this is what would happen, out of bounds
+        // array is from 0...3 for both x and y starting from top left
         
+        // x = 2, sizeOfSelection = 4
+        // The plus signs go out of bounds of the 4x4 array
+        // * * + + + +
+        // * * + + + +
+        // * * + + + +
+        // * * + + + +
+        // Must become this
+        // + + + +
+        // + + + +
+        // + + + +
+        // + + + +
+        
+        /**
+         p = x+sizeOfSelection-1
+         r = p-x
+         deltaX = x-r
+         */
+        let sizeOfSelectionPlusLocationOfX = sizeOfSelection+x
+        if sizeOfSelectionPlusLocationOfX > numberOfSelectionVertically {
+            let tx: Int = Int(x)
+            let p = Int(sizeOfSelectionPlusLocationOfX-1)
+            let r = p-tx
+            let deltaX = tx-r
+            newCursorLocation.x = UInt(deltaX)
+        } else {
+            newCursorLocation.x = x
+        }
+        let sizeOfSelectionPlusLocationOfY = sizeOfSelection+y
+        if sizeOfSelectionPlusLocationOfY > numberOfSelectionHorizontally {
+            let ty: Int = Int(y)
+            let p = Int(sizeOfSelectionPlusLocationOfY-1)
+            let r = p-ty
+            let deltaY = ty-r
+            newCursorLocation.y = UInt(deltaY)
+        } else {
+            newCursorLocation.y = y
+        }
+        
+        return newCursorLocation
     }
     
     override func draw(_ dirtyRect: NSRect) {
