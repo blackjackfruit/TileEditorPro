@@ -10,7 +10,7 @@ import Foundation
 import QuartzCore
 import Cocoa
 
-protocol TileViewEditorProtocol {
+protocol TileEditorProtocol {
     func pixelDataChanged(pixelData: [[UInt]])
 }
 
@@ -21,8 +21,8 @@ struct Tile {
     let height: UInt
 }
 
-class TileViewEditor: NSView {
-    var delegate: TileViewEditorProtocol? = nil
+class TileEditor: NSView {
+    var delegate: TileEditorProtocol? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
                                    NSColor.lightGray.cgColor,
                                    NSColor.gray.cgColor,
@@ -57,6 +57,7 @@ class TileViewEditor: NSView {
         let s = convert(p, from: nil)
         let tileToUpdate = findTileLocation(point: s)
         pixelData[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
+        delegate?.pixelDataChanged(pixelData: pixelData)
         needsDisplay = true
     }
     func findTileLocation(point: NSPoint) -> Tile {

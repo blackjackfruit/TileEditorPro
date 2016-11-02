@@ -115,7 +115,30 @@ class FileViewer: NSView {
             delegate?.dataSelectedAtLocation(x: cursorLocation.x*8, y: cursorLocation.y*8)
             needsDisplay = true
         }
-        
+    }
+    
+    func updateFileViewerWith(editedPixelData: [[UInt]],
+                              xPixelLocation: Int,
+                              yPixelLocation: Int) -> Bool {
+        var pixelDataCopy = self.pixelData
+        var tx = xPixelLocation
+        var ty = yPixelLocation
+        do {
+            for yArray in editedPixelData {
+                for xItem: UInt in yArray {
+                    pixelDataCopy[ty][tx] = xItem
+                    tx += 1
+                }
+                tx = xPixelLocation
+                ty += 1
+            }
+            pixelData = pixelDataCopy
+            needsDisplay = true
+            return true
+        } catch {
+            
+        }
+        return false
     }
     
     func findBoxSelectionLocation(point: NSPoint) -> (x: UInt, y: UInt, width: CGFloat, height: CGFloat)? {

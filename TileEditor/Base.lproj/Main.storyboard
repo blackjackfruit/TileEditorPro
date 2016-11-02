@@ -685,7 +685,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="702" height="291"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileViewEditor" customClass="TileViewEditor" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileViewEditor" customClass="TileEditor" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="75" y="46" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="KGg-ew-gQ7"/>
@@ -816,7 +816,7 @@
                                     <rect key="frame" x="1" y="1" width="238" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view translatesAutoresizingMaskIntoConstraints="NO" id="yl5-EZ-Dwp" customClass="FileViewer" customModule="TileEditor" customModuleProvider="target">
+                                        <view translatesAutoresizingMaskIntoConstraints="NO" id="yl5-EZ-Dwp" userLabel="FileViewer" customClass="FileViewer" customModule="TileEditor" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="-242" width="238" height="480"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="480" id="093-lw-vRg"/>
@@ -899,8 +899,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fileViewer" destination="yl5-EZ-Dwp" id="yTt-Zb-0w0"/>
                         <outlet property="nsView" destination="Lgf-zE-XzT" id="KN7-D2-GdC"/>
                         <outlet property="paletteSelection" destination="Dwl-Ls-nzb" id="awJ-40-cjn"/>
+                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="6IM-Lo-hrW"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
                         <outlet property="tileViewEditor" destination="Lgf-zE-XzT" id="InZ-Wv-3XJ"/>
                         <outlet property="tileViewer" destination="yl5-EZ-Dwp" id="Ofm-LC-5wz"/>
