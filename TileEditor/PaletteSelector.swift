@@ -10,14 +10,14 @@ import Foundation
 import Cocoa
 
 protocol PaletteSelectorProtocol {
-    func paletteSelectionChanged(value: UInt, paletteType: UInt)
+    func paletteSelectionChanged(value: Int, paletteType: Int)
 }
 
 class PaletteSelector: NSView {
     var paletteSelectinoDelegate: PaletteSelectorProtocol? = nil
     
-    var currentPalette: UInt = 0
-    var currentPaletteValue: UInt = 0
+    var currentPalette: Int = 0
+    var currentPaletteValue: Int = 0
     @IBOutlet var button_one: NSButton! = nil
     @IBOutlet var button_two: NSButton! = nil
     @IBOutlet var button_three: NSButton! = nil

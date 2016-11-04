@@ -16,23 +16,55 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBOutlet var paletteSelection: PaletteSelector?
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
     
-    var pixelData: [[UInt]] = dummyData32x64
-    var numberOfPixels: SelectionSize = .p8x8
+    var pixelData: [[Int]] = dummyData8x8
+    var numberOfPixels: ZoomSize = .x1
+    var tileDataFormatter: TileDataFormatter? = nil
+    var tileDataType: TileDataType? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         paletteSelection?.paletteSelectinoDelegate = self
         tileEditor?.delegate = self
-        tileEditor?.pixelData = pixelData
+        tileEditor?.subSetOfpixelData = pixelData
         tileEditor?.colorFromPalette = paletteSelection!.currentPalette
+        tileEditor?.numberOfPixelsPerTile = 8
+        tileEditor?.numberOfPixelsPerView = 8
+        
         
         tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
         fileViewer?.pixelData = pixelData
-        fileViewer?.selectionSize = .p8x8
+        fileViewer?.zoomSize = .x1
         fileViewer?.delegate = self
-        fileViewer?.updateView(selectionSize: numberOfPixels)
+        
+        if tileDataType != nil {
+            self.update()
+        }
+        
+        fileViewer?.updateView(zoomSize: numberOfPixels)
+        
+        tileViewerScrollView?.backgroundColor = NSColor.clear
     }
-
+    func update() {
+        guard let tileDataType = tileDataType else {
+            NSLog("Cannot call update without specifying needed parameters")
+            return
+        }
+        var pixelsPerTile = 0
+        switch tileDataType {
+        case TileDataType.NES:
+            pixelsPerTile = 8
+        }
+        tileEditor?.subSetOfpixelData = pixelData
+        tileEditor?.numberOfPixelsPerTile = pixelsPerTile
+        tileEditor?.numberOfPixelsPerView = 32
+        tileEditor?.needsDisplay = true
+        
+        fileViewer?.pixelData = pixelData
+        fileViewer?.numberOfPixelsPerTile = pixelsPerTile
+        fileViewer?.numberOfPixelsPerView = 128
+        fileViewer?.needsDisplay = true
+    }
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
@@ -44,19 +76,23 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBAction func tileEditorSizeChanged(_ sender: NSPopUpButtonCell) {
         switch sender.indexOfSelectedItem {
         case 0:
-            numberOfPixels = .p8x8
+            numberOfPixels = .x1
         case 1:
-            numberOfPixels = .p16x16
+            numberOfPixels = .x2
         case 2:
-            numberOfPixels = .p32x32
+            numberOfPixels = .x4
         default:
-            numberOfPixels = .p8x8
+            numberOfPixels = .x8
         }
+        
+        tileEditor?.numberOfPixelsPerView = Int(numberOfPixels.rawValue)
+        tileEditor?.needsDisplay = true
+        
         // By changing the NxN TileViewer, this will update the selection of tiles, which will call dataSelectedAtLocation(x:y:)
-        fileViewer?.updateView(selectionSize: numberOfPixels)
+        fileViewer?.updateView(zoomSize: numberOfPixels)
     }
     //MARK: TileViewEditor Protocols
-    func pixelDataChanged(pixelData: [[UInt]]) {
+    func pixelDataChanged(pixelData: [[Int]]) {
         guard let tileViewer = fileViewer else {
             NSLog("No tile viewer set")
             return
@@ -65,26 +101,27 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             NSLog("No tile editor set")
             return
         }
-        let tempNumberOfPixels = Int(numberOfPixels.rawValue)
-        let didUpdateViewer = tileViewer.updateFileViewerWith(editedPixelData: tileEditor.pixelData,
+        
+        let didUpdateViewer = tileViewer.updateFileViewerWith(editedPixelData: tileEditor.subSetOfpixelData,
                                                               xPixelLocation: Int(tileViewer.cursorLocation.x)*8,
                                                               yPixelLocation: Int(tileViewer.cursorLocation.y)*8)
+ 
         NSLog("\(didUpdateViewer)")
     }
     
     //MARK: FileViewer Protocols
-    internal func dataSelectedAtLocation(x: UInt, y: UInt) {
+    internal func dataSelectedAtLocation(x: Int, y: Int) {
         guard let tileViewer = fileViewer else {
             NSLog("Tile viewer not set")
             return
         }
         let viewerPixelData = tileViewer.pixelData
-        var newPixelData: [[UInt]] = []
+        var newPixelData: [[Int]] = []
         let tempNumberOfPixels = Int(numberOfPixels.rawValue)
         for ty in 0..<tempNumberOfPixels {
-            var xArray: [UInt] = []
+            var xArray: [Int] = []
             for tx in 0..<tempNumberOfPixels {
-                xArray.append(viewerPixelData[Int(y)+ty][Int(x)+tx])
+                //xArray.append(viewerPixelData[Int(y)+ty][Int(x)+tx])
             }
             newPixelData.append(xArray)
         }
@@ -92,7 +129,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     }
     
     //MARK: PaletteSelection
-    func paletteSelectionChanged(value: UInt, paletteType: UInt) {
+    func paletteSelectionChanged(value: Int, paletteType: Int) {
         tileEditor?.colorFromPalette = value
     }
 }

@@ -19,8 +19,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let path = myFileDialog.url?.path {
             NSLog("\(path)")
             do {
-                if let filesData: [[[UInt]]] = try FileLoader.fileForEditing(path: path) {
-                    vc?.pixelData = dummyData8x8
+                if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: path) {
+                    vc?.numberOfPixels = .x1
+                    
+                    if let nesTiles = tileDataFormatter.nesTile() {
+                        vc?.pixelData = nesTiles
+                        vc?.tileDataType = .NES
+                        vc?.update()
+                        
+                    }
+                    
                 } else {
                     // TODO: some error
                 }
@@ -33,11 +41,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
         
-        
-        
         do {
-            if let filesData: [[[UInt]]] = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
-                vc?.pixelData = dummyData8x8
+            if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
+                if let nesTiles = tileDataFormatter.nesTile() {
+                    vc?.pixelData = nesTiles
+                    vc?.tileDataType = .NES
+                    vc?.update()
+                }
+                
             } else {
                 // TODO: some error
             }

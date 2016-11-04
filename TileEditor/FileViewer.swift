@@ -9,33 +9,38 @@
 import Foundation
 import Cocoa
 
-enum SelectionSize: UInt {
-    case p8x8 = 8
-    case p16x16 = 16
-    case p32x32 = 32
+enum ZoomSize: UInt {
+    case x1 = 8
+    case x2 = 16
+    case x4 = 32
+    case x8 = 64
+    case x16 = 128
 }
 
 protocol FileViewerProtocol {
-    func dataSelectedAtLocation(x: UInt, y: UInt)
+    func dataSelectedAtLocation(x: Int, y: Int)
 }
 
 class FileViewer: NSView {
-    var selectionSize: SelectionSize = .p8x8
+    var zoomSize: ZoomSize = .x1
     var widthAndHeightPerTile: CGFloat = 60
     var delegate: FileViewerProtocol? = nil
     var dataForViewer: NSData? = nil
-    var pixelData: [[UInt]] = [[]]
+    var pixelData: [[Int]]? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
                                         NSColor.lightGray.cgColor,
                                         NSColor.gray.cgColor,
                                         NSColor.black.cgColor]
     var boxSelection: CGRect? = nil
-    var cursorLocation: (x: UInt, y: UInt) = (x: 0, y: 0)
+    var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
+    
+    var numberOfPixelsPerTile = 0
+    var numberOfPixelsPerView = 0
     
     var numberOfPixelsVertically = 32
     var numberOfTilesVertically: UInt {
         let widthPerPixel: CGFloat = frame.size.width/CGFloat(numberOfPixelsVertically)
-        let tselectionSize = CGFloat(selectionSize.rawValue)*widthPerPixel
+        let tselectionSize = CGFloat(zoomSize.rawValue)*widthPerPixel
         let numberOfTiles = frame.size.width/tselectionSize
         return UInt(numberOfTiles)
     }
@@ -85,39 +90,40 @@ class FileViewer: NSView {
         return (x: x, y: y)
     }
     
-    func updateView(selectionSize: SelectionSize) {
-        self.selectionSize = selectionSize
+    func updateView(zoomSize: ZoomSize) {
+        self.zoomSize = zoomSize
         
-        if let bs = boxSelection {
-            var tSelectionSize: UInt = 0
-            switch selectionSize {
-            case .p8x8:
-                tSelectionSize = 1
-                break
-            case .p16x16:
-                tSelectionSize = 2
-                break
-            case .p32x32:
-                tSelectionSize = 4
-                break
-            }
-            cursorLocation = adjustCursor(x: cursorLocation.x,
-                                          y: cursorLocation.y,
-                                          sizeOfSelection: tSelectionSize,
-                                          numberOfSelectionVertically: 4,
-                                          numberOfSelectionHorizontally: 8)
-            
-            boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
-                                  y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
-                                  width: 60*CGFloat(tSelectionSize),
-                                  height: 60*CGFloat(tSelectionSize))
-            
-            delegate?.dataSelectedAtLocation(x: cursorLocation.x*8, y: cursorLocation.y*8)
-            needsDisplay = true
+        var tSelectionSize: UInt = 0
+        switch zoomSize {
+        case .x1:
+            tSelectionSize = 1
+            break
+        case .x2:
+            tSelectionSize = 2
+            break
+        case .x4:
+            tSelectionSize = 4
+            break
+        default:
+            tSelectionSize = 4
         }
+        cursorLocation = adjustCursor(x: cursorLocation.x,
+                                      y: cursorLocation.y,
+                                      sizeOfSelection: tSelectionSize,
+                                      numberOfSelectionVertically: 4,
+                                      numberOfSelectionHorizontally: 8)
+        
+        boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
+                              y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
+                              width: 60*CGFloat(tSelectionSize),
+                              height: 60*CGFloat(tSelectionSize))
+        
+        delegate?.dataSelectedAtLocation(x: cursorLocation.x*8, y: cursorLocation.y*8)
+        needsDisplay = true
+    
     }
     
-    func updateFileViewerWith(editedPixelData: [[UInt]],
+    func updateFileViewerWith(editedPixelData: [[Int]],
                               xPixelLocation: Int,
                               yPixelLocation: Int) -> Bool {
         var pixelDataCopy = self.pixelData
@@ -125,8 +131,8 @@ class FileViewer: NSView {
         var ty = yPixelLocation
         do {
             for yArray in editedPixelData {
-                for xItem: UInt in yArray {
-                    pixelDataCopy[ty][tx] = xItem
+                for xItem: Int in yArray {
+                    //pixelDataCopy[ty][tx] = xItem
                     tx += 1
                 }
                 tx = xPixelLocation
@@ -141,7 +147,7 @@ class FileViewer: NSView {
         return false
     }
     
-    func findBoxSelectionLocation(point: NSPoint) -> (x: UInt, y: UInt, width: CGFloat, height: CGFloat)? {
+    func findBoxSelectionLocation(point: NSPoint) -> (x: Int, y: Int, width: CGFloat, height: CGFloat)? {
         guard let pixelPositions = startingPixelPositions(width: frame.size.width,
                                                height: frame.size.height,
                                                // the lowest number of boxes we can have horizontally is 4 (4 8x8 tiles)
@@ -152,8 +158,8 @@ class FileViewer: NSView {
         let xPosition = CGFloat(point.x)
         let yPosition = CGFloat(frame.size.height - point.y)
         //TODO: must move away from a linear search algorithm
-        var xTileNumber: UInt = 0
-        var yTileNumber: UInt = 0
+        var xTileNumber: Int = 0
+        var yTileNumber: Int = 0
         
         for x in 0..<4 {
             if xPosition < pixelPositions.x[x] {
@@ -181,16 +187,18 @@ class FileViewer: NSView {
         
         if let boxLocation = findBoxSelectionLocation(point: s) {
             var tSelectionSize: UInt = 0
-            switch selectionSize {
-            case .p8x8:
+            switch zoomSize {
+            case .x1:
                 tSelectionSize = 1
                 break
-            case .p16x16:
+            case .x2:
                 tSelectionSize = 2
                 break
-            case .p32x32:
+            case .x4:
                 tSelectionSize = 4
                 break
+            default:
+                tSelectionSize = 4
             }
             
             cursorLocation = adjustCursor(x: boxLocation.x,
@@ -212,12 +220,12 @@ class FileViewer: NSView {
     
     // Adjust the cursor in case the user tries to access an invalid area by going out of bounds based off of the selection of boxes
     // The selection parameters is the number of selectable areas from one point of the view to the other side
-    private func adjustCursor(x: UInt,
-                              y: UInt,
+    private func adjustCursor(x: Int,
+                              y: Int,
                               sizeOfSelection: UInt,
                               numberOfSelectionVertically: UInt,
-                              numberOfSelectionHorizontally: UInt) -> (x: UInt, y: UInt) {
-        var newCursorLocation: (x: UInt, y: UInt) = (x: 0, y: 0)
+                              numberOfSelectionHorizontally: UInt) -> (x: Int, y: Int) {
+        var newCursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
         
         // these temp will just make it clearer to visualize a NxN that does not start at 0
         // if the cursor is x = 3 and y = 0 on a 4x4 this is what would happen, out of bounds
@@ -240,59 +248,61 @@ class FileViewer: NSView {
          r = p-x
          deltaX = x-r
          */
-        let sizeOfSelectionPlusLocationOfX = sizeOfSelection+x
+        let sizeOfSelectionPlusLocationOfX = sizeOfSelection+UInt(x)
         if sizeOfSelectionPlusLocationOfX > numberOfSelectionVertically {
             let tx: Int = Int(x)
             let p = Int(sizeOfSelectionPlusLocationOfX-1)
             let r = p-tx
             let deltaX = tx-r
-            newCursorLocation.x = UInt(deltaX)
+            newCursorLocation.x = Int(deltaX)
         } else {
             newCursorLocation.x = x
         }
-        let sizeOfSelectionPlusLocationOfY = sizeOfSelection+y
+        let sizeOfSelectionPlusLocationOfY = sizeOfSelection+UInt(y)
         if sizeOfSelectionPlusLocationOfY > numberOfSelectionHorizontally {
             let ty: Int = Int(y)
             let p = Int(sizeOfSelectionPlusLocationOfY-1)
             let r = p-ty
             let deltaY = ty-r
-            newCursorLocation.y = UInt(deltaY)
+            newCursorLocation.y = Int(deltaY)
         } else {
             newCursorLocation.y = y
         }
         
         return newCursorLocation
     }
-    
     override func draw(_ dirtyRect: NSRect) {
         if let ctx = NSGraphicsContext.current()?.cgContext {
+            guard let pd = pixelData else {
+                NSLog("ERROR: pixelData is nil")
+                return
+            }
+            NSLog("Filling file viewer with PixelData")
             // swap coordinate so that 0,0 is top left corner
             ctx.translateBy(x: 0, y: 480)
             ctx.scaleBy(x: 1, y: -1)
-
-            if pixelData.count > 0 && pixelData[0].count > 0 {
-                // These are the number of pixels to display from left to right and top to down
-                let width = CGFloat(frame.size.width/32)
-                let height = CGFloat(frame.size.height/64)
-                
-                var xIndex:CGFloat = 0
-                var yIndex:CGFloat = 0
-                
-                for y in 0..<64 {
-                    for x in 0..<32 {
-                        let pixelDataItem = pixelData[y][x]
-                        let pixel = CGRect(x: xIndex,
-                                           y: yIndex,
-                                           width: width,
-                                           height: height)
-                        let color = colorPalette[Int(pixelDataItem)]
-                        ctx.setFillColor(color)
-                        ctx.addRect(pixel)
-                        ctx.drawPath(using: .fillStroke)
-                        xIndex += width
+            
+            let widthPerPixel = frame.size.width/CGFloat(numberOfPixelsPerView)
+            let heightPerPixel = frame.size.height/CGFloat(numberOfPixelsPerView)
+            
+            var tNumberOfPixelsPerView = 0
+            var xPosition = 0
+            var yPosition = 0
+            let numberOfTiles = pd.count
+            if numberOfTiles > 0 {
+                for t in 0..<numberOfTiles {
+                    if tNumberOfPixelsPerView >= numberOfPixelsPerView {
+                        yPosition += 1
+                        tNumberOfPixelsPerView = 0
+                        xPosition = 0
                     }
-                    xIndex = 0
-                    yIndex += height
+                    drawTile(ctx: ctx,
+                             tileData: pd[t],
+                             pixelsPerTile: 8,
+                             pixelDimention: widthPerPixel,
+                             x: xPosition, y: yPosition)
+                    tNumberOfPixelsPerView += numberOfPixelsPerTile
+                    xPosition += 1
                 }
             }
             
@@ -302,6 +312,41 @@ class FileViewer: NSView {
                 ctx.stroke(boxSelection!, width: 3.0)
                 ctx.drawPath(using: .fillStroke)
             }
+        }
+        
+    }
+    func drawTile(ctx: CGContext,
+                  tileData: [Int],
+                  pixelsPerTile: Int,
+                  pixelDimention: CGFloat,
+                  x: Int, y: Int) {
+        
+        if tileData.count == 0 {
+            NSLog("ERROR: Tile data empty")
+            return
+        }
+        
+        
+        var xIndex:CGFloat = CGFloat(x)*pixelDimention*CGFloat(pixelsPerTile)
+        var yIndex:CGFloat = CGFloat(y)*pixelDimention*CGFloat(pixelsPerTile)
+        var indexPerPixel: Int = 0
+        for _ in 0..<pixelsPerTile {
+            for _ in 0..<pixelsPerTile {
+                let pixel = CGRect(x: xIndex,
+                                   y: yIndex,
+                                   width: pixelDimention,
+                                   height: pixelDimention)
+                let colorAtIndex = tileData[indexPerPixel]
+                let color = colorPalette[colorAtIndex]
+                ctx.setFillColor(color)
+                ctx.addRect(pixel)
+                ctx.setLineWidth(CGFloat(0.01))
+                ctx.drawPath(using: .fillStroke)
+                xIndex += pixelDimention
+                indexPerPixel += 1
+            }
+            xIndex = CGFloat(x)*pixelDimention*CGFloat(pixelsPerTile)
+            yIndex += pixelDimention
         }
     }
 }

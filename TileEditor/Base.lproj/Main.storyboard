@@ -812,12 +812,12 @@
                             </customView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" findBarPosition="aboveHorizontalRuler" translatesAutoresizingMaskIntoConstraints="NO" id="fFR-mK-749" userLabel="TileViewer ScrollView">
                                 <rect key="frame" x="323" y="46" width="240" height="240"/>
-                                <clipView key="contentView" copiesOnScroll="NO" id="ehh-uS-gMC">
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ehh-uS-gMC">
                                     <rect key="frame" x="1" y="1" width="238" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="yl5-EZ-Dwp" userLabel="FileViewer" customClass="FileViewer" customModule="TileEditor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="-242" width="238" height="480"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="238" height="480"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="480" id="093-lw-vRg"/>
                                             </constraints>
@@ -826,7 +826,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="yl5-EZ-Dwp" secondAttribute="trailing" id="60U-mW-kWN"/>
                                         <constraint firstItem="yl5-EZ-Dwp" firstAttribute="leading" secondItem="ehh-uS-gMC" secondAttribute="leading" id="JOx-MP-nIJ"/>
-                                        <constraint firstItem="yl5-EZ-Dwp" firstAttribute="top" secondItem="ehh-uS-gMC" secondAttribute="top" id="ZQo-co-gm2"/>
+                                        <constraint firstAttribute="bottom" secondItem="yl5-EZ-Dwp" secondAttribute="bottom" priority="900" id="rYk-A6-ZLt"/>
                                     </constraints>
                                 </clipView>
                                 <constraints>
@@ -837,7 +837,7 @@
                                     <rect key="frame" x="-100" y="-100" width="238" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99173553719008267" horizontal="NO" id="MTA-3M-WHe">
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MTA-3M-WHe">
                                     <rect key="frame" x="223" y="1" width="16" height="238"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -911,7 +911,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="712"/>
+            <point key="canvasLocation" x="67" y="711.5"/>
         </scene>
     </scenes>
     <resources>

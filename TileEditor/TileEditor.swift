@@ -11,10 +11,10 @@ import QuartzCore
 import Cocoa
 
 protocol TileEditorProtocol {
-    func pixelDataChanged(pixelData: [[UInt]])
+    func pixelDataChanged(pixelData: [[Int]])
 }
 
-struct Tile {
+struct TileViewerMapper {
     let x: UInt
     let y: UInt
     let width: UInt
@@ -27,16 +27,19 @@ class TileEditor: NSView {
                                    NSColor.lightGray.cgColor,
                                    NSColor.gray.cgColor,
                                    NSColor.black.cgColor]
-    var colorFromPalette: UInt = 3
+    var colorFromPalette: Int = 3
     // Should be an 8x8, 16x16, 32x32, etc. data set
-    var pixelData: [[UInt]] = [[]]
+    var subSetOfpixelData: [[Int]] = [[]]
+    var numberOfPixelsPerTile: Int = 0
+    // These are the number of pixels to display from left to right and top to down
+    var numberOfPixelsPerView: Int = 0
     
     // Since the TileViewEditor is a square, we don't need to do anything different for computing x/y starting positions
     var startingPixelPositions: Array<CGFloat> {
         var ret = Array<CGFloat>()
-        let widthPerPixel = CGFloat(frame.width/CGFloat(pixelData[0].count))
+        let widthPerPixel = CGFloat(frame.width/CGFloat(8))
         var startLocationOfPixel: CGFloat = widthPerPixel
-        for _ in 0..<pixelData[0].count {
+        for _ in 0..<8 {
             ret.append(CGFloat(startLocationOfPixel))
             startLocationOfPixel += CGFloat(widthPerPixel)
         }
@@ -56,15 +59,15 @@ class TileEditor: NSView {
         let p = event.locationInWindow
         let s = convert(p, from: nil)
         let tileToUpdate = findTileLocation(point: s)
-        pixelData[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
-        delegate?.pixelDataChanged(pixelData: pixelData)
+        subSetOfpixelData[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
+        delegate?.pixelDataChanged(pixelData: subSetOfpixelData)
         needsDisplay = true
     }
-    func findTileLocation(point: NSPoint) -> Tile {
+    func findTileLocation(point: NSPoint) -> TileViewerMapper {
         let positions = startingPixelPositions
         let xPosition = CGFloat(point.x)
         let yPosition = CGFloat(frame.size.height - point.y)
-        let numberOfPixels = pixelData[0].count
+        let numberOfPixels = 8
         //TODO: must move away from a linear search algorithm
         var xTileNumber: UInt = 0
         var yTileNumber: UInt = 0
@@ -83,11 +86,11 @@ class TileEditor: NSView {
             }
         }
         
-        return Tile(x: xTileNumber, y: yTileNumber, width: 0, height: 0)
+        return TileViewerMapper(x: xTileNumber, y: yTileNumber, width: 0, height: 0)
     }
     
-    func updateEditorWith(pixelData: [[UInt]]) {
-        self.pixelData = pixelData
+    func updateEditorWith(pixelData: [[Int]]) {
+        self.subSetOfpixelData = pixelData
         needsDisplay = true
     }
     
@@ -97,29 +100,63 @@ class TileEditor: NSView {
             ctx.translateBy(x: 0, y: 240)
             ctx.scaleBy(x: 1, y: -1)
             
-            // These are the number of pixels to display from left to right and top to down
-            let numberOfPixelsToDisplay = CGFloat(pixelData[0].count)
-            let width = CGFloat(frame.size.width/numberOfPixelsToDisplay)
-            let height = CGFloat(frame.size.height/numberOfPixelsToDisplay)
+            let widthPerPixel = frame.size.width/CGFloat(numberOfPixelsPerView)
+            let heightPerPixel = frame.size.height/CGFloat(numberOfPixelsPerView)
             
-            var xIndex:CGFloat = 0
-            var yIndex:CGFloat = 0
-            
-            for rowData in pixelData {
-                for columnData in rowData {
-                    let pixel = CGRect(x: xIndex,
-                                       y: yIndex,
-                                       width: width,
-                                       height: height)
-                    let color = colorPalette[Int(columnData)]
-                    ctx.setFillColor(color)
-                    ctx.addRect(pixel)
-                    ctx.drawPath(using: .fillStroke)
-                    xIndex += width
-                }
-                xIndex = 0
-                yIndex += height
+            if widthPerPixel != heightPerPixel {
+                NSLog("ERROR dimension (width and height) of the view are not the same.")
+                return
             }
+            
+            var tNumberOfPixelsPerView = 0
+            var xPosition = 0
+            var yPosition = 0
+            for t in subSetOfpixelData {
+                if tNumberOfPixelsPerView > numberOfPixelsPerView {
+                    yPosition += 1
+                    tNumberOfPixelsPerView = 0
+                    xPosition = 0
+                }
+                drawTile(ctx: ctx,
+                         tileData: t,
+                         pixelsPerTile: 8,
+                         pixelDimention: widthPerPixel,
+                         x: xPosition, y: yPosition)
+                tNumberOfPixelsPerView += numberOfPixelsPerTile
+                xPosition += 1
+            }
+        }
+    }
+    
+    func drawTile(ctx: CGContext,
+                  tileData: [Int],
+                  pixelsPerTile: Int,
+                  pixelDimention: CGFloat,
+                  x: Int, y: Int) {
+        if tileData.count == 0{
+            NSLog("Tile Editor pixel data is empty")
+            return
+        }
+        
+        var xIndex:CGFloat = CGFloat(x)*pixelDimention*CGFloat(pixelsPerTile)
+        var yIndex:CGFloat = CGFloat(y)*pixelDimention*CGFloat(pixelsPerTile)
+        var indexPerPixel: Int = 0
+        for _ in 0..<pixelsPerTile {
+            for _ in 0..<pixelsPerTile {
+                let pixel = CGRect(x: xIndex,
+                                   y: yIndex,
+                                   width: pixelDimention,
+                                   height: pixelDimention)
+                let colorAtIndex = tileData[indexPerPixel]
+                let color = colorPalette[colorAtIndex]
+                ctx.setFillColor(color)
+                ctx.addRect(pixel)
+                ctx.drawPath(using: .fillStroke)
+                xIndex += pixelDimention
+                indexPerPixel += 1
+            }
+            xIndex = CGFloat(x)*pixelDimention*CGFloat(pixelsPerTile)
+            yIndex += pixelDimention
         }
     }
 }
