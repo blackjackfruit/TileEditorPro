@@ -29,7 +29,7 @@ class TileEditor: NSView {
                                    NSColor.black.cgColor]
     var colorFromPalette: Int = 3
     // Should be an 8x8, 16x16, 32x32, etc. data set
-    var subSetOfpixelData: [[Int]] = [[]]
+    var tiles: [[Int]]? = nil
     var numberOfPixelsPerTile: Int = 0
     // These are the number of pixels to display from left to right and top to down
     var numberOfPixelsPerView: Int = 0
@@ -56,11 +56,15 @@ class TileEditor: NSView {
     }
     
     override func mouseDown(with event: NSEvent) {
+        guard let tiles = tiles else {
+            NSLog("Tiles is nil")
+            return
+        }
         let p = event.locationInWindow
         let s = convert(p, from: nil)
         let tileToUpdate = findTileLocation(point: s)
-        subSetOfpixelData[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
-        delegate?.pixelDataChanged(pixelData: subSetOfpixelData)
+        //tiles?[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
+        delegate?.pixelDataChanged(pixelData: tiles)
         needsDisplay = true
     }
     func findTileLocation(point: NSPoint) -> TileViewerMapper {
@@ -89,13 +93,17 @@ class TileEditor: NSView {
         return TileViewerMapper(x: xTileNumber, y: yTileNumber, width: 0, height: 0)
     }
     
-    func updateEditorWith(pixelData: [[Int]]) {
-        self.subSetOfpixelData = pixelData
+    func updateEditorWith(pixelData: [[Int]]?) {
+        self.tiles = pixelData
         needsDisplay = true
     }
     
     override func draw(_ dirtyRect: NSRect) {
         if let ctx = NSGraphicsContext.current()?.cgContext {
+            guard let tiles = tiles else {
+                NSLog("Cannot draw view because tiles is nil")
+                return
+            }
             // swap coordinate so that 0,0 is top left corner
             ctx.translateBy(x: 0, y: 240)
             ctx.scaleBy(x: 1, y: -1)
@@ -111,8 +119,8 @@ class TileEditor: NSView {
             var tNumberOfPixelsPerView = 0
             var xPosition = 0
             var yPosition = 0
-            for t in subSetOfpixelData {
-                if tNumberOfPixelsPerView > numberOfPixelsPerView {
+            for t in tiles {
+                if tNumberOfPixelsPerView >= numberOfPixelsPerView {
                     yPosition += 1
                     tNumberOfPixelsPerView = 0
                     xPosition = 0
@@ -151,6 +159,7 @@ class TileEditor: NSView {
                 let color = colorPalette[colorAtIndex]
                 ctx.setFillColor(color)
                 ctx.addRect(pixel)
+                ctx.setLineWidth(CGFloat(0.01))
                 ctx.drawPath(using: .fillStroke)
                 xIndex += pixelDimention
                 indexPerPixel += 1

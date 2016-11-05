@@ -682,7 +682,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="TileEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="702" height="291"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="291"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileViewEditor" customClass="TileEditor" customModule="TileEditor" customModuleProvider="target">
@@ -763,7 +763,7 @@
                                 </connections>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fe-1F-rz2">
-                                <rect key="frame" x="569" y="48" width="30" height="17"/>
+                                <rect key="frame" x="571" y="48" width="30" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Size" id="gP8-r7-Wk3">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -810,14 +810,14 @@
                                     <constraint firstItem="ZGi-4c-YFX" firstAttribute="top" secondItem="Qqg-30-fs6" secondAttribute="top" constant="5" id="vUA-l8-zdm"/>
                                 </constraints>
                             </customView>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" findBarPosition="aboveHorizontalRuler" translatesAutoresizingMaskIntoConstraints="NO" id="fFR-mK-749" userLabel="TileViewer ScrollView">
-                                <rect key="frame" x="323" y="46" width="240" height="240"/>
+                            <scrollView autoresizesSubviews="NO" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" findBarPosition="aboveHorizontalRuler" translatesAutoresizingMaskIntoConstraints="NO" id="fFR-mK-749" userLabel="TileViewer ScrollView">
+                                <rect key="frame" x="323" y="46" width="242" height="240"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ehh-uS-gMC">
-                                    <rect key="frame" x="1" y="1" width="238" height="238"/>
+                                    <rect key="frame" x="1" y="1" width="240" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view translatesAutoresizingMaskIntoConstraints="NO" id="yl5-EZ-Dwp" userLabel="FileViewer" customClass="FileViewer" customModule="TileEditor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="238" height="480"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="480"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="480" id="093-lw-vRg"/>
                                             </constraints>
@@ -826,32 +826,30 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="yl5-EZ-Dwp" secondAttribute="trailing" id="60U-mW-kWN"/>
                                         <constraint firstItem="yl5-EZ-Dwp" firstAttribute="leading" secondItem="ehh-uS-gMC" secondAttribute="leading" id="JOx-MP-nIJ"/>
-                                        <constraint firstAttribute="bottom" secondItem="yl5-EZ-Dwp" secondAttribute="bottom" priority="900" id="rYk-A6-ZLt"/>
+                                        <constraint firstAttribute="bottom" secondItem="yl5-EZ-Dwp" secondAttribute="bottom" id="rYk-A6-ZLt"/>
                                     </constraints>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="0Tb-3K-Qkh"/>
+                                    <constraint firstAttribute="width" constant="242" id="0Tb-3K-Qkh"/>
                                     <constraint firstAttribute="height" constant="240" id="VDl-1H-6sD"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Nkh-PA-1N6">
                                     <rect key="frame" x="-100" y="-100" width="238" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MTA-3M-WHe">
-                                    <rect key="frame" x="223" y="1" width="16" height="238"/>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.0041322314049586639" horizontal="NO" id="MTA-3M-WHe">
+                                    <rect key="frame" x="225" y="1" width="16" height="238"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
-                                <rect key="frame" x="600" y="43" width="99" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="8x8" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
+                                <rect key="frame" x="602" y="43" width="99" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="dbf-Zg-GLr">
                                         <items>
-                                            <menuItem title="8x8" state="on" id="wvg-kD-Xbz"/>
-                                            <menuItem title="16x16" id="r8G-BQ-IkD"/>
-                                            <menuItem title="32x32" id="Zhq-eD-u03"/>
+                                            <menuItem title="x4" state="on" id="wvg-kD-Xbz"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -860,13 +858,13 @@
                                 </connections>
                             </popUpButton>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE">
-                                <rect key="frame" x="571" y="72" width="125" height="214"/>
+                                <rect key="frame" x="573" y="72" width="125" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="gIT-Bg-Akd"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz">
-                                <rect key="frame" x="323" y="5" width="239" height="40"/>
+                                <rect key="frame" x="323" y="5" width="241" height="40"/>
                             </customView>
                         </subviews>
                         <constraints>

@@ -20,11 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSLog("\(path)")
             do {
                 if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: path) {
-                    vc?.numberOfPixels = .x1
+                    vc?.zoomSize = .x4
                     
                     if let nesTiles = tileDataFormatter.nesTile() {
                         vc?.pixelData = nesTiles
-                        vc?.tileDataType = .NES
                         vc?.update()
                         
                     }
@@ -40,21 +39,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
-        
-        do {
-            if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
-                if let nesTiles = tileDataFormatter.nesTile() {
-                    vc?.pixelData = nesTiles
-                    vc?.tileDataType = .NES
-                    vc?.update()
-                }
-                
-            } else {
-                // TODO: some error
-            }
-        } catch {
-            
-        }
+
+        //Uncomment if preloading a file
+//        do {
+//            if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
+//                if let nesTiles = tileDataFormatter.nesTile() {
+//                    vc?.pixelData = nesTiles
+//                    vc?.update()
+//                }
+//                
+//            } else {
+//                // TODO: some error
+//            }
+//        } catch {
+//            
+//        }
         
     }
 

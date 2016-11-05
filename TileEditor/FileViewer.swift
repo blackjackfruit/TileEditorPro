@@ -18,15 +18,15 @@ enum ZoomSize: UInt {
 }
 
 protocol FileViewerProtocol {
-    func dataSelectedAtLocation(x: Int, y: Int)
+    func tilesSelected(tiles: [[Int]], tileNumbers: [[Int]], zoomSize: ZoomSize)
 }
 
 class FileViewer: NSView {
-    var zoomSize: ZoomSize = .x1
+    var zoomSize: ZoomSize = .x4
     var widthAndHeightPerTile: CGFloat = 60
     var delegate: FileViewerProtocol? = nil
     var dataForViewer: NSData? = nil
-    var pixelData: [[Int]]? = nil
+    var tiles: [[Int]]? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
                                         NSColor.lightGray.cgColor,
                                         NSColor.gray.cgColor,
@@ -38,11 +38,11 @@ class FileViewer: NSView {
     var numberOfPixelsPerView = 0
     
     var numberOfPixelsVertically = 32
-    var numberOfTilesVertically: UInt {
+    var numberOfTilesVertically: Int {
         let widthPerPixel: CGFloat = frame.size.width/CGFloat(numberOfPixelsVertically)
         let tselectionSize = CGFloat(zoomSize.rawValue)*widthPerPixel
         let numberOfTiles = frame.size.width/tselectionSize
-        return UInt(numberOfTiles)
+        return Int(numberOfTiles)
     }
     var numberOfPixelsHorizontally = 64
     var numberOfTilesHorizontally: UInt {
@@ -57,6 +57,7 @@ class FileViewer: NSView {
                               y: 0,
                               width: wh,
                               height: wh)
+        
     }
     
     func startingPixelPositions(width: CGFloat,
@@ -91,9 +92,10 @@ class FileViewer: NSView {
     }
     
     func updateView(zoomSize: ZoomSize) {
+        
         self.zoomSize = zoomSize
         
-        var tSelectionSize: UInt = 0
+        var tSelectionSize = 0
         switch zoomSize {
         case .x1:
             tSelectionSize = 1
@@ -107,43 +109,54 @@ class FileViewer: NSView {
         default:
             tSelectionSize = 4
         }
+        
+        widthAndHeightPerTile = frame.size.width/CGFloat(numberOfPixelsPerView)
+        
         cursorLocation = adjustCursor(x: cursorLocation.x,
                                       y: cursorLocation.y,
-                                      sizeOfSelection: tSelectionSize,
+                                      sizeOfSelection: UInt(tSelectionSize),
                                       numberOfSelectionVertically: 4,
                                       numberOfSelectionHorizontally: 8)
         
         boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
                               y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
-                              width: 60*CGFloat(tSelectionSize),
-                              height: 60*CGFloat(tSelectionSize))
+                              width: widthAndHeightPerTile*CGFloat(tSelectionSize*numberOfPixelsPerTile),
+                              height: widthAndHeightPerTile*CGFloat(tSelectionSize*numberOfPixelsPerTile))
         
-        delegate?.dataSelectedAtLocation(x: cursorLocation.x*8, y: cursorLocation.y*8)
         needsDisplay = true
-    
+        
+        guard let tiles = tiles else {
+            NSLog("Cannot update view because tiles is nil")
+            return
+        }
+        
+        var tTiles: [[Int]] = []
+        var tilesSelected: [[Int]] = []
+        var indexX = 0
+        var indexY = 0
+        
+        for _ in 0..<tSelectionSize {
+
+            for _ in 0..<tSelectionSize {
+                let index = Int(indexX+indexY)
+                tTiles.append(tiles[index])
+                tilesSelected.append([index])
+                indexX += 1
+            }
+            indexX = 0
+            indexY += 16
+        }
+        
+        delegate?.tilesSelected(tiles: tTiles, tileNumbers: tilesSelected, zoomSize: zoomSize)
+        needsDisplay = true
     }
     
-    func updateFileViewerWith(editedPixelData: [[Int]],
-                              xPixelLocation: Int,
-                              yPixelLocation: Int) -> Bool {
-        var pixelDataCopy = self.pixelData
-        var tx = xPixelLocation
-        var ty = yPixelLocation
-        do {
-            for yArray in editedPixelData {
-                for xItem: Int in yArray {
-                    //pixelDataCopy[ty][tx] = xItem
-                    tx += 1
-                }
-                tx = xPixelLocation
-                ty += 1
-            }
-            pixelData = pixelDataCopy
-            needsDisplay = true
-            return true
-        } catch {
-            
-        }
+    // to update file viewer data, pass the array of pixel data and the location to where to update
+    func updateFileViewerWith(tiles: [[Int]],
+                              tileNumbers: [Int]) -> Bool {
+        var tilesCopy = self.tiles
+       
+        needsDisplay = true
         return false
     }
     
@@ -186,7 +199,7 @@ class FileViewer: NSView {
         let s = convert(p, from: nil)
         
         if let boxLocation = findBoxSelectionLocation(point: s) {
-            var tSelectionSize: UInt = 0
+            var tSelectionSize = 0
             switch zoomSize {
             case .x1:
                 tSelectionSize = 1
@@ -203,18 +216,40 @@ class FileViewer: NSView {
             
             cursorLocation = adjustCursor(x: boxLocation.x,
                                           y: boxLocation.y,
-                                          sizeOfSelection: tSelectionSize,
+                                          sizeOfSelection: UInt(tSelectionSize),
                                           numberOfSelectionVertically: 4,
                                           numberOfSelectionHorizontally: 8)
             
             boxSelection = CGRect(x: CGFloat(cursorLocation.x)*widthAndHeightPerTile,
                                   y: CGFloat(cursorLocation.y)*widthAndHeightPerTile,
-                                  width: boxLocation.width*CGFloat(tSelectionSize),
-                                  height: boxLocation.height*CGFloat(tSelectionSize))
+                                  width: widthAndHeightPerTile*CGFloat(tSelectionSize*numberOfPixelsPerTile),
+                                  height: widthAndHeightPerTile*CGFloat(tSelectionSize*numberOfPixelsPerTile))
             
-            delegate?.dataSelectedAtLocation(x: cursorLocation.x*8,
-                                             y: cursorLocation.y*8)
             needsDisplay = true
+            
+            guard let tiles = tiles else {
+                NSLog("Cannot update view because tiles is nil")
+                return
+            }
+            
+            var tTiles: [[Int]] = []
+            var tilesSelected: [[Int]] = []
+            var indexX = 0
+            var indexY = 0
+            
+            for _ in 0..<tSelectionSize {
+                
+                for _ in 0..<tSelectionSize {
+                    let index = Int(indexX+indexY)
+                    tTiles.append(tiles[index])
+                    tilesSelected.append([index])
+                    indexX += 1
+                }
+                indexX = 0
+                indexY += 16
+            }
+            
+            delegate?.tilesSelected(tiles: tTiles, tileNumbers: tilesSelected, zoomSize: zoomSize)
         }
     }
     
@@ -273,14 +308,20 @@ class FileViewer: NSView {
     }
     override func draw(_ dirtyRect: NSRect) {
         if let ctx = NSGraphicsContext.current()?.cgContext {
-            guard let pd = pixelData else {
-                NSLog("ERROR: pixelData is nil")
+            guard let pd = tiles else {
+                NSLog("ERROR: tiles variable is nil")
+                return
+            }
+            guard numberOfPixelsPerView > 0 else {
+                NSLog("ERROR: Number of pixels per view is 0, cannot draw.")
                 return
             }
             NSLog("Filling file viewer with PixelData")
             // swap coordinate so that 0,0 is top left corner
             ctx.translateBy(x: 0, y: 480)
             ctx.scaleBy(x: 1, y: -1)
+            
+            ctx.setFillColor(NSColor.blue.cgColor)
             
             let widthPerPixel = frame.size.width/CGFloat(numberOfPixelsPerView)
             let heightPerPixel = frame.size.height/CGFloat(numberOfPixelsPerView)
