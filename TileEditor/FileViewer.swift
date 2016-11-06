@@ -156,8 +156,8 @@ class FileViewer: TileDrawer {
             delegate?.tilesSelected(tiles: tileObject.tiles,
                                     startingPosition: tileObject.startingPosition,
                                     zoomSize: zoomSize,
-                                    x: boxLocation.x,
-                                    y: boxLocation.y)
+                                    x: selectionLocation.x,
+                                    y: selectionLocation.y)
         }
     }
     

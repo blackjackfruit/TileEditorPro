@@ -113,10 +113,10 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         self.cursrorLocation.y = y
         self.startingPosition = startingPosition
         
+        tileEditor?.startingPosition = startingPosition
         tileEditor?.cursorLocation = (x, y)
         tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)*pixelsPerTile
         tileEditor?.zoomSize = zoomSize
-        tileEditor?.startingPosition = startingPosition
         tileEditor?.update()
     }
     
