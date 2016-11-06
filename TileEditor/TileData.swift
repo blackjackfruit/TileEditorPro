@@ -26,27 +26,25 @@ class TileDataFormatter {
     }
     
     func output(to tileDataType: TileDataType,
-                completion: (_ output: [[Int]]?, _ tileSize: UInt, _ status: Error?) -> ()) {
+                completion: (_ output: [Int]?, _ tileSize: UInt, _ status: Error?) -> ()) {
         let nesTiles = nesTile()
         completion(nesTiles, 8, nil)
     }
     
-    func nesTile() -> [[Int]]? {
+    func nesTile() -> [Int]? {
         NSLog("Start processing NES file")
         let offset = 8
-        var output: [[Int]] = []
+        var output: [Int] = []
         var r = 0
         let numberOfBytesInFile = data.count
         while (r < numberOfBytesInFile) {
-            var tile:[Int] = []
             for i in 0..<8 {
                 let channelAByte = data[r+i]
                 let channelBByte = data[r+i+offset]
                 let row = self.returnRowOfPixelValues(channelA: channelAByte, channelB: channelBByte)
-                tile += row
+                output += row
             }
             r += 16
-            output.append(tile)
         }
         NSLog("Finished processing NES file")
         NSLog("Number of tiles: \(output.count)")

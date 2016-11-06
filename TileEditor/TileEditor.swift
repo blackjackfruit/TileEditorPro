@@ -11,7 +11,7 @@ import QuartzCore
 import Cocoa
 
 protocol TileEditorProtocol {
-    func pixelDataChanged(pixelData: [[Int]])
+    func pixelDataChanged(pixelData: [Int:Int])
 }
 
 struct TileViewerMapper {
@@ -21,68 +21,123 @@ struct TileViewerMapper {
     let height: UInt
 }
 
-class TileEditor: NSView {
+class TileEditor: TileDrawer {
     var delegate: TileEditorProtocol? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
                                    NSColor.lightGray.cgColor,
                                    NSColor.gray.cgColor,
                                    NSColor.black.cgColor]
+    var zoomSize: ZoomSize = .x4
     var colorFromPalette: Int = 3
     // Should be an 8x8, 16x16, 32x32, etc. data set
-    var tiles: [[Int]]? = nil
+    var tiles: [Int]? = nil
     var numberOfPixelsPerTile: Int = 0
     // These are the number of pixels to display from left to right and top to down
     var numberOfPixelsPerView: Int = 0
     
     // Since the TileViewEditor is a square, we don't need to do anything different for computing x/y starting positions
-    var startingPixelPositions: Array<CGFloat> {
+    var startingPositions: Array<CGFloat> {
         var ret = Array<CGFloat>()
-        let widthPerPixel = CGFloat(frame.width/CGFloat(8))
+        let widthPerPixel = CGFloat(frame.width/CGFloat(zoomSize.rawValue))*8
         var startLocationOfPixel: CGFloat = widthPerPixel
-        for _ in 0..<8 {
+        for _ in 0..<zoomSize.rawValue {
             ret.append(CGFloat(startLocationOfPixel))
             startLocationOfPixel += CGFloat(widthPerPixel)
         }
         return ret
     }
     
-    override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
-    
     override func mouseDown(with event: NSEvent) {
-        guard let tiles = tiles else {
+        guard tiles != nil else {
             NSLog("Tiles is nil")
             return
         }
         let p = event.locationInWindow
         let s = convert(p, from: nil)
-        let tileToUpdate = findTileLocation(point: s)
-        //tiles?[Int(tileToUpdate.y)][Int(tileToUpdate.x)] = colorFromPalette
-        delegate?.pixelDataChanged(pixelData: tiles)
-        needsDisplay = true
+        if let tileLocation = findBoxSelectionLocation(point: s,
+                                                       numberOfTilesVertically: Int(zoomSize.rawValue),
+                                                       numberOfTilesHorizontally: Int(zoomSize.rawValue)) {
+            let widthAndHeightPerPixel = frame.size.width/CGFloat(8*zoomSize.rawValue)
+            let positionInTileSelected = positionInTile(point: s,
+                                                        tileStartingPositionX: tileLocation.x*60,
+                                                        tileStartingPositionY: tileLocation.y*60,
+                                                        tileSize: 8,
+                                                        pixelSize: widthAndHeightPerPixel)
+            
+            let firstPixelInTile = (tileLocation.x*64)+(tileLocation.y*64*Int(zoomSize.rawValue))
+            let pixelLocationInTile = positionInTileSelected.x+(positionInTileSelected.y*8)
+            let pixelLocationInData = firstPixelInTile+pixelLocationInTile
+            
+            self.tiles![pixelLocationInData] = colorFromPalette
+            
+            delegate?.pixelDataChanged(pixelData: [pixelLocationInData:colorFromPalette])
+            needsDisplay = true
+        }
     }
+    
+    func positionInTile(point: NSPoint,
+                        tileStartingPositionX: Int,
+                        tileStartingPositionY: Int,
+                        tileSize: Int,
+                        pixelSize: CGFloat) -> (x: Int, y: Int) {
+        
+        func pixelPositionsWithinArea(point: NSPoint, pixelSize: CGFloat, startingPosition: Int) -> Array<CGFloat> {
+            var ret = Array<CGFloat>()
+            var startLocationOfPixel: CGFloat = pixelSize + CGFloat(startingPosition)
+            for _ in 0..<8 {
+                ret.append(CGFloat(startLocationOfPixel))
+                startLocationOfPixel += CGFloat(pixelSize)
+            }
+            return ret
+        }
+        
+        let positionsForX = pixelPositionsWithinArea(point: point,
+                                                     pixelSize: pixelSize,
+                                                     startingPosition: tileStartingPositionX)
+        let positionsForY = pixelPositionsWithinArea(point: point,
+                                                     pixelSize: pixelSize,
+                                                     startingPosition: tileStartingPositionY)
+        let xPosition = point.x - CGFloat(tileStartingPositionX)
+        
+        // To invert the coordinate system for Y we need to subtract the height of the view
+        let yPosition = CGFloat(frame.size.height) - point.y - CGFloat(tileStartingPositionY)
+        //TODO: must move away from a linear search algorithm
+        var xTileNumber: Int = 0
+        var yTileNumber: Int = 0
+        for x in 0..<tileSize {
+            if xPosition < positionsForX[x] {
+                break
+            } else {
+                xTileNumber += 1
+            }
+        }
+        for y in 0..<tileSize {
+            if yPosition < positionsForY[y] {
+                break
+            } else {
+                yTileNumber += 1
+            }
+        }
+
+        return (x: xTileNumber, y: yTileNumber)
+    }
+    
     func findTileLocation(point: NSPoint) -> TileViewerMapper {
-        let positions = startingPixelPositions
+        let positions = startingPositions
         let xPosition = CGFloat(point.x)
         let yPosition = CGFloat(frame.size.height - point.y)
-        let numberOfPixels = 8
         //TODO: must move away from a linear search algorithm
         var xTileNumber: UInt = 0
         var yTileNumber: UInt = 0
-        for x in 0..<numberOfPixels {
+        let t = Int(zoomSize.rawValue)
+        for x in 0..<t {
             if xPosition < positions[x] {
                 break
             } else {
                 xTileNumber += 1
             }
         }
-        for y in 0..<numberOfPixels {
+        for y in 0..<t {
             if yPosition < positions[y] {
                 break
             } else {
@@ -93,7 +148,7 @@ class TileEditor: NSView {
         return TileViewerMapper(x: xTileNumber, y: yTileNumber, width: 0, height: 0)
     }
     
-    func updateEditorWith(pixelData: [[Int]]?) {
+    func updateEditorWith(pixelData: [Int]?) {
         self.tiles = pixelData
         needsDisplay = true
     }
@@ -119,19 +174,25 @@ class TileEditor: NSView {
             var tNumberOfPixelsPerView = 0
             var xPosition = 0
             var yPosition = 0
-            for t in tiles {
+            let numberOfBytesPerTile = 64
+            var tileOffset = 0
+            
+            for _ in 0..<zoomSize.rawValue*zoomSize.rawValue {
                 if tNumberOfPixelsPerView >= numberOfPixelsPerView {
                     yPosition += 1
                     tNumberOfPixelsPerView = 0
                     xPosition = 0
                 }
                 drawTile(ctx: ctx,
-                         tileData: t,
+                         tileData: tiles,
                          pixelsPerTile: 8,
+                         startingPosition: tileOffset,
                          pixelDimention: widthPerPixel,
-                         x: xPosition, y: yPosition)
+                         x: xPosition,
+                         y: yPosition)
                 tNumberOfPixelsPerView += numberOfPixelsPerTile
                 xPosition += 1
+                tileOffset += numberOfBytesPerTile
             }
         }
     }
@@ -139,6 +200,7 @@ class TileEditor: NSView {
     func drawTile(ctx: CGContext,
                   tileData: [Int],
                   pixelsPerTile: Int,
+                  startingPosition: Int,
                   pixelDimention: CGFloat,
                   x: Int, y: Int) {
         if tileData.count == 0{
@@ -155,11 +217,11 @@ class TileEditor: NSView {
                                    y: yIndex,
                                    width: pixelDimention,
                                    height: pixelDimention)
-                let colorAtIndex = tileData[indexPerPixel]
+                let colorAtIndex = tileData[indexPerPixel+startingPosition]
                 let color = colorPalette[colorAtIndex]
                 ctx.setFillColor(color)
                 ctx.addRect(pixel)
-                ctx.setLineWidth(CGFloat(0.01))
+                ctx.setLineWidth(CGFloat(0.1))
                 ctx.drawPath(using: .fillStroke)
                 xIndex += pixelDimention
                 indexPerPixel += 1

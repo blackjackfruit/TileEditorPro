@@ -837,7 +837,7 @@
                                     <rect key="frame" x="-100" y="-100" width="238" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.0041322314049586639" horizontal="NO" id="MTA-3M-WHe">
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99173553719008267" horizontal="NO" id="MTA-3M-WHe">
                                     <rect key="frame" x="225" y="1" width="16" height="238"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -849,6 +849,12 @@
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="dbf-Zg-GLr">
                                         <items>
+                                            <menuItem title="x1" id="OAO-9G-u4p">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="x2" id="R1o-wQ-taI">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
                                             <menuItem title="x4" state="on" id="wvg-kD-Xbz"/>
                                         </items>
                                     </menu>
@@ -857,14 +863,40 @@
                                     <action selector="tileEditorSizeChanged:" target="XfG-lQ-9wD" id="EVW-LL-nK7"/>
                                 </connections>
                             </popUpButton>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" customClass="PaletteOptions" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="573" y="72" width="125" height="214"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mwG-3s-24K">
+                                        <rect key="frame" x="34" y="99" width="57" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disabled" id="xbW-oH-hJz">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstItem="mwG-3s-24K" firstAttribute="centerX" secondItem="UYc-Kk-XNE" secondAttribute="centerX" id="PZ1-Vn-cls"/>
                                     <constraint firstAttribute="width" constant="125" id="gIT-Bg-Akd"/>
+                                    <constraint firstItem="mwG-3s-24K" firstAttribute="centerY" secondItem="UYc-Kk-XNE" secondAttribute="centerY" id="qMD-bB-Iq5"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" customClass="PaletteOptions" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="323" y="5" width="241" height="40"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XaI-ey-U2I">
+                                        <rect key="frame" x="92" y="11" width="57" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disabled" id="RHT-aV-K49">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XaI-ey-U2I" firstAttribute="centerX" secondItem="XSG-tK-hpz" secondAttribute="centerX" id="PGt-AP-Tgd"/>
+                                    <constraint firstItem="XaI-ey-U2I" firstAttribute="centerY" secondItem="XSG-tK-hpz" secondAttribute="centerY" id="fzt-Jr-GPm"/>
+                                </constraints>
                             </customView>
                         </subviews>
                         <constraints>
@@ -897,12 +929,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="colorSelection" destination="UYc-Kk-XNE" id="mbW-7P-WlP"/>
                         <outlet property="fileViewer" destination="yl5-EZ-Dwp" id="yTt-Zb-0w0"/>
                         <outlet property="nsView" destination="Lgf-zE-XzT" id="KN7-D2-GdC"/>
+                        <outlet property="paletteGroups" destination="XSG-tK-hpz" id="TMS-Nf-5rc"/>
                         <outlet property="paletteSelection" destination="Dwl-Ls-nzb" id="awJ-40-cjn"/>
-                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="6IM-Lo-hrW"/>
+                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
-                        <outlet property="tileViewEditor" destination="Lgf-zE-XzT" id="InZ-Wv-3XJ"/>
                         <outlet property="tileViewer" destination="yl5-EZ-Dwp" id="Ofm-LC-5wz"/>
                         <outlet property="tileViewerScrollView" destination="fFR-mK-749" id="OkA-TW-uUr"/>
                     </connections>

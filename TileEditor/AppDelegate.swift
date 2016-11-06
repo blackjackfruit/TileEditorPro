@@ -41,19 +41,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
 
         //Uncomment if preloading a file
-//        do {
-//            if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
-//                if let nesTiles = tileDataFormatter.nesTile() {
-//                    vc?.pixelData = nesTiles
-//                    vc?.update()
-//                }
-//                
-//            } else {
-//                // TODO: some error
-//            }
-//        } catch {
-//            
-//        }
+        do {
+            if let tileDataFormatter: TileDataFormatter = try FileLoader.fileForEditing(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo.chr") {
+                if let nesTiles = tileDataFormatter.nesTile() {
+                    vc?.pixelData = nesTiles
+                    vc?.update()
+                }
+                
+            } else {
+                // TODO: some error
+            }
+        } catch {
+            
+        }
         
     }
 

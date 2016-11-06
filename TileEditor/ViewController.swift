@@ -15,11 +15,15 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     @IBOutlet var paletteSelection: PaletteSelector?
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
+    @IBOutlet weak var paletteGroups: PaletteOptions!
+    @IBOutlet weak var colorSelection: PaletteOptions!
     
-    var pixelData: [[Int]]? = nil
+    var pixelData: [Int]? = nil
     var zoomSize: ZoomSize = .x4
     var tileDataFormatter: TileDataFormatter? = nil
     var tileDataType: TileDataType? = .NES
+    var pixelsPerTile = 0
+    var cursrorLocation: (x: Int, y: Int) = (0,0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +39,8 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         tileEditor?.numberOfPixelsPerTile = 8
         tileEditor?.numberOfPixelsPerView = 8
         
+        paletteGroups.needsDisplay = true
+        colorSelection.needsDisplay = true
         //tileViewerScrollView?.backgroundColor = NSColor.clear
     }
     func update() {
@@ -42,29 +48,21 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             NSLog("Cannot call update without specifying needed parameters")
             return
         }
-        var pixelsPerTile = 0
+        
         switch tileDataType {
         case TileDataType.NES:
             pixelsPerTile = 8
         }
         
-        
         tileEditor?.numberOfPixelsPerTile = pixelsPerTile
-        tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)
+        tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)*pixelsPerTile
         
         fileViewer?.tiles = pixelData
         fileViewer?.numberOfPixelsPerTile = pixelsPerTile
         fileViewer?.numberOfPixelsPerView = 128
         fileViewer?.updateView(zoomSize: zoomSize)
     }
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-    override func mouseEntered(with event: NSEvent) {
-        
-    }
+    
     @IBAction func tileEditorSizeChanged(_ sender: NSPopUpButtonCell) {
         switch sender.indexOfSelectedItem {
         case 0:
@@ -76,59 +74,30 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         default:
             zoomSize = .x8
         }
-        
-        tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)
-        tileEditor?.needsDisplay = true
-        
-        // By changing the NxN TileViewer, this will update the selection of tiles, which will call dataSelectedAtLocation(x:y:)
+
         fileViewer?.updateView(zoomSize: zoomSize)
     }
     //MARK: TileViewEditor Protocols
-    func pixelDataChanged(pixelData: [[Int]]) {
+    func pixelDataChanged(pixelData: [Int:Int]) {
         guard let tileViewer = fileViewer else {
             NSLog("No tile viewer set")
             return
         }
-        guard let tileEditor = tileEditor else {
-            NSLog("No tile editor set")
-            return
-        }
-        guard let tiles = tileEditor.tiles else {
-            NSLog("Tile data changed, but no tile array was set")
-            return
-        }
         
-        let didUpdateViewer = tileViewer.updateFileViewerWith(tiles: tiles,
-                                                              tileNumbers: [0])
- 
+        
+        
+        let didUpdateViewer = tileViewer.updateFileViewerWith(pixels: pixelData)
         NSLog("\(didUpdateViewer)")
     }
     
     //MARK: FileViewer Protocols
-    internal func tilesSelected(tiles: [[Int]],
-                                tileNumbers: [[Int]],
-                                zoomSize: ZoomSize) {
+    internal func tilesSelected(tiles: [Int], zoomSize: ZoomSize, x: Int, y: Int) {
+        cursrorLocation.x = x
+        cursrorLocation.y = y
         
-        tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)
+        tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)*pixelsPerTile
+        tileEditor?.zoomSize = zoomSize
         tileEditor?.updateEditorWith(pixelData: tiles)
-        
-    }
-    func dataSelectedAtLocation(x: Int, y: Int) {
-        guard let tileViewer = fileViewer else {
-            NSLog("Tile viewer not set")
-            return
-        }
-        let viewerPixelData = tileViewer.tiles
-        var newPixelData: [[Int]] = []
-        let tempNumberOfPixels = Int(zoomSize.rawValue)
-        for ty in 0..<tempNumberOfPixels {
-            var xArray: [Int] = []
-            for tx in 0..<tempNumberOfPixels {
-                //xArray.append(viewerPixelData[Int(y)+ty][Int(x)+tx])
-            }
-            newPixelData.append(xArray)
-        }
-        tileEditor?.updateEditorWith(pixelData: newPixelData)
     }
     
     //MARK: PaletteSelection
