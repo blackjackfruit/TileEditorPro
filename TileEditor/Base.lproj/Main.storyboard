@@ -844,7 +844,7 @@
                             </scrollView>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
                                 <rect key="frame" x="602" y="43" width="99" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
+                                <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="dbf-Zg-GLr">

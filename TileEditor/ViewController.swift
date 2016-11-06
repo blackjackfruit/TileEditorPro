@@ -24,6 +24,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     var tileDataType: TileDataType? = .NES
     var pixelsPerTile = 0
     var cursrorLocation: (x: Int, y: Int) = (0,0)
+    var startingPosition = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +55,14 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             pixelsPerTile = 8
         }
         
+        tileEditor?.tiles = pixelData
         tileEditor?.numberOfPixelsPerTile = pixelsPerTile
         tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)*pixelsPerTile
         
         fileViewer?.tiles = pixelData
         fileViewer?.numberOfPixelsPerTile = pixelsPerTile
         fileViewer?.numberOfPixelsPerView = 128
+        fileViewer?.selectionLocationVisible = true
         fileViewer?.updateView(zoomSize: zoomSize)
     }
     
@@ -84,20 +87,37 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             return
         }
         
-        
+//        let adjustedPixelData = translateEditorToViewerCoordinate(pixelData: pixelData,
+//                                                                  editorTileCountHorizontally: Int(tileEditor!.zoomSize.rawValue),
+//                                                                  viewerTileCountHorizontally: Int(fileViewer!.zoomSize.rawValue),
+//                                                                  numberOfPixels: 8,
+//                                                                  startingOffset: startingPosition)
         
         let didUpdateViewer = tileViewer.updateFileViewerWith(pixels: pixelData)
         NSLog("\(didUpdateViewer)")
     }
+    func translateEditorToViewerCoordinate(pixelData: [Int:Int],
+                                           editorTileCountHorizontally: Int,
+                                           viewerTileCountHorizontally: Int,
+                                           numberOfPixels: Int,
+                                           startingOffset: Int) -> [Int:Int]{
+        
+        
+        
+        return [0:0]
+    }
     
     //MARK: FileViewer Protocols
-    internal func tilesSelected(tiles: [Int], zoomSize: ZoomSize, x: Int, y: Int) {
-        cursrorLocation.x = x
-        cursrorLocation.y = y
+    internal func tilesSelected(tiles: [Int], startingPosition: Int, zoomSize: ZoomSize, x: Int, y: Int) {
+        self.cursrorLocation.x = x
+        self.cursrorLocation.y = y
+        self.startingPosition = startingPosition
         
+        tileEditor?.cursorLocation = (x, y)
         tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)*pixelsPerTile
         tileEditor?.zoomSize = zoomSize
-        tileEditor?.updateEditorWith(pixelData: tiles)
+        tileEditor?.startingPosition = startingPosition
+        tileEditor?.update()
     }
     
     //MARK: PaletteSelection

@@ -19,7 +19,7 @@ enum ZoomSize: UInt {
 }
 
 protocol FileViewerProtocol {
-    func tilesSelected(tiles: [Int], zoomSize: ZoomSize, x: Int, y: Int)
+    func tilesSelected(tiles: [Int], startingPosition: Int, zoomSize: ZoomSize, x: Int, y: Int)
 }
 
 class FileViewer: TileDrawer {
@@ -102,7 +102,8 @@ class FileViewer: TileDrawer {
                                             return
         }
         
-        delegate?.tilesSelected(tiles: tileObject,
+        delegate?.tilesSelected(tiles: tileObject.tiles,
+                                startingPosition: tileObject.startingPosition,
                                 zoomSize: zoomSize,
                                 x: selectionLocation.x,
                                 y: selectionLocation.y)
@@ -152,14 +153,15 @@ class FileViewer: TileDrawer {
                 return
             }
             
-            delegate?.tilesSelected(tiles: tileObject,
+            delegate?.tilesSelected(tiles: tileObject.tiles,
+                                    startingPosition: tileObject.startingPosition,
                                     zoomSize: zoomSize,
                                     x: boxLocation.x,
                                     y: boxLocation.y)
         }
     }
     
-    func getTileData(x: Int, y: Int, numberOfTiles: Int) -> [Int]? {
+    func getTileData(x: Int, y: Int, numberOfTiles: Int) -> (tiles: [Int], startingPosition: Int)? {
         
         needsDisplay = true
         
@@ -171,8 +173,10 @@ class FileViewer: TileDrawer {
         var tTiles: [Int] = []
         
         var offset = x * 64 + y*16*64
+        let startingPosition = offset
         let numberOfBytesPerTile = 64
         for _ in 0..<numberOfTiles {
+            
             let t = tiles[0+offset..<offset+(numberOfBytesPerTile*numberOfTiles)]
             let ta = Array(t)
             tTiles += ta
@@ -180,7 +184,7 @@ class FileViewer: TileDrawer {
             offset = offset+((numberOfBytesPerTile*16))
         }
         
-        return tTiles
+        return (tTiles, startingPosition)
     }
     
     // Adjust the cursor in case the user tries to access an invalid area by going out of bounds based off of the selection of boxes

@@ -29,8 +29,12 @@ class TileEditor: TileDrawer {
                                    NSColor.black.cgColor]
     var zoomSize: ZoomSize = .x4
     var colorFromPalette: Int = 3
+    var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
+    var startingPosition = 0
     // Should be an 8x8, 16x16, 32x32, etc. data set
     var tiles: [Int]? = nil
+    
+    var tilesToDraw: [Int] = []
     var numberOfPixelsPerTile: Int = 0
     // These are the number of pixels to display from left to right and top to down
     var numberOfPixelsPerView: Int = 0
@@ -67,10 +71,15 @@ class TileEditor: TileDrawer {
             let firstPixelInTile = (tileLocation.x*64)+(tileLocation.y*64*Int(zoomSize.rawValue))
             let pixelLocationInTile = positionInTileSelected.x+(positionInTileSelected.y*8)
             let pixelLocationInData = firstPixelInTile+pixelLocationInTile
+            self.tilesToDraw[pixelLocationInData] = colorFromPalette
             
-            self.tiles![pixelLocationInData] = colorFromPalette
+            let cursorOffset = (cursorLocation.x*64)+(cursorLocation.y*16*64)
+            let tileOffset = (tileLocation.x*64)+(tileLocation.y*16*64)
+            let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
             
-            delegate?.pixelDataChanged(pixelData: [pixelLocationInData:colorFromPalette])
+            let location = cursorOffset + tileOffset + pixelOffset
+            self.tiles![location] = colorFromPalette
+            delegate?.pixelDataChanged(pixelData: [location:colorFromPalette])
             needsDisplay = true
         }
     }
@@ -97,15 +106,16 @@ class TileEditor: TileDrawer {
         let positionsForY = pixelPositionsWithinArea(point: point,
                                                      pixelSize: pixelSize,
                                                      startingPosition: tileStartingPositionY)
-        let xPosition = point.x - CGFloat(tileStartingPositionX)
+        
+//        let xPosition = point.x - CGFloat(tileStartingPositionX)
         
         // To invert the coordinate system for Y we need to subtract the height of the view
-        let yPosition = CGFloat(frame.size.height) - point.y - CGFloat(tileStartingPositionY)
+        let yPosition = CGFloat(frame.size.height) - point.y
         //TODO: must move away from a linear search algorithm
         var xTileNumber: Int = 0
         var yTileNumber: Int = 0
         for x in 0..<tileSize {
-            if xPosition < positionsForX[x] {
+            if point.x < positionsForX[x] {
                 break
             } else {
                 xTileNumber += 1
@@ -149,7 +159,28 @@ class TileEditor: TileDrawer {
     }
     
     func updateEditorWith(pixelData: [Int]?) {
-        self.tiles = pixelData
+//        self.tiles = pixelData
+//        needsDisplay = true
+    }
+    func update() {
+        guard let tiles = tiles else {
+            NSLog("ERROR: no tile data for editor")
+            return
+        }
+        var tTiles: [Int] = []
+        var offset = startingPosition
+        let numberOfBytesPerTile = 64
+        let numberOfTiles = Int(zoomSize.rawValue)
+        for _ in 0..<numberOfTiles {
+            let t = tiles[0+offset..<offset+(numberOfBytesPerTile*numberOfTiles)]
+            let ta = Array(t)
+            tTiles += ta
+            
+            offset = offset+((numberOfBytesPerTile*16))
+        }
+        
+        tilesToDraw = tTiles
+        
         needsDisplay = true
     }
     
@@ -184,7 +215,7 @@ class TileEditor: TileDrawer {
                     xPosition = 0
                 }
                 drawTile(ctx: ctx,
-                         tileData: tiles,
+                         tileData: tilesToDraw,
                          pixelsPerTile: 8,
                          startingPosition: tileOffset,
                          pixelDimention: widthPerPixel,
