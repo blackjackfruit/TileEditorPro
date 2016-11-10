@@ -24,14 +24,20 @@ class FileLoader {
     // Can be either CHR or Rom file to be opened for editing
     // If file cannot be found or data is bad, then exceptions are thrown
     // To understand how chr is organized check out https://sadistech.com/nesromtool/romdoc.html
-    static func fileForEditing(path: String) throws -> TileDataFormatter? {
+    static func fileForEditing(path: String) throws -> Data? {
         if let dataOfFile = NSData(contentsOfFile: path) {
             let d = Data(bytes: dataOfFile.bytes, count: dataOfFile.length)
-            return TileDataFormatter(data: d)
+            return d
         }
         return nil
     }
-    static func saveEditedFileTo(path: String, data: [[[UInt]]]) -> Bool{
+    static func saveEditedFileTo(path: String, data: Data) -> Bool{
+        do {
+            let url = URL(fileURLWithPath: path)
+            try data.write(to: url)
+        } catch {
+            return false
+        }
         return true
     }
     

@@ -18,7 +18,17 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBOutlet weak var paletteGroups: PaletteOptions!
     @IBOutlet weak var colorSelection: PaletteOptions!
     
-    var pixelData: [Int]? = nil
+    
+    var arrayOfTiles: [Int] = [Int](repeating: 0, count: 32768)
+    var getChangedTiles: [Int] {
+        get {
+            let tiles = fileViewer?.tiles
+            if tiles  != nil {
+                return tiles!
+            }
+            return arrayOfTiles
+        }
+    }
     var zoomSize: ZoomSize = .x4
     var tileDataFormatter: TileDataFormatter? = nil
     var tileDataType: TileDataType? = .NES
@@ -55,13 +65,14 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             pixelsPerTile = 8
         }
         
-        tileEditor?.tiles = pixelData
+        tileEditor?.tiles = arrayOfTiles
         tileEditor?.numberOfPixelsPerTile = pixelsPerTile
         tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)*pixelsPerTile
         
-        fileViewer?.tiles = pixelData
+        fileViewer?.tiles = arrayOfTiles
         fileViewer?.numberOfPixelsPerTile = pixelsPerTile
         fileViewer?.numberOfPixelsPerView = 128
+        
         fileViewer?.selectionLocationVisible = true
         fileViewer?.updateView(zoomSize: zoomSize)
     }
@@ -80,6 +91,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
 
         fileViewer?.updateView(zoomSize: zoomSize)
     }
+    
     //MARK: TileViewEditor Protocols
     func pixelDataChanged(pixelData: [Int:Int]) {
         guard let tileViewer = fileViewer else {
@@ -87,24 +99,8 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             return
         }
         
-//        let adjustedPixelData = translateEditorToViewerCoordinate(pixelData: pixelData,
-//                                                                  editorTileCountHorizontally: Int(tileEditor!.zoomSize.rawValue),
-//                                                                  viewerTileCountHorizontally: Int(fileViewer!.zoomSize.rawValue),
-//                                                                  numberOfPixels: 8,
-//                                                                  startingOffset: startingPosition)
-        
         let didUpdateViewer = tileViewer.updateFileViewerWith(pixels: pixelData)
         NSLog("\(didUpdateViewer)")
-    }
-    func translateEditorToViewerCoordinate(pixelData: [Int:Int],
-                                           editorTileCountHorizontally: Int,
-                                           viewerTileCountHorizontally: Int,
-                                           numberOfPixels: Int,
-                                           startingOffset: Int) -> [Int:Int]{
-        
-        
-        
-        return [0:0]
     }
     
     //MARK: FileViewer Protocols
