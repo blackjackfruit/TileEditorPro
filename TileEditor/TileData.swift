@@ -9,12 +9,60 @@
 import Foundation
 
 enum TileDataType {
-    case NES
+    case none
+    case nes
 }
 
-// Output the Data as NES, GBA, etc.
-class TileDataFormatter {
-    static func nesTile(data: Data) -> [Int]? {
+class TileData {
+    fileprivate var tilesInternal: [Int]? = nil
+    fileprivate var currentTileDataType: TileDataType = .none
+    fileprivate var dataInternal: Data? = nil
+    
+    var type: TileDataType {
+        get {
+            return currentTileDataType
+        }
+        set {
+            if currentTileDataType != newValue {
+                currentTileDataType = newValue
+            }
+        }
+    }
+    var originalData: Data? = nil
+    var processedData: Data? {
+        return nesTiles()
+    }
+    var tiles: [Int]? = nil
+    
+    init(data: Data) {
+        self.originalData = data
+        self.tiles = nesTiles()
+    }
+    
+    
+    
+    func numberOfTiles() -> Int {
+        guard let data = originalData else {
+            return 0
+        }
+        var num = 0
+        if data.count == 0 {
+            return 0
+        }
+        switch type {
+        case .nes:
+            num = data.count/16
+            break
+        case .none:
+            break
+        }
+        return num
+    }
+    
+    func nesTiles() -> [Int]? {
+        guard let data = originalData else {
+            return nil
+        }
         NSLog("Start processing NES file")
         let offset = 8
         var output: [Int] = []
@@ -24,7 +72,7 @@ class TileDataFormatter {
             for i in 0..<8 {
                 let channelAByte = data[r+i]
                 let channelBByte = data[r+i+offset]
-                let row = TileDataFormatter.returnRowOfPixelValues(channelA: channelAByte, channelB: channelBByte)
+                let row = self.returnRowOfPixelValues(channelA: channelAByte, channelB: channelBByte)
                 output += row
             }
             r += 16
@@ -33,10 +81,14 @@ class TileDataFormatter {
         NSLog("Number of tiles: \(output.count)")
         return output
     }
-    static func nesTile(array: [Int]) -> Data? {
+    func nesTiles() -> Data? {
+        guard let tiles = tiles else {
+            NSLog("Tiles is nil")
+            return nil
+        }
         //TODO: check if data is the right size to save
         
-        let capacity = array.count/4
+        let capacity = tiles.count/4
         let v = UnsafeMutablePointer<UInt8>.allocate(capacity: capacity)
         let stride = 8
         var startingIndexOfTile = 0
@@ -46,7 +98,7 @@ class TileDataFormatter {
         var tileNumber = 0
         var numberOfRowsOfTileProcessed = 0
         repeat {
-            let rowOfBytes = array[startingIndexOfTile..<endingIndexOfTile]
+            let rowOfBytes = tiles[startingIndexOfTile..<endingIndexOfTile]
             var byte1: UInt8 = 0
             var byte2: UInt8 = 0
             
@@ -87,12 +139,11 @@ class TileDataFormatter {
             startingIndexOfTile += stride
             endingIndexOfTile += stride
             
-        }while(endingIndexOfTile < array.count)
+        }while(endingIndexOfTile < tiles.count)
         
         return Data(bytes: UnsafeRawPointer(v), count: 8192)
     }
-    
-    private static func returnRowOfPixelValues(channelA: UInt8, channelB: UInt8) -> [Int] {
+    private func returnRowOfPixelValues(channelA: UInt8, channelB: UInt8) -> [Int] {
         var byte: [Int] = []
         
         // Run through the bits individually

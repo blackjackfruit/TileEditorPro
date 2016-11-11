@@ -27,7 +27,7 @@ class FileViewer: TileDrawer {
     var widthAndHeightPerTile: CGFloat = 60
     var delegate: FileViewerProtocol? = nil
     var dataForViewer: NSData? = nil
-    var tiles: [Int]? = nil
+    var tileData: TileData? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
                                         NSColor.lightGray.cgColor,
                                         NSColor.gray.cgColor,
@@ -111,19 +111,9 @@ class FileViewer: TileDrawer {
     }
     
     // to update file viewer data, pass the array of pixel data and the location to where to update
-    func updateFileViewerWith(pixels: [Int:Int]) -> Bool {
-        guard tiles != nil else {
-            NSLog("ERROR: Tiles nil")
-            return false
-        }
-        for (key, value) in pixels {
-            let k = Int(key)
-            let v = Int(value)
-            tiles![k] = v
-        }
-       
+    func updateFileViewerWith() -> Bool {
         needsDisplay = true
-        return false
+        return true
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -165,7 +155,7 @@ class FileViewer: TileDrawer {
         
         needsDisplay = true
         
-        guard let tiles = tiles else {
+        guard let tiles = tileData?.tiles else {
             NSLog("Cannot update view because tiles is nil")
             return nil
         }
@@ -242,7 +232,7 @@ class FileViewer: TileDrawer {
     }
     override func draw(_ dirtyRect: NSRect) {
         if let ctx = NSGraphicsContext.current()?.cgContext {
-            guard let tiles = tiles else {
+            guard let tiles = tileData?.tiles else {
                 NSLog("ERROR: tiles variable is nil")
                 return
             }

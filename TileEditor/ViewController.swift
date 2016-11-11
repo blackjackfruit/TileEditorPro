@@ -18,20 +18,9 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBOutlet weak var paletteGroups: PaletteOptions!
     @IBOutlet weak var colorSelection: PaletteOptions!
     
-    
-    var arrayOfTiles: [Int] = [Int](repeating: 0, count: 32768)
-    var getChangedTiles: [Int] {
-        get {
-            let tiles = fileViewer?.tiles
-            if tiles  != nil {
-                return tiles!
-            }
-            return arrayOfTiles
-        }
-    }
     var zoomSize: ZoomSize = .x4
-    var tileDataFormatter: TileDataFormatter? = nil
-    var tileDataType: TileDataType? = .NES
+    var tileData: TileData? = nil
+    var tileDataType: TileDataType? = .nes
     var pixelsPerTile = 0
     var cursrorLocation: (x: Int, y: Int) = (0,0)
     var startingPosition = 0
@@ -50,26 +39,27 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         tileEditor?.numberOfPixelsPerTile = 8
         tileEditor?.numberOfPixelsPerView = 8
         
-        paletteGroups.needsDisplay = true
-        colorSelection.needsDisplay = true
         //tileViewerScrollView?.backgroundColor = NSColor.clear
     }
     func update() {
-        guard let tileDataType = tileDataType else {
+        guard let tileDataType = tileDataType, let tileData = tileData else {
             NSLog("Cannot call update without specifying needed parameters")
+            NSLog("tileDataType and tileData are needed before updating")
             return
         }
         
         switch tileDataType {
-        case TileDataType.NES:
+        case TileDataType.nes:
             pixelsPerTile = 8
+        case .none:
+            return
         }
-        
-        tileEditor?.tiles = arrayOfTiles
+        tileEditor?.tileData = tileData
         tileEditor?.numberOfPixelsPerTile = pixelsPerTile
         tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)*pixelsPerTile
         
-        fileViewer?.tiles = arrayOfTiles
+        
+        fileViewer?.tileData = tileData
         fileViewer?.numberOfPixelsPerTile = pixelsPerTile
         fileViewer?.numberOfPixelsPerView = 128
         
@@ -99,7 +89,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             return
         }
         
-        let didUpdateViewer = tileViewer.updateFileViewerWith(pixels: pixelData)
+        let didUpdateViewer = tileViewer.updateFileViewerWith()
         NSLog("\(didUpdateViewer)")
     }
     

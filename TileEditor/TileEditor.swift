@@ -32,7 +32,7 @@ class TileEditor: TileDrawer {
     var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
     var startingPosition = 0
     // Should be an 8x8, 16x16, 32x32, etc. data set
-    var tiles: [Int]? = nil
+    var tileData: TileData? = nil
     
     var tilesToDraw: [Int] = []
     var numberOfPixelsPerTile: Int = 0
@@ -52,8 +52,8 @@ class TileEditor: TileDrawer {
     }
     
     override func mouseDown(with event: NSEvent) {
-        guard tiles != nil else {
-            NSLog("Tiles is nil")
+        guard tileData != nil, tileData!.tiles != nil else {
+            NSLog("tileData is nil")
             return
         }
         let p = event.locationInWindow
@@ -78,7 +78,7 @@ class TileEditor: TileDrawer {
             let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
             
             let location = cursorOffset + tileOffset + pixelOffset
-            self.tiles![location] = colorFromPalette
+            self.tileData!.tiles![location] = colorFromPalette
             delegate?.pixelDataChanged(pixelData: [location:colorFromPalette])
             needsDisplay = true
         }
@@ -163,7 +163,7 @@ class TileEditor: TileDrawer {
 //        needsDisplay = true
     }
     func update() {
-        guard let tiles = tiles else {
+        guard let tileData = tileData, let tiles = tileData.tiles else {
             NSLog("ERROR: no tile data for editor")
             return
         }

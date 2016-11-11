@@ -28,13 +28,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let vc = vc else {
             return
         }
-        
-        let data = TileDataFormatter.nesTile(array: vc.getChangedTiles)
-        _ = FileLoader.saveEditedFileTo(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo_saved.chr", data: data!)
+        if let data = vc.tileData?.processedData {
+            _ = FileLoader.saveEditedFileTo(path: "/Users/yello/Documents/Dropbox/NES/src/git/demo_saved.chr", data: data)
+        }
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
+        let sampleData = Data(count: 8192)
+        let tileData = TileData(data: sampleData)
+        tileData.type = .nes
+        vc?.tileData = tileData
+        vc?.tileDataType = .nes
         vc?.update()
         
         if openRecent?.hasSubmenu != nil {
@@ -88,10 +93,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let data: Data = try FileLoader.fileForEditing(path: path) {
                 vc?.zoomSize = .x4
                 
-                if let nesTiles = TileDataFormatter.nesTile(data: data) {
-                    vc?.arrayOfTiles = nesTiles
-                    vc?.update()
-                }
+                let tileData = TileData(data: data)
+                tileData.type = .nes
+                vc?.tileData = tileData
+                vc?.update()
             } else {
                 // TODO: some error
             }
