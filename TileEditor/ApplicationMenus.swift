@@ -1,22 +1,21 @@
 //
-//  AppDelegate.swift
+//  ApplicationMenus.swift
 //  TileEditor
 //
-//  Created by iury bessa on 10/28/16.
+//  Created by iury bessa on 11/11/16.
 //  Copyright © 2016 yellokrow. All rights reserved.
 //
 
+import Foundation
 import Cocoa
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class ApplicationMenus: NSApplication {
     @IBOutlet weak var openRecent: NSMenuItem?
     @IBOutlet weak var saveFile: NSMenuItem?
     
-    var vc: ViewController? = nil
-    let applicationMenus: ApplicationMenus? = nil
     var pathOfFile: String? = nil
-
+    var vc: ViewController? = nil
+    
     @IBAction func newFile(_ sender: AnyObject) {
         let sampleData = Data(count: 8192)
         let tileData = TileData(data: sampleData)
@@ -24,8 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         vc?.tileData = tileData
         vc?.tileDataType = .nes
         vc?.update()
-        
-        self.pathOfFile = nil
     }
     
     @IBAction func openDirectory(_ sender: AnyObject) {
@@ -35,7 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.loadFileWith(path: path)
             _ = self.recentFiles(addPath: path)
             addFilePathToRecentFiles(path: path)
-            self.pathOfFile = path
         }
     }
     
@@ -51,47 +47,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.runModal()
         if let pathToSaveFileAs = panel.url?.path {
             saveFileTo(path: pathToSaveFileAs)
-            self.pathOfFile = pathToSaveFileAs
-            addFilePathToRecentFiles(path: pathToSaveFileAs)
         } else {
             NSLog("Could not get path to save")
         }
     }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
-        
-        let sampleData = Data(count: 8192)
-        let tileData = TileData(data: sampleData)
-        tileData.type = .nes
-        vc?.tileData = tileData
-        vc?.tileDataType = .nes
-        vc?.update()
-        
-        if openRecent?.hasSubmenu != nil {
-            var recentFiles = self.recentFiles(addPath: nil)
-            if recentFiles.count >= 6 {
-                let arraySlice = recentFiles[0..<6]
-                recentFiles = Array(arraySlice)
-            }
-            for filePath in recentFiles {
-                addFilePathToRecentFiles(path: filePath)
-            }
-        }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        if menuItem == saveFile {
-            if pathOfFile == nil {
-                return false
-            }
-        }
-        return true
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
     func addFilePathToRecentFiles(path: String) {
         if openRecent?.hasSubmenu != nil {
             let subMenu = openRecent?.submenu
@@ -117,7 +81,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func loadRecentItemSelected(sender: NSMenuItem) {
         let filePathFromTitle = sender.title
         self.loadFileWith(path: filePathFromTitle)
-        self.pathOfFile = filePathFromTitle
     }
     
     func loadFileWith(path: String) {
@@ -148,5 +111,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             _ = FileLoader.saveEditedFileTo(path: path, data: data)
         }
     }
-}
 
+}

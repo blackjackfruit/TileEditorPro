@@ -42,6 +42,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         //tileViewerScrollView?.backgroundColor = NSColor.clear
     }
     func update() {
+        NSLog("Request to update views")
         guard let tileDataType = tileDataType, let tileData = tileData else {
             NSLog("Cannot call update without specifying needed parameters")
             NSLog("tileDataType and tileData are needed before updating")
@@ -49,10 +50,11 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         }
         
         switch tileDataType {
-        case TileDataType.nes:
-            pixelsPerTile = 8
-        case .none:
-            return
+            case TileDataType.nes:
+                pixelsPerTile = 8
+            case .none:
+                NSLog("View controller did not set tile data type, thus we cannot draw anything")
+                return
         }
         tileEditor?.tileData = tileData
         tileEditor?.numberOfPixelsPerTile = pixelsPerTile

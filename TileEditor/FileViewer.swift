@@ -78,6 +78,7 @@ class FileViewer: TileDrawer {
     }
     
     func updateView(zoomSize: ZoomSize) {
+        NSLog("Update FileViewer with zoom \(zoomSize)")
         self.zoomSize = zoomSize
         let zoomSizeFloat = CGFloat(zoomSize.rawValue)
         widthAndHeightPerTile = frame.size.width/CGFloat(numberOfPixelsPerView)
@@ -101,12 +102,16 @@ class FileViewer: TileDrawer {
                                             NSLog("When mouse was clicked, could not parse the data")
                                             return
         }
-        
-        delegate?.tilesSelected(tiles: tileObject.tiles,
-                                startingPosition: tileObject.startingPosition,
-                                zoomSize: zoomSize,
-                                x: selectionLocation.x,
-                                y: selectionLocation.y)
+        if let delegate = delegate {
+            NSLog("Delegate for tiles selected is not nil.. let's call it now")
+            delegate.tilesSelected(tiles: tileObject.tiles,
+                                    startingPosition: tileObject.startingPosition,
+                                    zoomSize: zoomSize,
+                                    x: selectionLocation.x,
+                                    y: selectionLocation.y)
+        } else {
+            NSLog("Delegate for tiles selected is nil")
+        }
         needsDisplay = true
     }
     
@@ -231,6 +236,7 @@ class FileViewer: TileDrawer {
         return newCursorLocation
     }
     override func draw(_ dirtyRect: NSRect) {
+        NSLog("Request to redraw TileViewer")
         if let ctx = NSGraphicsContext.current()?.cgContext {
             guard let tiles = tileData?.tiles else {
                 NSLog("ERROR: tiles variable is nil")

@@ -35,8 +35,10 @@ class TileData {
     var tiles: [Int]? = nil
     
     init(data: Data) {
+        NSLog("Creating new TileData object")
         self.originalData = data
         self.tiles = nesTiles()
+        NSLog("Finished creating TileData object")
     }
     
     
