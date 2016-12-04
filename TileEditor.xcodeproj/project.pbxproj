@@ -10,7 +10,8 @@
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
 		D1465ECD1DC45AFB003D1C43 /* PaletteSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1465ECC1DC45AFB003D1C43 /* PaletteSelector.swift */; };
 		D1465ECF1DC46097003D1C43 /* PaletteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1465ECE1DC46097003D1C43 /* PaletteButton.swift */; };
-		D15E06F61DD68502002ED2C8 /* ApplicationMenus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15E06F51DD68502002ED2C8 /* ApplicationMenus.swift */; };
+		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
+		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997A1DCE6733001D259A /* PaletteOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16799791DCE6733001D259A /* PaletteOptions.swift */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
 		D167CB491DC58D1D0035C7D9 /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167CB481DC58D1D0035C7D9 /* FileViewer.swift */; };
@@ -27,7 +28,8 @@
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
 		D1465ECC1DC45AFB003D1C43 /* PaletteSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteSelector.swift; sourceTree = "<group>"; };
 		D1465ECE1DC46097003D1C43 /* PaletteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteButton.swift; sourceTree = "<group>"; };
-		D15E06F51DD68502002ED2C8 /* ApplicationMenus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationMenus.swift; sourceTree = "<group>"; };
+		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
+		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D16799791DCE6733001D259A /* PaletteOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteOptions.swift; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
 		D167CB481DC58D1D0035C7D9 /* FileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
@@ -56,12 +58,14 @@
 		D19C6FA41DC9725700E2F459 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D15751001DE21DAD001394F7 /* TileCollection.swift */,
 				D1465ECE1DC46097003D1C43 /* PaletteButton.swift */,
 				D1465ECC1DC45AFB003D1C43 /* PaletteSelector.swift */,
 				D167CB481DC58D1D0035C7D9 /* FileViewer.swift */,
 				D1A2E6F91DC4208B00529519 /* TileEditor.swift */,
 				D16799791DCE6733001D259A /* PaletteOptions.swift */,
 				D167997B1DCE6B6C001D259A /* TileDrawer.swift */,
+				D15751021DE220F6001394F7 /* TileItem.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -94,7 +98,6 @@
 				D1A2E6F31DC41EBE00529519 /* Info.plist */,
 				D1D0F3BC1DC68A6C00B2B999 /* DummyData.swift */,
 				D11673581DCAAFC4009F52CB /* TileData.swift */,
-				D15E06F51DD68502002ED2C8 /* ApplicationMenus.swift */,
 			);
 			path = TileEditor;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */,
+				D15751031DE220F6001394F7 /* TileItem.xib in Resources */,
 				D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,11 +175,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1465ECD1DC45AFB003D1C43 /* PaletteSelector.swift in Sources */,
-				D15E06F61DD68502002ED2C8 /* ApplicationMenus.swift in Sources */,
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
 				D1465ECF1DC46097003D1C43 /* PaletteButton.swift in Sources */,
 				D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */,
 				D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */,
+				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
 				D1D0F3BD1DC68A6C00B2B999 /* DummyData.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,
@@ -307,6 +311,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = TileEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.TileEditor;

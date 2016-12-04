@@ -11,7 +11,7 @@ import QuartzCore
 import Cocoa
 
 protocol TileEditorProtocol {
-    func pixelDataChanged(pixelData: [Int:Int])
+    func pixelDataChanged(tileNumbers: [Int])
 }
 
 struct TileViewerMapper {
@@ -33,7 +33,7 @@ class TileEditor: TileDrawer {
     var startingPosition = 0
     // Should be an 8x8, 16x16, 32x32, etc. data set
     var tileData: TileData? = nil
-    
+    var tilesSelected: [[Int]] = [[]]
     var tilesToDraw: [Int] = []
     var numberOfPixelsPerTile: Int = 0
     // These are the number of pixels to display from left to right and top to down
@@ -59,8 +59,9 @@ class TileEditor: TileDrawer {
         let p = event.locationInWindow
         let s = convert(p, from: nil)
         if let tileLocation = findBoxSelectionLocation(point: s,
-                                                       numberOfTilesVertically: Int(zoomSize.rawValue),
-                                                       numberOfTilesHorizontally: Int(zoomSize.rawValue)) {
+                                                       numberOfSelectableTilesVertically: Int(zoomSize.rawValue),
+                                                       numberOfSelectableTilesHorizontally: Int(zoomSize.rawValue)) {
+            let tileNumber = tileNumberFromLocation(x: tileLocation.x, y: tileLocation.y)
             let widthAndHeightPerPixel = frame.size.width/CGFloat(8*zoomSize.rawValue)
             let positionInTileSelected = positionInTile(point: s,
                                                         tileStartingPositionX: tileLocation.x*60,
@@ -73,15 +74,20 @@ class TileEditor: TileDrawer {
             let pixelLocationInData = firstPixelInTile+pixelLocationInTile
             self.tilesToDraw[pixelLocationInData] = colorFromPalette
             
-            let cursorOffset = (cursorLocation.x*64)+(cursorLocation.y*16*64)
-            let tileOffset = (tileLocation.x*64)+(tileLocation.y*16*64)
             let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
-            
-            let location = cursorOffset + tileOffset + pixelOffset
+            let location = tileNumber*64+pixelOffset
             self.tileData!.tiles![location] = colorFromPalette
-            delegate?.pixelDataChanged(pixelData: [location:colorFromPalette])
+            
+            delegate?.pixelDataChanged(tileNumbers: [tileNumber])
             needsDisplay = true
         }
+    }
+    
+    func tileNumberFromLocation(x: Int, y: Int) -> Int {
+//        if tilesSelected.count%Int(zoomSize.rawValue) != 0 {
+//            return nil
+//        }        
+        return tilesSelected[y][x]
     }
     
     func positionInTile(point: NSPoint,
@@ -158,25 +164,19 @@ class TileEditor: TileDrawer {
         return TileViewerMapper(x: xTileNumber, y: yTileNumber, width: 0, height: 0)
     }
     
-    func updateEditorWith(pixelData: [Int]?) {
-//        self.tiles = pixelData
-//        needsDisplay = true
-    }
     func update() {
         guard let tileData = tileData, let tiles = tileData.tiles else {
             NSLog("ERROR: no tile data for editor")
             return
         }
         var tTiles: [Int] = []
-        var offset = startingPosition
         let numberOfBytesPerTile = 64
         let numberOfTiles = Int(zoomSize.rawValue)
-        for _ in 0..<numberOfTiles {
+        for i in 0..<numberOfTiles {
+            let offset = tilesSelected[i][0]*Int(numberOfBytesPerTile)
             let t = tiles[0+offset..<offset+(numberOfBytesPerTile*numberOfTiles)]
             let ta = Array(t)
             tTiles += ta
-            
-            offset = offset+((numberOfBytesPerTile*16))
         }
         
         tilesToDraw = tTiles
@@ -209,6 +209,7 @@ class TileEditor: TileDrawer {
             let numberOfBytesPerTile = 64
             var tileOffset = 0
             
+            // Draw tiles
             for _ in 0..<zoomSize.rawValue*zoomSize.rawValue {
                 if tNumberOfPixelsPerView >= numberOfPixelsPerView {
                     yPosition += 1
@@ -225,6 +226,28 @@ class TileEditor: TileDrawer {
                 tNumberOfPixelsPerView += numberOfPixelsPerTile
                 xPosition += 1
                 tileOffset += numberOfBytesPerTile
+            }
+            
+            // Draw grid
+            var gridCursorX = 0
+            var gridCursorY = 0
+            let dimensionOfTile = 60
+            for y in 0..<Int(zoomSize.rawValue) {
+                for _ in 0..<Int(zoomSize.rawValue) {
+                    ctx.setFillColor(NSColor.clear.cgColor)
+                    let box = CGRect(x: gridCursorX,
+                                     y: gridCursorY,
+                                     width: dimensionOfTile,
+                                     height: dimensionOfTile)
+                    ctx.addRect(box)
+                    ctx.setLineWidth(0.5)
+                    ctx.setStrokeColor(NSColor.black.cgColor)
+                    ctx.drawPath(using: .fillStroke)
+                    
+                    gridCursorX += 60
+                }
+                gridCursorX = 0
+                gridCursorY += 60
             }
         }
     }

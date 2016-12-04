@@ -349,38 +349,6 @@
                                     <constraint firstItem="ZGi-4c-YFX" firstAttribute="top" secondItem="Qqg-30-fs6" secondAttribute="top" constant="5" id="vUA-l8-zdm"/>
                                 </constraints>
                             </customView>
-                            <scrollView autoresizesSubviews="NO" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" findBarPosition="aboveHorizontalRuler" translatesAutoresizingMaskIntoConstraints="NO" id="fFR-mK-749" userLabel="TileViewer ScrollView">
-                                <rect key="frame" x="323" y="46" width="242" height="240"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ehh-uS-gMC">
-                                    <rect key="frame" x="1" y="1" width="240" height="238"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <view translatesAutoresizingMaskIntoConstraints="NO" id="yl5-EZ-Dwp" userLabel="FileViewer" customClass="FileViewer" customModule="TileEditor" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="480"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="480" id="093-lw-vRg"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="yl5-EZ-Dwp" secondAttribute="trailing" id="60U-mW-kWN"/>
-                                        <constraint firstItem="yl5-EZ-Dwp" firstAttribute="leading" secondItem="ehh-uS-gMC" secondAttribute="leading" id="JOx-MP-nIJ"/>
-                                        <constraint firstAttribute="bottom" secondItem="yl5-EZ-Dwp" secondAttribute="bottom" id="rYk-A6-ZLt"/>
-                                    </constraints>
-                                </clipView>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="242" id="0Tb-3K-Qkh"/>
-                                    <constraint firstAttribute="height" constant="240" id="VDl-1H-6sD"/>
-                                </constraints>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Nkh-PA-1N6">
-                                    <rect key="frame" x="-100" y="-100" width="238" height="16"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99173553719008267" horizontal="NO" id="MTA-3M-WHe">
-                                    <rect key="frame" x="225" y="1" width="16" height="238"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
                                 <rect key="frame" x="602" y="43" width="99" height="26"/>
                                 <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
@@ -437,47 +405,82 @@
                                     <constraint firstItem="XaI-ey-U2I" firstAttribute="centerY" secondItem="XSG-tK-hpz" secondAttribute="centerY" id="fzt-Jr-GPm"/>
                                 </constraints>
                             </customView>
+                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5">
+                                <rect key="frame" x="323" y="46" width="242" height="240"/>
+                                <clipView key="contentView" canDrawConcurrently="YES" drawsBackground="NO" id="4QM-fD-rAs">
+                                    <rect key="frame" x="1" y="1" width="240" height="238"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="238"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="1" id="B9c-1q-cyu">
+                                                <size key="itemSize" width="50" height="50"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="sOO-N1-WHX" id="4cb-U6-PzF"/>
+                                                <outlet property="delegate" destination="sOO-N1-WHX" id="rXP-hM-8Wi"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eXo-6B-w4h">
+                                    <rect key="frame" x="-100" y="-100" width="240" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ucz-Pg-emH">
+                                    <rect key="frame" x="225" y="1" width="16" height="238"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Clg-63-I9z" firstAttribute="centerY" secondItem="TRC-0s-uzn" secondAttribute="centerY" id="4Ry-Yg-reU"/>
-                            <constraint firstItem="UYc-Kk-XNE" firstAttribute="leading" secondItem="MTA-3M-WHe" secondAttribute="trailing" constant="9" id="770-3b-IEv"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="leading" secondItem="Lgf-zE-XzT" secondAttribute="trailing" constant="8" symbolic="YES" id="6sj-8L-1Pi"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="top" secondItem="UYc-Kk-XNE" secondAttribute="bottom" constant="5" id="7pt-O2-cyE"/>
-                            <constraint firstItem="fFR-mK-749" firstAttribute="leading" secondItem="Lgf-zE-XzT" secondAttribute="trailing" constant="8" id="8zB-yV-ZOX"/>
-                            <constraint firstItem="fFR-mK-749" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="9Ki-zN-suG"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="bottom" secondItem="akM-x2-sYL" secondAttribute="bottom" id="9MV-QU-8v2"/>
                             <constraint firstAttribute="bottom" secondItem="XSG-tK-hpz" secondAttribute="bottom" constant="5" id="AMn-Ef-hva"/>
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="leading" secondItem="Lgf-zE-XzT" secondAttribute="leading" id="CkR-9r-TRo"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="trailing" secondItem="UYc-Kk-XNE" secondAttribute="trailing" id="D2r-il-C1B"/>
-                            <constraint firstItem="XSG-tK-hpz" firstAttribute="trailing" secondItem="ehh-uS-gMC" secondAttribute="trailing" id="E1X-jm-fOH"/>
-                            <constraint firstItem="XSG-tK-hpz" firstAttribute="top" secondItem="fFR-mK-749" secondAttribute="bottom" constant="1" id="ILM-cx-qLr"/>
                             <constraint firstAttribute="bottom" secondItem="Dwl-Ls-nzb" secondAttribute="bottom" constant="5" id="QUc-6m-cMV"/>
                             <constraint firstItem="Qqg-30-fs6" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="Qee-22-391"/>
+                            <constraint firstItem="XSG-tK-hpz" firstAttribute="top" secondItem="9as-sB-BI5" secondAttribute="bottom" constant="1" id="RIY-qa-BPL"/>
                             <constraint firstAttribute="trailing" secondItem="UYc-Kk-XNE" secondAttribute="trailing" constant="6" id="TKO-Ps-REn"/>
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="top" secondItem="Lgf-zE-XzT" secondAttribute="bottom" constant="1" id="Tyw-Li-W78"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="bottom" secondItem="Lgf-zE-XzT" secondAttribute="bottom" id="UHq-pQ-qPk"/>
                             <constraint firstItem="Qqg-30-fs6" firstAttribute="bottom" secondItem="Lgf-zE-XzT" secondAttribute="bottom" id="WO2-0Y-Yck"/>
                             <constraint firstItem="UYc-Kk-XNE" firstAttribute="leading" secondItem="8Fe-1F-rz2" secondAttribute="leading" id="X1L-83-XSM"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="centerX" secondItem="XSG-tK-hpz" secondAttribute="centerX" id="YBw-ro-KPw"/>
                             <constraint firstItem="Clg-63-I9z" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="9" id="cIz-PO-gqc"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="leading" secondItem="XSG-tK-hpz" secondAttribute="leading" id="ccu-v6-Z0m"/>
                             <constraint firstItem="UYc-Kk-XNE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="evT-KP-H73"/>
+                            <constraint firstItem="9as-sB-BI5" firstAttribute="top" secondItem="UYc-Kk-XNE" secondAttribute="top" id="fO6-8h-qhn"/>
+                            <constraint firstItem="UYc-Kk-XNE" firstAttribute="leading" secondItem="9as-sB-BI5" secondAttribute="trailing" constant="8" symbolic="YES" id="g2c-xh-I3V"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="centerY" secondItem="8Fe-1F-rz2" secondAttribute="centerY" id="icd-wx-2dx"/>
                             <constraint firstItem="Lgf-zE-XzT" firstAttribute="leading" secondItem="Qqg-30-fs6" secondAttribute="trailing" constant="5" id="jZv-8g-P0O"/>
-                            <constraint firstItem="akM-x2-sYL" firstAttribute="bottom" secondItem="fFR-mK-749" secondAttribute="bottom" id="oJS-vM-KaM"/>
                             <constraint firstItem="Lgf-zE-XzT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="pGE-tI-GK9"/>
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="trailing" secondItem="Lgf-zE-XzT" secondAttribute="trailing" id="tCz-yL-XFE"/>
-                            <constraint firstItem="XSG-tK-hpz" firstAttribute="leading" secondItem="fFR-mK-749" secondAttribute="leading" id="u1M-KU-F6N"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="leading" secondItem="8Fe-1F-rz2" secondAttribute="trailing" constant="5" id="yiG-wh-Gpx"/>
                             <constraint firstItem="Qqg-30-fs6" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="5" id="ypd-WD-iPh"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="colorSelection" destination="UYc-Kk-XNE" id="mbW-7P-WlP"/>
-                        <outlet property="fileViewer" destination="yl5-EZ-Dwp" id="kus-Mb-6RS"/>
                         <outlet property="paletteGroups" destination="XSG-tK-hpz" id="TMS-Nf-5rc"/>
                         <outlet property="paletteSelection" destination="Dwl-Ls-nzb" id="awJ-40-cjn"/>
+                        <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
-                        <outlet property="tileViewerScrollView" destination="fFR-mK-749" id="OkA-TW-uUr"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="sOO-N1-WHX" customClass="TileCollection" customModule="TileEditor" customModuleProvider="target">
+                    <connections>
+                        <outlet property="tileCollectionViewer" destination="8ru-Qx-bpS" id="lDg-yt-f1z"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="67" y="711.5"/>
         </scene>

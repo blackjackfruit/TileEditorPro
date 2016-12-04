@@ -41,13 +41,13 @@ class TileDrawer: NSView {
             return (x: x, y: y)
     }
     func findBoxSelectionLocation(point: NSPoint,
-                                  numberOfTilesVertically: Int,
-                                  numberOfTilesHorizontally: Int) -> (x: Int, y: Int, width: CGFloat, height: CGFloat)? {
+                                  numberOfSelectableTilesVertically: Int,
+                                  numberOfSelectableTilesHorizontally: Int) -> (x: Int, y: Int, width: CGFloat, height: CGFloat)? {
         guard let pixelPositions = startingPixelPositions(width: frame.size.width,
                                                           height: frame.size.height,
                                                           // the lowest number of boxes we can have horizontally is 4 (4 8x8 tiles)
-            numberOfSquaresVertically: numberOfTilesVertically,
-            numberOfSquaresHorizontally: numberOfTilesHorizontally) else {
+            numberOfSquaresVertically: numberOfSelectableTilesVertically,
+            numberOfSquaresHorizontally: numberOfSelectableTilesHorizontally) else {
                 return nil
         }
         let xPosition = CGFloat(point.x)

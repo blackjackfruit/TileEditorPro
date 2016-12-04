@@ -18,14 +18,16 @@ enum ZoomSize: UInt {
     case x16 = 16
 }
 
-protocol FileViewerProtocol {
-    func tilesSelected(tiles: [Int], startingPosition: Int, zoomSize: ZoomSize, x: Int, y: Int)
+protocol TileCollectionProtocol {
+    func tiles(selected: [[Int]], zoomSize: ZoomSize)
 }
 
 class FileViewer: TileDrawer {
+    @IBOutlet weak var viewHeight: NSLayoutConstraint?
+    
     var zoomSize: ZoomSize = .x4
     var widthAndHeightPerTile: CGFloat = 60
-    var delegate: FileViewerProtocol? = nil
+    var delegate: TileCollectionProtocol? = nil
     var dataForViewer: NSData? = nil
     var tileData: TileData? = nil
     var colorPalette: Array<CGColor> = [NSColor.white.cgColor,
@@ -40,9 +42,9 @@ class FileViewer: TileDrawer {
     var numberOfPixelsPerTile = 0
     var numberOfPixelsPerView = 0
     
-    var numberOfPixelsVertically = 32
-    var numberOfTilesVertically: Int {
-        let widthPerPixel: CGFloat = frame.size.width/CGFloat(numberOfPixelsVertically)
+    var numberOfSelectablePixelsVertically = 32
+    var numberOfSelectableTilesVertically: Int {
+        let widthPerPixel: CGFloat = frame.size.width/CGFloat(numberOfSelectablePixelsVertically)
         var numberOfPixelsPerTile = 0
         switch zoomSize {
         case .x1:
@@ -61,7 +63,16 @@ class FileViewer: TileDrawer {
         return Int(numberOfTiles)
     }
     var numberOfPixelsHorizontally = 64
-    var numberOfTilesHorizontally: UInt {
+    var numberOfTilesHorizontally: Int {
+        
+        if let tileData = tileData {
+            let numberOfPixels = tileData.type.numberOfPixels()
+            if numberOfPixels <= 0 {
+                return -1
+            }
+            let numberOfTilesHorizontally = numberOfPixelsPerView/numberOfPixels
+            return Int(numberOfTilesHorizontally)
+        }
         return 0
     }
     
@@ -75,6 +86,21 @@ class FileViewer: TileDrawer {
                               width: wh,
                               height: wh)
         
+    }
+    
+    func setup() {
+        let numberOfTotalTiles = tileData?.numberOfTiles()
+        if numberOfTotalTiles != nil && numberOfTotalTiles! > 0 {
+            let numberOfTilesAllowedHorizontally = numberOfTilesHorizontally
+            let numberOfTilesAllowedVertically = CGFloat(numberOfTotalTiles!/numberOfTilesAllowedHorizontally)
+            let newHeight = numberOfTilesAllowedVertically*CGFloat(tileData!.type.numberOfPixels())*(frame.size.width/CGFloat(numberOfPixelsPerView))
+            NSLog("numberOfTilesAllowedVertically: \(numberOfTilesAllowedVertically)")
+            var rect = self.frame
+            NSLog("Old rect for viewer: \(rect)")
+            self.frame = rect
+            NSLog("Old rect for viewer: \(self.frame)")
+            viewHeight?.constant = newHeight
+        }
     }
     
     func updateView(zoomSize: ZoomSize) {
@@ -95,7 +121,13 @@ class FileViewer: TileDrawer {
                               height: zoomSizeFloat*widthAndHeightPerTile*CGFloat(numberOfPixelsPerTile))
         
         needsDisplay = true
-        
+        guard let numberOfTiles = getTileNumbersFromPosition(x: selectionLocation.x,
+                                                             y: selectionLocation.y,
+                                                             numberOfTilesHorizontally: 16,
+                                                             dimensionOfSelection: Int(zoomSize.rawValue)) else {
+                                                                NSLog("ERROR: Could not get the numbers of the tiles selected")
+                                                                return
+        }
         guard let tileObject = getTileData(x: selectionLocation.x,
                                            y: selectionLocation.y,
                                            numberOfTiles: Int(zoomSize.rawValue)) else {
@@ -104,12 +136,10 @@ class FileViewer: TileDrawer {
         }
         if let delegate = delegate {
             NSLog("Delegate for tiles selected is not nil.. let's call it now")
-            delegate.tilesSelected(tiles: tileObject.tiles,
-                                    startingPosition: tileObject.startingPosition,
-                                    zoomSize: zoomSize,
-                                    x: selectionLocation.x,
-                                    y: selectionLocation.y)
-        } else {
+//            delegate.tilesSelected(tiles: tileObject.tiles,
+//                                    tileNumbers: numberOfTiles,
+//                                    zoomSize: zoomSize)
+//        } else {
             NSLog("Delegate for tiles selected is nil")
         }
         needsDisplay = true
@@ -126,8 +156,8 @@ class FileViewer: TileDrawer {
         let s = convert(p, from: nil)
         
         if let boxLocation = findBoxSelectionLocation(point: s,
-                                                      numberOfTilesVertically: 32,
-                                                      numberOfTilesHorizontally: 16) {
+                                                      numberOfSelectableTilesVertically: 32,
+                                                      numberOfSelectableTilesHorizontally: 16) {
             let n = Int(zoomSize.rawValue)
             selectionLocation = adjustCursor(x: boxLocation.x,
                                           y: boxLocation.y,
@@ -140,6 +170,13 @@ class FileViewer: TileDrawer {
                                   width: widthAndHeightPerTile*CGFloat(n*numberOfPixelsPerTile),
                                   height: widthAndHeightPerTile*CGFloat(n*numberOfPixelsPerTile))
         
+            guard let numberOfTiles = getTileNumbersFromPosition(x: selectionLocation.x,
+                                                                 y: selectionLocation.y,
+                                                                 numberOfTilesHorizontally: 16,
+                                                                 dimensionOfSelection: Int(zoomSize.rawValue)) else {
+                                                                    NSLog("ERROR: Could not get the numbers of the tiles selected")
+                                                                    return
+            }
             
             guard let tileObject = getTileData(x: selectionLocation.x,
                                                y: selectionLocation.y,
@@ -148,14 +185,33 @@ class FileViewer: TileDrawer {
                 return
             }
             
-            delegate?.tilesSelected(tiles: tileObject.tiles,
-                                    startingPosition: tileObject.startingPosition,
-                                    zoomSize: zoomSize,
-                                    x: selectionLocation.x,
-                                    y: selectionLocation.y)
+//            delegate?.tilesSelected(tiles: tileObject.tiles,
+//                                    tileNumbers: numberOfTiles,
+//                                    zoomSize: zoomSize)
         }
     }
-    
+    func getTileNumbersFromPosition(x: Int,
+                                    y: Int,
+                                    numberOfTilesHorizontally: Int,
+                                    dimensionOfSelection: Int) -> [Int]? {
+        if dimensionOfSelection < 1 || dimensionOfSelection > numberOfTilesHorizontally {
+            return nil
+        }
+        
+        var numberOfTiles: [Int] = []
+        var startingIndex = x+(y*numberOfTilesHorizontally)
+        
+        for _ in 0..<dimensionOfSelection {
+            for _ in 0..<dimensionOfSelection {
+                numberOfTiles.append(startingIndex)
+                startingIndex+=1
+            }
+            startingIndex -= dimensionOfSelection
+            startingIndex += numberOfTilesHorizontally
+        }
+        
+        return numberOfTiles
+    }
     func getTileData(x: Int, y: Int, numberOfTiles: Int) -> (tiles: [Int], startingPosition: Int)? {
         
         needsDisplay = true
@@ -248,7 +304,7 @@ class FileViewer: TileDrawer {
             }
             NSLog("Filling file viewer with PixelData")
             // swap coordinate so that 0,0 is top left corner
-            ctx.translateBy(x: 0, y: frame.size.height)
+            ctx.translateBy(x: 0, y: viewHeight!.constant)
             ctx.scaleBy(x: 1, y: -1)
             
             ctx.setFillColor(NSColor.blue.cgColor)
@@ -261,6 +317,9 @@ class FileViewer: TileDrawer {
             var yPosition = 0
             let numberOfTiles = tiles.count/64
             let numberOfBytesPerTile = 64
+            
+            
+            
             if numberOfTiles > 0 {
                 var numberOfBytesPerTileCounter = 0
                 for _ in 0..<numberOfTiles {
@@ -313,8 +372,8 @@ class FileViewer: TileDrawer {
                 let color = colorPalette[colorAtIndex]
                 ctx.setFillColor(color)
                 ctx.addRect(pixel)
-                ctx.setLineWidth(CGFloat(0.01))
-                ctx.drawPath(using: .fillStroke)
+                
+                ctx.drawPath(using: .fill)
                 xIndex += pixelDimention
                 indexPerPixel += 1
             }

@@ -14,7 +14,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var saveFile: NSMenuItem?
     
     var vc: ViewController? = nil
-    let applicationMenus: ApplicationMenus? = nil
     var pathOfFile: String? = nil
 
     @IBAction func newFile(_ sender: AnyObject) {

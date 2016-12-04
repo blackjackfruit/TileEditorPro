@@ -11,6 +11,15 @@ import Foundation
 enum TileDataType {
     case none
     case nes
+    
+    func numberOfPixels() -> Int {
+        switch self {
+        case .nes:
+            return 8
+        case .none:
+            return -1
+        }
+    }
 }
 
 class TileData {
@@ -40,8 +49,6 @@ class TileData {
         self.tiles = nesTiles()
         NSLog("Finished creating TileData object")
     }
-    
-    
     
     func numberOfTiles() -> Int {
         guard let data = originalData else {
@@ -81,6 +88,7 @@ class TileData {
         }
         NSLog("Finished processing NES file")
         NSLog("Number of tiles: \(output.count)")
+        tiles = output
         return output
     }
     func nesTiles() -> Data? {
