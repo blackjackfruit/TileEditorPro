@@ -155,6 +155,7 @@ class TileCollection: NSObject {
         flowLayout.sectionInset = EdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         flowLayout.minimumInteritemSpacing = 0.0
         flowLayout.minimumLineSpacing = 0.0
+        viewer.collectionViewLayout = nil
         viewer.collectionViewLayout = flowLayout
         
         let nib = NSNib.init(nibNamed: "TileItem", bundle: Bundle.main)
@@ -163,7 +164,6 @@ class TileCollection: NSObject {
     }
     
     func update(tileNumbers: [Int]) {
-//        tileCollectionViewer?.reloadData()
         for i in tileNumbers {
             let item = tileCollectionViewer?.item(at: i) as? TileItem
             item?.tileView?.data = Array(tileData!.tiles![i*64..<i*64+64])
