@@ -32,8 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         myFileDialog.runModal()
         if let path = myFileDialog.url?.path {
             self.loadFileWith(path: path)
-            _ = self.recentFiles(addPath: path)
             addFilePathToRecentFiles(path: path)
+            _ = self.recentFiles(addPath: path)
             self.pathOfFile = path
         }
     }
@@ -92,11 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     func addFilePathToRecentFiles(path: String) {
-        if openRecent?.hasSubmenu != nil {
-            let subMenu = openRecent?.submenu
-            let menuItem = NSMenuItem(title: path, action: #selector(loadRecentItemSelected(sender:)), keyEquivalent: "")
-            subMenu?.addItem(menuItem)
-        }
+        NSDocumentController.shared().noteNewRecentDocumentURL(URL(fileURLWithPath: path))
     }
     func recentFiles(addPath: String?) -> Array<String> {
         let userDefaults = UserDefaults.standard
@@ -146,6 +142,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let data = vc.tileData?.processedData {
             _ = FileLoader.saveEditedFileTo(path: path, data: data)
         }
+    }
+    
+    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        
+        self.loadFileWith(path: filename)
+        
+        return true
     }
 }
 

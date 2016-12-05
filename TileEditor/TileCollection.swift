@@ -9,6 +9,18 @@
 import Foundation
 import Cocoa
 
+enum ZoomSize: UInt {
+    case x1 = 1
+    case x2 = 2
+    case x4 = 4
+    case x8 = 8
+    case x16 = 16
+}
+
+protocol TileCollectionProtocol {
+    func tiles(selected: [[Int]], zoomSize: ZoomSize)
+}
+
 class TileView: NSView {
     var dimensionOfTile: Int = 8
     var data: [Int] = []
@@ -169,11 +181,9 @@ class TileCollection: NSObject {
             item?.tileView?.data = Array(tileData!.tiles![i*64..<i*64+64])
             item?.tileView?.needsDisplay = true
         }
-    
     }
     
     func getItemStarting(at position: Int) -> [Int]? {
-        
         guard let allTiles = tileData, let tData = allTiles.tiles else {
             NSLog("ERROR: No tile data")
             return nil
@@ -305,8 +315,8 @@ extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
         
         tileCollectionDelegate?.tiles(selected: ret, zoomSize: .x4)
     }
-    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
-        
+    func collectionView(_ collectionView: NSCollectionView,
+                        didDeselectItemsAt indexPaths: Set<IndexPath>) {
         for st in selectedTiles {
             let item = collectionView.item(at: st) as? TileItem
             item?.setHighlight(value: false)

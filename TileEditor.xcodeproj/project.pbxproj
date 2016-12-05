@@ -14,7 +14,6 @@
 		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997A1DCE6733001D259A /* PaletteOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16799791DCE6733001D259A /* PaletteOptions.swift */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
-		D167CB491DC58D1D0035C7D9 /* FileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167CB481DC58D1D0035C7D9 /* FileViewer.swift */; };
 		D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FA21DC9709D00E2F459 /* FileLoader.swift */; };
 		D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* ViewController.swift */; };
@@ -32,7 +31,6 @@
 		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D16799791DCE6733001D259A /* PaletteOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteOptions.swift; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
-		D167CB481DC58D1D0035C7D9 /* FileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewer.swift; sourceTree = "<group>"; };
 		D19C6FA21DC9709D00E2F459 /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		D1A2E6E71DC41EBE00529519 /* TileEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 				D15751001DE21DAD001394F7 /* TileCollection.swift */,
 				D1465ECE1DC46097003D1C43 /* PaletteButton.swift */,
 				D1465ECC1DC45AFB003D1C43 /* PaletteSelector.swift */,
-				D167CB481DC58D1D0035C7D9 /* FileViewer.swift */,
 				D1A2E6F91DC4208B00529519 /* TileEditor.swift */,
 				D16799791DCE6733001D259A /* PaletteOptions.swift */,
 				D167997B1DCE6B6C001D259A /* TileDrawer.swift */,
@@ -185,7 +182,6 @@
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,
 				D11673591DCAAFC4009F52CB /* TileData.swift in Sources */,
 				D167997A1DCE6733001D259A /* PaletteOptions.swift in Sources */,
-				D167CB491DC58D1D0035C7D9 /* FileViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
