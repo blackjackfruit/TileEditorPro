@@ -18,10 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func newFile(_ sender: AnyObject) {
         let sampleData = Data(count: 8192)
-        let tileData = TileData(data: sampleData)
-        tileData.type = .nes
+        let tileData = TileData(data: sampleData, type: .none)
         vc?.tileData = tileData
         vc?.tileDataType = .nes
+        vc?.zoomSize = .x4
         vc?.update()
         
         self.pathOfFile = nil
@@ -61,8 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
         
         let sampleData = Data(count: 8192)
-        let tileData = TileData(data: sampleData)
-        tileData.type = .nes
+        let tileData = TileData(data: sampleData, type: .none)
         vc?.tileData = tileData
         vc?.tileDataType = .nes
         vc?.update()
@@ -122,12 +121,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         do {
             if let data: Data = try FileLoader.fileForEditing(path: path) {
-                vc?.zoomSize = .x4
+                let fileType = FileLoader.checkType(data: data)
+                var tileData: TileData? = nil
+                switch fileType {
+                case .nes:
+                    tileData = TileData(data: data, type: .nes)
+                case .none:
+                    tileData = TileData(data: data, type: .none)
+                case .unknown:
+                    return
+                }
                 
-                let tileData = TileData(data: data)
-                tileData.type = .nes
+                if tileData == nil {
+                    let alert = NSAlert()
+                    alert.messageText = "Error"
+                    alert.informativeText = "Could not load file"
+                    alert.runModal()
+                    return
+                }
+                
                 vc?.tileData = tileData
+                vc?.tileDataType = .nes
+                vc?.zoomSize = .x4
                 vc?.update()
+                
             } else {
                 // TODO: some error
             }

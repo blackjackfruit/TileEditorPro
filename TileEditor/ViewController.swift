@@ -52,8 +52,10 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             case TileDataType.nes:
                 pixelsPerTile = 8
             case .none:
-                NSLog("View controller did not set tile data type, thus we cannot draw anything")
-                return
+                pixelsPerTile = 8
+        case .unknown:
+            NSLog("View controller did not set tile data type, thus we cannot draw anything")
+            return
         }
         
         tileEditor?.tileData = tileData

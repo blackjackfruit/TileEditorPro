@@ -171,7 +171,7 @@ class TileCollection: NSObject {
         viewer.collectionViewLayout = flowLayout
         
         let nib = NSNib.init(nibNamed: "TileItem", bundle: Bundle.main)
-        tileCollectionViewer?.register(nib, forItemWithIdentifier: "TileItem")
+        viewer.register(nib, forItemWithIdentifier: "TileItem")
         viewer.reloadData()
     }
     
@@ -194,8 +194,13 @@ class TileCollection: NSObject {
             NSLog("ERROR: Attempted to get item at index out of bounds")
             return nil
         }
-        
-        let ret = tData[startingLocation..<startingLocation+sizeOfTile]
+        var endingLocation = 0
+        if startingLocation+sizeOfTile > tData.count {
+            endingLocation = startingLocation
+        }else {
+            endingLocation = startingLocation+sizeOfTile
+        }
+        let ret = tData[startingLocation..<endingLocation]
         return Array(ret)
     }
     func tileSelection(from tileNumber: IndexPath, dimension: Int) -> IndexPath {
@@ -254,6 +259,7 @@ class TileCollection: NSObject {
     
     func setHighlightedArea(startingIndex index: IndexPath, dimension: Int) -> Bool{
         guard let tcv = tileCollectionViewer else {
+            NSLog("WARN: tileCollectionViewer is nil")
             return false
         }
         
@@ -281,6 +287,7 @@ extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
         let item = collectionView.makeItem(withIdentifier: "TileItem", for: indexPath as IndexPath) as! TileItem
         item.prepareForReuse()
         guard let tileData = getItemStarting(at: indexPath.item) else {
+            NSLog("WANR: item starting at index failed. returning empty TileItem")
             return item
         }
         item.isSelected = self.selectedTiles.contains(indexPath.item)
@@ -293,6 +300,7 @@ extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else {
+            NSLog("WARN: didSelectItemsAt index path was zero")
             return
         }
         let dimension = 4

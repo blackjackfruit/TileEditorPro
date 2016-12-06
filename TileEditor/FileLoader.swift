@@ -41,4 +41,15 @@ class FileLoader {
         return true
     }
     
+    static func checkType(data: Data) -> TileDataType {
+        if data.count >= 16 {
+            let subdata = data.subdata(in: 0..<3)
+            let dataFormat = "NES".data(using: String.Encoding.utf8)
+            
+            if subdata == dataFormat {
+                return .nes
+            }
+        }
+        return .none
+    }
 }

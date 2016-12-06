@@ -9,14 +9,15 @@
 import Foundation
 
 enum TileDataType {
+    case unknown
     case none
     case nes
     
     func numberOfPixels() -> Int {
         switch self {
-        case .nes:
+        case .nes, .none:
             return 8
-        case .none:
+        case .unknown:
             return -1
         }
     }
@@ -27,52 +28,55 @@ class TileData {
     fileprivate var currentTileDataType: TileDataType = .none
     fileprivate var dataInternal: Data? = nil
     
-    var type: TileDataType {
-        get {
-            return currentTileDataType
-        }
-        set {
-            if currentTileDataType != newValue {
-                currentTileDataType = newValue
-            }
-        }
-    }
+    private (set) var type: TileDataType
     var originalData: Data? = nil
-    var processedData: Data? {
-        return nesTiles()
-    }
+    var processedData: Data? = nil
     var tiles: [Int]? = nil
     
-    init(data: Data) {
+    init?(data: Data, type: TileDataType) {
         NSLog("Creating new TileData object")
         self.originalData = data
-        self.tiles = nesTiles()
-        NSLog("Finished creating TileData object")
+        self.type = type
+        
+        switch type {
+        case .none:
+            self.tiles = self.rawTiles(data: data)
+        case .nes:
+            let tArray = tileArray(data: data)
+            self.tiles = self.nesTiles(fromArray: tArray)
+        case .unknown:
+            NSLog("Could not create TileData object")
+            return nil
+        }
+        
+        if self.tiles != nil {
+            NSLog("Finished creating '\(type)' type for TileData object")
+        } else {
+            return nil
+        }
+        
     }
     
     func numberOfTiles() -> Int {
-        guard let data = originalData else {
+        guard let tiles = tiles else {
             return 0
         }
         var num = 0
-        if data.count == 0 {
+        if tiles.count == 0 {
             return 0
         }
         switch type {
         case .nes:
-            num = data.count/16
+            num = tiles.count/64
             break
         case .none:
+            num = tiles.count/64
             break
+        default: break
         }
         return num
     }
-    
-    func nesTiles() -> [Int]? {
-        guard let data = originalData else {
-            return nil
-        }
-        NSLog("Start processing NES file")
+    internal func tileArray(data: Data) ->[Int] {
         let offset = 8
         var output: [Int] = []
         var r = 0
@@ -86,12 +90,22 @@ class TileData {
             }
             r += 16
         }
-        NSLog("Finished processing NES file")
-        NSLog("Number of tiles: \(output.count)")
-        tiles = output
         return output
     }
-    func nesTiles() -> Data? {
+    internal func rawTiles(data: Data) -> [Int]? {
+        guard let data = originalData else {
+            return nil
+        }
+        let output = tileArray(data: data)
+        return output
+    }
+    internal func nesTiles(fromArray: [Int]) -> [Int]? {
+        let ret = Array(fromArray[64..<fromArray.count])
+        NSLog("Start processing NES file")
+        NSLog("Finished processing NES file")
+        return ret
+    }
+    internal func nesTiles() -> Data? {
         guard let tiles = tiles else {
             NSLog("Tiles is nil")
             return nil
