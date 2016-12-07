@@ -15,7 +15,6 @@ class TileDrawer: NSView {
                                 numberOfSquaresVertically: Int,
                                 numberOfSquaresHorizontally: Int)
         -> (x:Array<CGFloat>,y: Array<CGFloat>)? {
-            let sizePerPixelHorizontal = CGFloat(width/CGFloat(numberOfSquaresHorizontally))
             let sizePerPixelVertical = CGFloat(height/CGFloat(numberOfSquaresVertically))
             
             var x = Array<CGFloat>()

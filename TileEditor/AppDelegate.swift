@@ -156,7 +156,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let vc = vc else {
             return
         }
-        if let data = vc.tileData?.processedData {
+        if let data = vc.tileData?.modifiedData {
             _ = FileLoader.saveEditedFileTo(path: path, data: data)
         }
     }
@@ -164,6 +164,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         
         self.loadFileWith(path: filename)
+        self.pathOfFile = filename
         
         return true
     }

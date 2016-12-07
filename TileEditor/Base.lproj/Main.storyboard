@@ -414,9 +414,7 @@
                                         <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="238"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="1" id="B9c-1q-cyu">
-                                                <size key="itemSize" width="50" height="50"/>
-                                            </collectionViewFlowLayout>
+                                            <collectionViewGridLayout key="collectionViewLayout" id="lLQ-3l-boh"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="sOO-N1-WHX" id="4cb-U6-PzF"/>

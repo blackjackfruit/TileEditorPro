@@ -232,7 +232,7 @@ class TileEditor: TileDrawer {
             var gridCursorX = 0
             var gridCursorY = 0
             let dimensionOfTile = 60
-            for y in 0..<Int(zoomSize.rawValue) {
+            for _ in 0..<Int(zoomSize.rawValue) {
                 for _ in 0..<Int(zoomSize.rawValue) {
                     ctx.setFillColor(NSColor.clear.cgColor)
                     let box = CGRect(x: gridCursorX,

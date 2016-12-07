@@ -160,15 +160,17 @@ class TileCollection: NSObject {
         
         self.numberOfRows = numberOfTilesVertically
         
-        let dimensionPerTile = viewer.frame.size.width/CGFloat(numberOfTilesHorizontally)
-        let dimension = NSSize(width: dimensionPerTile, height: dimensionPerTile)
-        let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = dimension
-        flowLayout.sectionInset = EdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-        flowLayout.minimumInteritemSpacing = 0.0
-        flowLayout.minimumLineSpacing = 0.0
-        viewer.collectionViewLayout = nil
-        viewer.collectionViewLayout = flowLayout
+        // Let's not set up the collectionViewLayout to flow layout if it's already a flow layout
+        if (viewer.collectionViewLayout is NSCollectionViewFlowLayout) == false {
+            let dimensionPerTile = viewer.frame.size.width/CGFloat(numberOfTilesHorizontally)
+            let dimension = NSSize(width: dimensionPerTile, height: dimensionPerTile)
+            let flowLayout = NSCollectionViewFlowLayout()
+            flowLayout.itemSize = dimension
+            flowLayout.sectionInset = EdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+            flowLayout.minimumInteritemSpacing = 0.0
+            flowLayout.minimumLineSpacing = 0.0
+            viewer.collectionViewLayout = flowLayout
+        }
         
         let nib = NSNib.init(nibNamed: "TileItem", bundle: Bundle.main)
         viewer.register(nib, forItemWithIdentifier: "TileItem")
@@ -271,7 +273,6 @@ class TileCollection: NSObject {
 }
 
 extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
-    
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let tileCount = tileData?.numberOfTiles() else {
             return 0

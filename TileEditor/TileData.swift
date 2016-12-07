@@ -30,7 +30,15 @@ class TileData {
     
     private (set) var type: TileDataType
     var originalData: Data? = nil
-    var processedData: Data? = nil
+    var modifiedData: Data? {
+        switch type {
+        case .nes:
+            return nesTileFormat()
+        default:
+            return unknownTileFormat()
+        }
+    }
+    var formatHeader: Data? = nil
     var tiles: [Int]? = nil
     
     init?(data: Data, type: TileDataType) {
@@ -42,6 +50,7 @@ class TileData {
         case .none:
             self.tiles = self.rawTiles(data: data)
         case .nes:
+            formatHeader = data.subdata(in: 0..<16)
             let tArray = tileArray(data: data)
             self.tiles = self.nesTiles(fromArray: tArray)
         case .unknown:
@@ -56,7 +65,6 @@ class TileData {
         }
         
     }
-    
     func numberOfTiles() -> Int {
         guard let tiles = tiles else {
             return 0
@@ -105,7 +113,15 @@ class TileData {
         NSLog("Finished processing NES file")
         return ret
     }
-    internal func nesTiles() -> Data? {
+    internal func unknownTileFormat() -> Data? {
+        return formatTileData(usingHeader: nil)
+    }
+    // adds nes header to tile array before returning data
+    internal func nesTileFormat() -> Data? {
+        return formatTileData(usingHeader: formatHeader)
+    }
+    
+    internal func formatTileData(usingHeader: Data?) -> Data? {
         guard let tiles = tiles else {
             NSLog("Tiles is nil")
             return nil
@@ -167,6 +183,7 @@ class TileData {
         
         return Data(bytes: UnsafeRawPointer(v), count: 8192)
     }
+    
     private func returnRowOfPixelValues(channelA: UInt8, channelB: UInt8) -> [Int] {
         var byte: [Int] = []
         
