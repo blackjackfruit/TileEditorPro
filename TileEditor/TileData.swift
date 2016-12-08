@@ -114,22 +114,24 @@ class TileData {
         return ret
     }
     internal func unknownTileFormat() -> Data? {
-        return formatTileData(usingHeader: nil)
+        return formatTileDataAsNES(usingHeader: nil)
     }
     // adds nes header to tile array before returning data
     internal func nesTileFormat() -> Data? {
-        return formatTileData(usingHeader: formatHeader)
+        
+        return formatTileDataAsNES(usingHeader: formatHeader)
     }
     
-    internal func formatTileData(usingHeader: Data?) -> Data? {
+    internal func formatTileDataAsNES(usingHeader: Data?) -> Data? {
         guard let tiles = tiles else {
             NSLog("Tiles is nil")
             return nil
         }
         //TODO: check if data is the right size to save
+        let dataSize = tiles.count/4
+        let headerSize = usingHeader?.count
         
-        let capacity = tiles.count/4
-        let v = UnsafeMutablePointer<UInt8>.allocate(capacity: capacity)
+        let v = UnsafeMutablePointer<UInt8>.allocate(capacity: dataSize)
         let stride = 8
         var startingIndexOfTile = 0
         var endingIndexOfTile = stride
@@ -137,12 +139,12 @@ class TileData {
         var fileOffset = 0
         var tileNumber = 0
         var numberOfRowsOfTileProcessed = 0
-        repeat {
-            let rowOfBytes = tiles[startingIndexOfTile..<endingIndexOfTile]
+        
+        func rowToBytes(row: ArraySlice<Int>) -> (byte1: UInt8, byte2: UInt8) {
             var byte1: UInt8 = 0
             var byte2: UInt8 = 0
             
-            for x in rowOfBytes {
+            for x in row {
                 if x == 0 {
                     byte1 = byte1 << 1
                     byte2 = byte2 << 1
@@ -163,6 +165,13 @@ class TileData {
                     byte2 = byte2 | 1
                 }
             }
+            return (byte1, byte2)
+        }
+        
+        repeat {
+            let rowOfBytes = tiles[startingIndexOfTile..<endingIndexOfTile]
+            
+            let (byte1, byte2) = rowToBytes(row: rowOfBytes)
             
             v[fileOffset] = byte1
             v[fileOffset+8] = byte2
@@ -181,7 +190,11 @@ class TileData {
             
         }while(endingIndexOfTile < tiles.count)
         
-        return Data(bytes: UnsafeRawPointer(v), count: 8192)
+        let tileData = Data(bytes: UnsafeRawPointer(v), count: dataSize)
+        if usingHeader != nil {
+            return usingHeader! + tileData
+        }
+        return tileData
     }
     
     private func returnRowOfPixelValues(channelA: UInt8, channelB: UInt8) -> [Int] {
