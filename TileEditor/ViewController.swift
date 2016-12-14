@@ -12,10 +12,10 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     
     @IBOutlet var tileEditor: TileEditor?
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
-    @IBOutlet var paletteSelection: PaletteSelector?
+    @IBOutlet var paletteSelector: PaletteSelector?
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
-    @IBOutlet weak var paletteGroups: PaletteOptions!
-    @IBOutlet weak var colorSelection: PaletteOptions!
+    @IBOutlet weak var paletteSelection: PaletteSelections?
+    @IBOutlet weak var paletteColors: PaletteColors?
     
     @IBOutlet var tileCollection: TileCollection?
     
@@ -28,13 +28,13 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        paletteSelection?.paletteSelectinoDelegate = self
+        paletteSelector?.paletteSelectinoDelegate = self
         tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
         
         tileCollection?.tileCollectionDelegate = self
         
         tileEditor?.delegate = self
-        tileEditor?.colorFromPalette = paletteSelection!.currentPalette
+        tileEditor?.colorFromPalette = paletteSelector!.currentPalette
         tileEditor?.numberOfPixelsPerTile = 8
         tileEditor?.numberOfPixelsPerView = 8
         

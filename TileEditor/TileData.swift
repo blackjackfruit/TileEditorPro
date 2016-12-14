@@ -188,7 +188,7 @@ class TileData {
             startingIndexOfTile += stride
             endingIndexOfTile += stride
             
-        }while(endingIndexOfTile < tiles.count)
+        }while(endingIndexOfTile <= tiles.count)
         
         let tileData = Data(bytes: UnsafeRawPointer(v), count: dataSize)
         if usingHeader != nil {

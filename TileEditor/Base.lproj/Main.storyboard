@@ -234,44 +234,44 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="PaletteSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="75" y="5" width="240" height="40"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-0s-uzn" customClass="AMPathPopUpButton">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-0s-uzn" userLabel="1stButton" customClass="AMPathPopUpButton">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
                                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" alignment="center" inset="2" id="P4q-Zg-FD6">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="button_oneWithSelector:" target="Dwl-Ls-nzb" id="Faj-Ed-ew0"/>
+                                            <action selector="button_oneWithSelector:" target="Dwl-Ls-nzb" id="H0t-iG-UZ8"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-9L-1mr" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-9L-1mr" userLabel="2ndButton" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
                                         <rect key="frame" x="60" y="0.0" width="60" height="40"/>
                                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" alignment="center" imageScaling="proportionallyDown" inset="2" id="S5Z-SY-8Jo">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="button_twoWithSelector:" target="Dwl-Ls-nzb" id="GNf-Fz-F9Y"/>
+                                            <action selector="button_twoWithSelector:" target="Dwl-Ls-nzb" id="yu4-8W-xYw"/>
                                         </connections>
                                     </button>
-                                    <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d0l-Hl-W72" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
+                                    <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d0l-Hl-W72" userLabel="4thButton" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
                                         <rect key="frame" x="180" y="0.0" width="60" height="40"/>
                                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" alignment="center" imageScaling="proportionallyDown" inset="2" id="4dQ-yy-kbQ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="button_fourWithSelector:" target="Dwl-Ls-nzb" id="KUM-nI-aYd"/>
+                                            <action selector="button_fourWithSelector:" target="Dwl-Ls-nzb" id="hI2-MC-57a"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i5J-bm-Vu0" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i5J-bm-Vu0" userLabel="3rdButton" customClass="PaletteButton" customModule="TileEditor" customModuleProvider="target">
                                         <rect key="frame" x="120" y="0.0" width="60" height="40"/>
                                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" alignment="center" imageScaling="proportionallyDown" inset="2" id="xlW-wq-GFe">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="systemBold" size="12"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="button_threeWithSelector:" target="Dwl-Ls-nzb" id="wbu-Rc-yGV"/>
+                                            <action selector="button_threeWithSelector:" target="Dwl-Ls-nzb" id="6Zu-su-K22"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -295,10 +295,10 @@
                                     <constraint firstAttribute="bottom" secondItem="TRC-0s-uzn" secondAttribute="bottom" id="zcf-IL-mCT"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="button_four" destination="d0l-Hl-W72" id="QKp-pl-9k2"/>
-                                    <outlet property="button_one" destination="TRC-0s-uzn" id="V5I-a9-ekq"/>
-                                    <outlet property="button_three" destination="i5J-bm-Vu0" id="WrE-pY-a8g"/>
-                                    <outlet property="button_two" destination="MTG-9L-1mr" id="bnz-Vx-sAL"/>
+                                    <outlet property="button_four" destination="d0l-Hl-W72" id="GZa-NX-JNW"/>
+                                    <outlet property="button_one" destination="TRC-0s-uzn" id="WoN-0O-sCn"/>
+                                    <outlet property="button_three" destination="i5J-bm-Vu0" id="fdy-2w-eBD"/>
+                                    <outlet property="button_two" destination="MTG-9L-1mr" id="HPr-A8-22Q"/>
                                 </connections>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fe-1F-rz2">
@@ -370,7 +370,7 @@
                                     <action selector="tileEditorSizeChanged:" target="XfG-lQ-9wD" id="EVW-LL-nK7"/>
                                 </connections>
                             </popUpButton>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" customClass="PaletteOptions" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" customClass="PaletteColors" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="573" y="72" width="125" height="214"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mwG-3s-24K">
@@ -388,7 +388,7 @@
                                     <constraint firstItem="mwG-3s-24K" firstAttribute="centerY" secondItem="UYc-Kk-XNE" secondAttribute="centerY" id="qMD-bB-Iq5"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" customClass="PaletteOptions" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" customClass="PaletteSelections" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="323" y="5" width="241" height="40"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XaI-ey-U2I">
@@ -467,7 +467,7 @@
                     <connections>
                         <outlet property="colorSelection" destination="UYc-Kk-XNE" id="mbW-7P-WlP"/>
                         <outlet property="paletteGroups" destination="XSG-tK-hpz" id="TMS-Nf-5rc"/>
-                        <outlet property="paletteSelection" destination="Dwl-Ls-nzb" id="awJ-40-cjn"/>
+                        <outlet property="paletteSelector" destination="Dwl-Ls-nzb" id="Wpi-9W-kJP"/>
                         <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
