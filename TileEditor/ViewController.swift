@@ -14,8 +14,8 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     @IBOutlet var paletteSelector: PaletteSelector?
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
-    @IBOutlet weak var paletteSelection: PaletteSelections?
-    @IBOutlet weak var paletteColors: PaletteColors?
+    @IBOutlet weak var selectableColors: ColorSelector?
+    @IBOutlet weak var selectablePalettes: ColorSelector?
     
     @IBOutlet var tileCollection: TileCollection?
     
@@ -38,7 +38,28 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         tileEditor?.numberOfPixelsPerTile = 8
         tileEditor?.numberOfPixelsPerView = 8
         
-        //tileViewerScrollView?.backgroundColor = NSColor.clear
+        // Default Colors for the palettes selections
+        selectablePalettes?.palettes = [Palette(), Palette(), Palette(), Palette(),
+                                        Palette(), Palette(), Palette(), Palette()]
+        selectablePalettes?.numberOfColorsHorizontally = 16
+        selectablePalettes?.update()
+        
+        // Default colors for the available colors
+        let nesColors = Palette()
+        nesColors.colors = [
+            CGColor.init(red: 0.486, green: 0.486, blue: 0.486, alpha: 1.0),
+            CGColor.init(red: 0.000, green: 0.000, blue: 0.988, alpha: 1.0),
+            CGColor.init(red: 0.000, green: 0.000, blue: 0.737, alpha: 1.0),
+            CGColor.init(red: 0.266, green: 0.156, blue: 0.737, alpha: 1.0),
+            CGColor.init(red: 0.580, green: 0.000, blue: 0.518, alpha: 1.0),
+            CGColor.init(red: 0.659, green: 0.000, blue: 0.125, alpha: 1.0),
+            CGColor.init(red: 0.659, green: 0.063, blue: 0.000, alpha: 1.0),
+            CGColor.init(red: 0.533, green: 0.078, blue: 0.000, alpha: 1.0)
+        ]
+        selectableColors?.palettes = [nesColors]
+        selectableColors?.numberOfColorsHorizontally = 8
+        selectableColors?.useFullView = false
+        selectableColors?.update()
     }
     func update() {
         NSLog("Request to update views")

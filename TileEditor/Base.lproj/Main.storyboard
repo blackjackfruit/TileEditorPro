@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -370,40 +370,14 @@
                                     <action selector="tileEditorSizeChanged:" target="XfG-lQ-9wD" id="EVW-LL-nK7"/>
                                 </connections>
                             </popUpButton>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" customClass="PaletteColors" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="ColorSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="573" y="72" width="125" height="214"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mwG-3s-24K">
-                                        <rect key="frame" x="34" y="99" width="57" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disabled" id="xbW-oH-hJz">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
                                 <constraints>
-                                    <constraint firstItem="mwG-3s-24K" firstAttribute="centerX" secondItem="UYc-Kk-XNE" secondAttribute="centerX" id="PZ1-Vn-cls"/>
                                     <constraint firstAttribute="width" constant="125" id="gIT-Bg-Akd"/>
-                                    <constraint firstItem="mwG-3s-24K" firstAttribute="centerY" secondItem="UYc-Kk-XNE" secondAttribute="centerY" id="qMD-bB-Iq5"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" customClass="PaletteSelections" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="ColorSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="323" y="5" width="241" height="40"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XaI-ey-U2I">
-                                        <rect key="frame" x="92" y="11" width="57" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disabled" id="RHT-aV-K49">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="XaI-ey-U2I" firstAttribute="centerX" secondItem="XSG-tK-hpz" secondAttribute="centerX" id="PGt-AP-Tgd"/>
-                                    <constraint firstItem="XaI-ey-U2I" firstAttribute="centerY" secondItem="XSG-tK-hpz" secondAttribute="centerY" id="fzt-Jr-GPm"/>
-                                </constraints>
                             </customView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5">
                                 <rect key="frame" x="323" y="46" width="242" height="240"/>
@@ -468,6 +442,8 @@
                         <outlet property="colorSelection" destination="UYc-Kk-XNE" id="mbW-7P-WlP"/>
                         <outlet property="paletteGroups" destination="XSG-tK-hpz" id="TMS-Nf-5rc"/>
                         <outlet property="paletteSelector" destination="Dwl-Ls-nzb" id="Wpi-9W-kJP"/>
+                        <outlet property="selectableColors" destination="UYc-Kk-XNE" id="EFP-Lb-YAZ"/>
+                        <outlet property="selectablePalettes" destination="XSG-tK-hpz" id="1wS-LL-7rE"/>
                         <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
