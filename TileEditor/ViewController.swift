@@ -54,7 +54,12 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             CGColor.init(red: 0.580, green: 0.000, blue: 0.518, alpha: 1.0),
             CGColor.init(red: 0.659, green: 0.000, blue: 0.125, alpha: 1.0),
             CGColor.init(red: 0.659, green: 0.063, blue: 0.000, alpha: 1.0),
-            CGColor.init(red: 0.533, green: 0.078, blue: 0.000, alpha: 1.0)
+            CGColor.init(red: 0.533, green: 0.078, blue: 0.000, alpha: 1.0),
+            CGColor.init(red: 0.737, green: 0.737, blue: 0.737, alpha: 1.0),
+            CGColor.init(red: 0.000, green: 0.471, blue: 0.973, alpha: 1.0),
+            CGColor.init(red: 0.000, green: 0.345, blue: 0.973, alpha: 1.0),
+//            CGColor.init(red: 0.000, green: 0.0, blue: 0.0, alpha: 1.0)
+            
         ]
         selectableColors?.palettes = [nesColors]
         selectableColors?.numberOfColorsHorizontally = 8
