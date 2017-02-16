@@ -8,14 +8,15 @@
 
 import Cocoa
 
-class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProtocol, TileCollectionProtocol {
+class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
     
     @IBOutlet var tileEditor: TileEditor?
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
-    @IBOutlet var paletteSelector: PaletteSelector?
+    
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
-    @IBOutlet weak var selectableColors: ColorSelector?
-    @IBOutlet weak var selectablePalettes: ColorSelector?
+    @IBOutlet weak var selectableColors: BoxSelector?
+    @IBOutlet weak var selectablePalettes: BoxSelector?
+    @IBOutlet weak var colorSelector: BoxSelector?
     
     @IBOutlet var tileCollection: TileCollection?
     
@@ -28,21 +29,13 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        paletteSelector?.paletteSelectinoDelegate = self
         tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
         
         tileCollection?.tileCollectionDelegate = self
         
         tileEditor?.delegate = self
-        tileEditor?.colorFromPalette = paletteSelector!.currentPalette
         tileEditor?.numberOfPixelsPerTile = 8
         tileEditor?.numberOfPixelsPerView = 8
-        
-        // Default Colors for the palettes selections
-        selectablePalettes?.palettes = [Palette(), Palette(), Palette(), Palette(),
-                                        Palette(), Palette(), Palette(), Palette()]
-        selectablePalettes?.numberOfColorsHorizontally = 16
-        selectablePalettes?.update()
         
         // Default colors for the available colors
         let nesColors = Palette()
@@ -59,11 +52,28 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
             CGColor.init(red: 0.000, green: 0.471, blue: 0.973, alpha: 1.0),
             CGColor.init(red: 0.000, green: 0.345, blue: 0.973, alpha: 1.0),
 //            CGColor.init(red: 0.000, green: 0.0, blue: 0.0, alpha: 1.0)
-            
         ]
+        
+        colorSelector?.palettes = [Palette()]
+        colorSelector?.numberOfColorsHorizontally = 4
+        colorSelector?.boxHighlighter = true
+        colorSelector?.useFullView = true
+        colorSelector?.delegate = self
+        colorSelector?.update()
+        
+        // Default Colors for the palettes selections
+        selectablePalettes?.palettes = [Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette()]
+        selectablePalettes?.numberOfColorsHorizontally = 16
+        selectablePalettes?.paletteHighlighter = true
+        selectablePalettes?.boxHighlighter = false
+        selectablePalettes?.delegate = self
+        selectablePalettes?.update()
+        
         selectableColors?.palettes = [nesColors]
         selectableColors?.numberOfColorsHorizontally = 8
         selectableColors?.useFullView = false
+        selectableColors?.boxHighlighter = true
+        selectableColors?.delegate = self
         selectableColors?.update()
     }
     func update() {
@@ -108,11 +118,9 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         default:
             zoomSize = .x8
         }
-
-//        fileViewer?.updateView(zoomSize: zoomSize)
     }
     
-    //MARK: TileViewEditor Protocols
+    //MARK: TileEditor Protocols
     func pixelDataChanged(tileNumbers: [Int]) {
         guard let tileCollection = tileCollection else {
             NSLog("WARN: No tile viewer set")
@@ -122,7 +130,7 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         tileCollection.update(tileNumbers: tileNumbers)
     }
     
-    //MARK: FileViewer Protocols
+    //MARK: FileCollection Protocols
     internal func tiles(selected: [[Int]], zoomSize: ZoomSize) {
         tileEditor?.tilesSelected = selected
         tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)*pixelsPerTile
@@ -130,9 +138,49 @@ class ViewController: NSViewController, TileEditorProtocol, PaletteSelectorProto
         tileEditor?.update()
     }
     
-    //MARK: PaletteSelection
-    func paletteSelectionChanged(value: Int, paletteType: Int) {
-        tileEditor?.colorFromPalette = value
+    //MARK: BoxSelector
+    var previouslySetSelectablePalette = 0
+    // This function will be called different times depending on which selector (selectablePalettes/selectableColors) is called.
+    func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
+        if boxSelector == colorSelector {
+            selectablePalettes?.selectedBox = palette.box
+            tileEditor?.colorFromPalette = palette.box
+        }
+        else if boxSelector == selectablePalettes {
+            guard let newColorPalette = selectablePalettes?.palettes[palette.number] else {
+                NSLog("Failed to get the newColorPalette to update colorSelector")
+                return
+            }
+            if palette.number != previouslySetSelectablePalette {
+                colorSelector?.palettes[0] = newColorPalette
+                previouslySetSelectablePalette = palette.number
+            }
+            
+            tileEditor?.colorPalette = newColorPalette
+            tileEditor?.update()
+            
+            colorSelector?.update()
+        }
+        // If a different color is selected from selectableColors, update the color for the colorSelector and the box selected from selectablePalettes
+        else if boxSelector == selectableColors {
+            let colorSelected = selectableColors?.palettes[palette.number].colors[palette.box]
+            guard let selectedBoxSelectablePalette = selectablePalettes?.palette else {
+                NSLog("Failed: selectedBoxSelectablePalette")
+                return
+            }
+            guard let selectedBoxColorSelector = colorSelector?.palette else {
+                NSLog("Failed: selectedBoxSelectablePalette")
+                return
+            }
+            
+            let paletteForSelectablePalettes = selectablePalettes?.currentPaletteSelected
+            paletteForSelectablePalettes?.colors[selectedBoxColorSelector.box] = colorSelected!
+            
+            let paletteForColorsSelector = colorSelector?.currentPaletteSelected
+            paletteForColorsSelector?.colors[selectedBoxColorSelector.box] = colorSelected!
+            
+            selectablePalettes?.update()
+        }
     }
 }
 
