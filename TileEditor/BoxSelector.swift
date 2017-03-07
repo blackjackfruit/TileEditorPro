@@ -8,30 +8,6 @@
 
 import Foundation
 import Cocoa
-/**
- A palette is a group of colors available for a tile
- */
-class Palette {
-    public var count: Int {
-        get {
-            return colors.count
-        }
-    }
-    public var colors: [CGColor]
-    init() {
-        colors = [NSColor.white.cgColor,
-                  NSColor.lightGray.cgColor,
-                  NSColor.darkGray.cgColor,
-                  NSColor.black.cgColor]
-    }
-    func update(location: Int, color: CGColor) {
-        colors[location] = color
-    }
-}
-
-protocol BoxSelectorDelegate {
-    func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int))
-}
 
 class BoxSelector: NSView {
     
@@ -40,7 +16,7 @@ class BoxSelector: NSView {
     // A palette consists of a number of colors. Palette of different sizes will not work
     var palettes: [Palette] = []
     // The number of palettes should be displayed horizontally. The Tile width will be adjusted accordingly
-    var numberOfColorsHorizontally = 1
+    var numberOfBoxesHorizontally = 1
     var numberOfPalettesHorizontally: Int = 1
     
     var palette: (number: Int, box: Int) = (0,0)
@@ -58,7 +34,7 @@ class BoxSelector: NSView {
             return _boxSelected
         }set {
             let selectedPalette = paletteSelected(boxSelected: newValue,
-                                                  boxesHorizontally: numberOfColorsHorizontally,
+                                                  boxesHorizontally: numberOfBoxesHorizontally,
                                                   paletteSize: numberOfColorsPerPalette)
             palette = selectedPalette
             _boxSelected = newValue
@@ -100,18 +76,18 @@ class BoxSelector: NSView {
         }
         
         self.numberOfPalettes = palettes.count
-        widthPerBox = self.frame.size.width/CGFloat(numberOfColorsHorizontally)
+        widthPerBox = self.frame.size.width/CGFloat(numberOfBoxesHorizontally)
         
         //TODO: Must round in case of odd number
-        let numberOfPalettes = numberOfColorsHorizontally/numberOfColorsPerPalette
+        let numberOfPalettes = numberOfBoxesHorizontally/numberOfColorsPerPalette
         if numberOfPalettes > 0 {
             numberOfPalettesHorizontally = numberOfPalettes
         } else {
             numberOfPalettesHorizontally = 1
         }
         
-        let remainingColors = (self.numberOfPalettes*self.numberOfColorsPerPalette)%numberOfColorsHorizontally
-        let numberOfRows = (self.numberOfPalettes*self.numberOfColorsPerPalette)/numberOfColorsHorizontally
+        let remainingColors = (self.numberOfPalettes*self.numberOfColorsPerPalette)%numberOfBoxesHorizontally
+        let numberOfRows = (self.numberOfPalettes*self.numberOfColorsPerPalette)/numberOfBoxesHorizontally
         if remainingColors != 0 {
             self.numberOfRows = numberOfRows + 1
         } else {
@@ -134,7 +110,7 @@ class BoxSelector: NSView {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if isPaletteSetProperly(), let ctx = NSGraphicsContext.current()?.cgContext {
+        if self.isPaletteSetProperly(), let ctx = NSGraphicsContext.current()?.cgContext {
             // swap coordinate so that 0,0 is top left corner
             ctx.translateBy(x: 0, y: frame.size.height)
             ctx.scaleBy(x: 1, y: -1)
@@ -171,13 +147,13 @@ class BoxSelector: NSView {
             
             
             let selectedPalette = paletteSelected(boxSelected: boxSelected,
-                                                boxesHorizontally: numberOfColorsHorizontally,
+                                                boxesHorizontally: numberOfBoxesHorizontally,
                                                 paletteSize: numberOfColorsPerPalette)
             
             if paletteHighlighter {
                 drawPaletteHighlighter(ctx: ctx,
                                        palette: selectedPalette.number,
-                                       boxesHorizontally: numberOfColorsHorizontally,
+                                       boxesHorizontally: numberOfBoxesHorizontally,
                                        paletteSize: numberOfColorsPerPalette,
                                        width: widthPerBox,
                                        height: heightPerBox)
@@ -197,11 +173,11 @@ class BoxSelector: NSView {
         
         let boxCoordinatePosition = boxPosition(cursorPosition: mouseCursor,
                                                 dimension: self.frame.size,
-                                                numberOfHorizontalBoxes: numberOfColorsHorizontally,
+                                                numberOfHorizontalBoxes: numberOfBoxesHorizontally,
                                                 rows: numberOfRows)
         boxSelected = boxCoordinatePosition
         let selectedPalette = paletteSelected(boxSelected: boxSelected,
-                                              boxesHorizontally: numberOfColorsHorizontally,
+                                              boxesHorizontally: numberOfBoxesHorizontally,
                                               paletteSize: numberOfColorsPerPalette)
         palette = selectedPalette
         needsDisplay = true

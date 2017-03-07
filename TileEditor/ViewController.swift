@@ -55,7 +55,7 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
         ]
         
         colorSelector?.palettes = [Palette()]
-        colorSelector?.numberOfColorsHorizontally = 4
+        colorSelector?.numberOfBoxesHorizontally = 4
         colorSelector?.boxHighlighter = true
         colorSelector?.useFullView = true
         colorSelector?.delegate = self
@@ -63,14 +63,14 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
         
         // Default Colors for the palettes selections
         selectablePalettes?.palettes = [Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette()]
-        selectablePalettes?.numberOfColorsHorizontally = 16
+        selectablePalettes?.numberOfBoxesHorizontally = 16
         selectablePalettes?.paletteHighlighter = true
         selectablePalettes?.boxHighlighter = false
         selectablePalettes?.delegate = self
         selectablePalettes?.update()
         
         selectableColors?.palettes = [nesColors]
-        selectableColors?.numberOfColorsHorizontally = 8
+        selectableColors?.numberOfBoxesHorizontally = 8
         selectableColors?.useFullView = false
         selectableColors?.boxHighlighter = true
         selectableColors?.delegate = self
@@ -163,21 +163,27 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
         }
         // If a different color is selected from selectableColors, update the color for the colorSelector and the box selected from selectablePalettes
         else if boxSelector == selectableColors {
-            let colorSelected = selectableColors?.palettes[palette.number].colors[palette.box]
-            guard let selectedBoxSelectablePalette = selectablePalettes?.palette else {
+            
+            // calculate which color was selected based off of the boxSelected
+            let colorFromPalette = (boxSelector.numberOfBoxesHorizontally*boxSelected.y)+boxSelected.x
+            guard
+                let availableColors = selectableColors?.palettes[0].colors.count,
+                availableColors > colorFromPalette else {
                 NSLog("Failed: selectedBoxSelectablePalette")
                 return
             }
-            guard let selectedBoxColorSelector = colorSelector?.palette else {
+            
+            guard let colorSelected = selectableColors?.palettes[0].colors[colorFromPalette],
+                let selectedBoxColorSelector = colorSelector?.palette else {
                 NSLog("Failed: selectedBoxSelectablePalette")
                 return
             }
             
             let paletteForSelectablePalettes = selectablePalettes?.currentPaletteSelected
-            paletteForSelectablePalettes?.colors[selectedBoxColorSelector.box] = colorSelected!
+            paletteForSelectablePalettes?.colors[selectedBoxColorSelector.box] = colorSelected
             
             let paletteForColorsSelector = colorSelector?.currentPaletteSelected
-            paletteForColorsSelector?.colors[selectedBoxColorSelector.box] = colorSelected!
+            paletteForColorsSelector?.colors[selectedBoxColorSelector.box] = colorSelected
             
             selectablePalettes?.update()
         }

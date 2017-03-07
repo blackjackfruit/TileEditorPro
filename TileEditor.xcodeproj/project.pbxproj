@@ -9,26 +9,29 @@
 /* Begin PBXBuildFile section */
 		D10625501E25DC4B001CF9D8 /* BoxSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */; };
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
-		D1465ECF1DC46097003D1C43 /* PaletteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1465ECE1DC46097003D1C43 /* PaletteButton.swift */; };
+		D148872B1E6E4FC90094A619 /* GeneralColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */; };
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
 		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
+		D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */; };
+		D16913061E6E449A00510216 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16913051E6E449A00510216 /* Palette.swift */; };
 		D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FA21DC9709D00E2F459 /* FileLoader.swift */; };
 		D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* ViewController.swift */; };
 		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
 		D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6F01DC41EBE00529519 /* Main.storyboard */; };
 		D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6F91DC4208B00529519 /* TileEditor.swift */; };
-		D1D0F3BD1DC68A6C00B2B999 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D0F3BC1DC68A6C00B2B999 /* DummyData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelector.swift; sourceTree = "<group>"; };
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
-		D1465ECE1DC46097003D1C43 /* PaletteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteButton.swift; sourceTree = "<group>"; };
+		D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSelector.swift; sourceTree = "<group>"; };
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
 		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
+		D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelectorProtocols.swift; sourceTree = "<group>"; };
+		D16913051E6E449A00510216 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		D19C6FA21DC9709D00E2F459 /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		D1A2E6E71DC41EBE00529519 /* TileEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +40,6 @@
 		D1A2E6F11DC41EBE00529519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1A2E6F31DC41EBE00529519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A2E6F91DC4208B00529519 /* TileEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditor.swift; sourceTree = "<group>"; };
-		D1D0F3BC1DC68A6C00B2B999 /* DummyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,15 +53,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D159C2221E6CE344000791F9 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2E6F91DC4208B00529519 /* TileEditor.swift */,
+				D167997B1DCE6B6C001D259A /* TileDrawer.swift */,
+			);
+			name = Editor;
+			sourceTree = "<group>";
+		};
+		D159C2231E6CE355000791F9 /* FileViewer */ = {
+			isa = PBXGroup;
+			children = (
+				D15751021DE220F6001394F7 /* TileItem.xib */,
+				D15751001DE21DAD001394F7 /* TileCollection.swift */,
+			);
+			name = FileViewer;
+			sourceTree = "<group>";
+		};
+		D159C2241E6CE363000791F9 /* PaletteSelectors */ = {
+			isa = PBXGroup;
+			children = (
+				D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */,
+				D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */,
+				D16913051E6E449A00510216 /* Palette.swift */,
+				D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */,
+			);
+			name = PaletteSelectors;
+			sourceTree = "<group>";
+		};
+		D159C2251E6CE419000791F9 /* FileProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				D11673581DCAAFC4009F52CB /* TileData.swift */,
+				D19C6FA21DC9709D00E2F459 /* FileLoader.swift */,
+			);
+			name = FileProcessing;
+			sourceTree = "<group>";
+		};
 		D19C6FA41DC9725700E2F459 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D15751001DE21DAD001394F7 /* TileCollection.swift */,
-				D1465ECE1DC46097003D1C43 /* PaletteButton.swift */,
-				D1A2E6F91DC4208B00529519 /* TileEditor.swift */,
-				D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */,
-				D167997B1DCE6B6C001D259A /* TileDrawer.swift */,
-				D15751021DE220F6001394F7 /* TileItem.xib */,
+				D159C2241E6CE363000791F9 /* PaletteSelectors */,
+				D159C2231E6CE355000791F9 /* FileViewer */,
+				D159C2221E6CE344000791F9 /* Editor */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -83,15 +120,13 @@
 		D1A2E6E91DC41EBE00529519 /* TileEditor */ = {
 			isa = PBXGroup;
 			children = (
+				D159C2251E6CE419000791F9 /* FileProcessing */,
 				D19C6FA41DC9725700E2F459 /* Views */,
-				D19C6FA21DC9709D00E2F459 /* FileLoader.swift */,
 				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
 				D1A2E6EC1DC41EBE00529519 /* ViewController.swift */,
 				D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */,
 				D1A2E6F01DC41EBE00529519 /* Main.storyboard */,
 				D1A2E6F31DC41EBE00529519 /* Info.plist */,
-				D1D0F3BC1DC68A6C00B2B999 /* DummyData.swift */,
-				D11673581DCAAFC4009F52CB /* TileData.swift */,
 			);
 			path = TileEditor;
 			sourceTree = "<group>";
@@ -169,13 +204,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
-				D1465ECF1DC46097003D1C43 /* PaletteButton.swift in Sources */,
 				D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */,
 				D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */,
 				D10625501E25DC4B001CF9D8 /* BoxSelector.swift in Sources */,
 				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
-				D1D0F3BD1DC68A6C00B2B999 /* DummyData.swift in Sources */,
+				D148872B1E6E4FC90094A619 /* GeneralColorSelector.swift in Sources */,
+				D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
+				D16913061E6E449A00510216 /* Palette.swift in Sources */,
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,
 				D11673591DCAAFC4009F52CB /* TileData.swift in Sources */,
 			);
