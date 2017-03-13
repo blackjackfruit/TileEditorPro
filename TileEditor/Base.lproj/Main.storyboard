@@ -231,7 +231,7 @@
                                     <constraint firstAttribute="width" constant="240" id="OZa-86-p2i"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="BoxSelector" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="ColorSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="75" y="5" width="240" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="saF-6q-cVg"/>
@@ -306,13 +306,13 @@
                                     <action selector="tileEditorSizeChanged:" target="XfG-lQ-9wD" id="EVW-LL-nK7"/>
                                 </connections>
                             </popUpButton>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="BoxSelector" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="573" y="72" width="125" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="gIT-Bg-Akd"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="BoxSelector" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="PaletteSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="323" y="5" width="241" height="40"/>
                             </customView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5">
@@ -375,9 +375,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="colorSelector" destination="Dwl-Ls-nzb" id="DWc-59-WW9"/>
-                        <outlet property="selectableColors" destination="UYc-Kk-XNE" id="UZD-Q9-zs4"/>
-                        <outlet property="selectablePalettes" destination="XSG-tK-hpz" id="0ee-ko-Tfe"/>
+                        <outlet property="generalSelectableColors" destination="UYc-Kk-XNE" id="5kD-Zn-Rhq"/>
+                        <outlet property="selectableColors" destination="Dwl-Ls-nzb" id="wIF-fU-5kq"/>
+                        <outlet property="selectablePalettes" destination="XSG-tK-hpz" id="x8S-8h-l3s"/>
                         <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>

@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D10625501E25DC4B001CF9D8 /* BoxSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */; };
+		D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* Selectors.swift */; };
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
-		D148872B1E6E4FC90094A619 /* GeneralColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */; };
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
 		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
@@ -24,9 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelector.swift; sourceTree = "<group>"; };
+		D106254F1E25DC4B001CF9D8 /* Selectors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
-		D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralColorSelector.swift; sourceTree = "<group>"; };
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
 		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
@@ -74,10 +72,9 @@
 		D159C2241E6CE363000791F9 /* PaletteSelectors */ = {
 			isa = PBXGroup;
 			children = (
-				D106254F1E25DC4B001CF9D8 /* BoxSelector.swift */,
+				D106254F1E25DC4B001CF9D8 /* Selectors.swift */,
 				D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */,
 				D16913051E6E449A00510216 /* Palette.swift */,
-				D148872A1E6E4FC90094A619 /* GeneralColorSelector.swift */,
 			);
 			name = PaletteSelectors;
 			sourceTree = "<group>";
@@ -206,9 +203,8 @@
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
 				D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */,
 				D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */,
-				D10625501E25DC4B001CF9D8 /* BoxSelector.swift in Sources */,
+				D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */,
 				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
-				D148872B1E6E4FC90094A619 /* GeneralColorSelector.swift in Sources */,
 				D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
 				D16913061E6E449A00510216 /* Palette.swift in Sources */,

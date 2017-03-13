@@ -14,9 +14,15 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
-    @IBOutlet weak var selectableColors: BoxSelector?
-    @IBOutlet weak var selectablePalettes: BoxSelector?
-    @IBOutlet weak var colorSelector: BoxSelector?
+    
+    // All selectable colors to choose from
+    @IBOutlet weak var generalSelectableColors: GeneralColorSelector?
+    
+    // Sets of colors to choose from
+    @IBOutlet weak var selectablePalettes: PaletteSelector?
+    
+    // The current set of colors selected
+    @IBOutlet weak var selectableColors: ColorSelector?
     
     @IBOutlet var tileCollection: TileCollection?
     
@@ -40,41 +46,105 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
         // Default colors for the available colors
         let nesColors = Palette()
         nesColors.colors = [
-            CGColor.init(red: 0.486, green: 0.486, blue: 0.486, alpha: 1.0),
-            CGColor.init(red: 0.000, green: 0.000, blue: 0.988, alpha: 1.0),
-            CGColor.init(red: 0.000, green: 0.000, blue: 0.737, alpha: 1.0),
-            CGColor.init(red: 0.266, green: 0.156, blue: 0.737, alpha: 1.0),
-            CGColor.init(red: 0.580, green: 0.000, blue: 0.518, alpha: 1.0),
-            CGColor.init(red: 0.659, green: 0.000, blue: 0.125, alpha: 1.0),
-            CGColor.init(red: 0.659, green: 0.063, blue: 0.000, alpha: 1.0),
-            CGColor.init(red: 0.533, green: 0.078, blue: 0.000, alpha: 1.0),
-            CGColor.init(red: 0.737, green: 0.737, blue: 0.737, alpha: 1.0),
-            CGColor.init(red: 0.000, green: 0.471, blue: 0.973, alpha: 1.0),
-            CGColor.init(red: 0.000, green: 0.345, blue: 0.973, alpha: 1.0),
-//            CGColor.init(red: 0.000, green: 0.0, blue: 0.0, alpha: 1.0)
+            // Blue, Gray, and Purple
+            CGColor.init(red: 0.486274509803922, green: 0.486274509803922, blue: 0.486274509803922, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.737254901960784, alpha: 1.0),
+            CGColor.init(red: 0.266666666666667, green: 0.156862745098039, blue: 0.737254901960784, alpha: 1.0),
+            
+            CGColor.init(red: 0.737254901960784, green: 0.737254901960784, blue: 0.737254901960784, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.470588235294118, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.345098039215686, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.407843137254902, green: 0.266666666666667, blue: 0.988235294117647, alpha: 1.0),
+            
+            CGColor.init(red: 0.972549019607843, green: 0.972549019607843, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.235294117647059, green: 0.737254901960784, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.407843137254902, green: 0.533333333333333, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.596078431372549, green: 0.470588235294118, blue: 0.972549019607843, alpha: 1.0),
+            
+            CGColor.init(red: 0.988235294117647, green: 0.988235294117647, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.643137254901961, green: 0.894117647058824, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.72156862745098, green: 0.72156862745098, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.847058823529412, green: 0.72156862745098, blue: 0.972549019607843, alpha: 1.0),
+            
+            
+            // Red
+            CGColor.init(red: 0.580392156862745, green: 0.0, blue: 0.517647058823529, alpha: 1.0),
+            CGColor.init(red: 0.658823529411765, green: 0.0, blue: 0.125490196078431, alpha: 1.0),
+            CGColor.init(red: 0.658823529411765, green: 0.0627450980392157, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.533333333333333, green: 0.0784313725490196, blue: 0.0, alpha: 1.0),
+            
+            CGColor.init(red: 0.847058823529412, green: 0.0, blue: 0.8, alpha: 1.0),
+            CGColor.init(red: 0.894117647058824, green: 0.0, blue: 0.345098039215686, alpha: 1.0),
+            CGColor.init(red: 0.972549019607843, green: 0.219607843137255, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.894117647058824, green: 0.36078431372549, blue: 0.0627450980392157, alpha: 1.0),
+            
+            CGColor.init(red: 0.972549019607843, green: 0.470588235294118, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.972549019607843, green: 0.345098039215686, blue: 0.596078431372549, alpha: 1.0),
+            CGColor.init(red: 0.972549019607843, green: 0.470588235294118, blue: 0.345098039215686, alpha: 1.0),
+            CGColor.init(red: 0.988235294117647, green: 0.627450980392157, blue: 0.266666666666667, alpha: 1.0),
+            
+            CGColor.init(red: 0.972549019607843, green: 0.72156862745098, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.972549019607843, green: 0.643137254901961, blue: 0.752941176470588, alpha: 1.0),
+            CGColor.init(red: 0.941176470588235, green: 0.815686274509804, blue: 0.690196078431373, alpha: 1.0),
+            CGColor.init(red: 0.988235294117647, green: 0.87843137254902, blue: 0.658823529411765, alpha: 1.0),
+            
+            
+            // Greens and Browns
+            CGColor.init(red: 0.313725490196078, green: 0.188235294117647, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.470588235294118, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.407843137254902, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.345098039215686, blue: 0.0, alpha: 1.0),
+            
+            CGColor.init(red: 0.674509803921569, green: 0.486274509803922, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.72156862745098, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.658823529411765, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.658823529411765, blue: 0.266666666666667, alpha: 1.0),
+            
+            CGColor.init(red: 0.972549019607843, green: 0.72156862745098, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.72156862745098, green: 0.972549019607843, blue: 0.0941176470588235, alpha: 1.0),
+            CGColor.init(red: 0.345098039215686, green: 0.847058823529412, blue: 0.329411764705882, alpha: 1.0),
+            CGColor.init(red: 0.345098039215686, green: 0.972549019607843, blue: 0.596078431372549, alpha: 1.0),
+            
+            CGColor.init(red: 0.972549019607843, green: 0.847058823529412, blue: 0.470588235294118, alpha: 1.0),
+            CGColor.init(red: 0.847058823529412, green: 0.972549019607843, blue: 0.470588235294118, alpha: 1.0),
+            CGColor.init(red: 0.72156862745098, green: 0.972549019607843, blue: 0.72156862745098, alpha: 1.0),
+            CGColor.init(red: 0.72156862745098, green: 0.972549019607843, blue: 0.847058823529412, alpha: 1.0),
+            
+            // Blacks
+            CGColor.init(red: 0.0, green: 0.250980392156863, blue: 0.345098039215686, alpha: 1.0),
+            CGColor.init(red: 0.470588235294118, green: 0.470588235294118, blue: 0.470588235294118, alpha: 1.0),
+            CGColor.init(red: 0.972549019607843, green: 0.847058823529412, blue: 0.972549019607843, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            
+            CGColor.init(red: 0.0, green: 0.533333333333333, blue: 0.533333333333333, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            
+            
+            CGColor.init(red: 0.0, green: 0.909803921568627, blue: 0.847058823529412, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            
+            CGColor.init(red: 0.0, green: 0.988235294117647, blue: 0.988235294117647, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+            CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         ]
         
-        colorSelector?.palettes = [Palette()]
-        colorSelector?.numberOfBoxesHorizontally = 4
-        colorSelector?.boxHighlighter = true
-        colorSelector?.useFullView = true
-        colorSelector?.delegate = self
-        colorSelector?.update()
+        selectableColors?.palettes = [Palette()]
+        selectableColors?.boxSelectorDelegate = self
+        selectableColors?.redraw()
         
-        // Default Colors for the palettes selections
         selectablePalettes?.palettes = [Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette(), Palette()]
-        selectablePalettes?.numberOfBoxesHorizontally = 16
-        selectablePalettes?.paletteHighlighter = true
-        selectablePalettes?.boxHighlighter = false
-        selectablePalettes?.delegate = self
-        selectablePalettes?.update()
+        selectablePalettes?.boxSelectorDelegate = self
+        selectablePalettes?.redraw()
         
-        selectableColors?.palettes = [nesColors]
-        selectableColors?.numberOfBoxesHorizontally = 8
-        selectableColors?.useFullView = false
-        selectableColors?.boxHighlighter = true
-        selectableColors?.delegate = self
-        selectableColors?.update()
+        generalSelectableColors?.palettes = [nesColors]
+        generalSelectableColors?.boxSelectorDelegate = self
+        generalSelectableColors?.redraw()
     }
     func update() {
         NSLog("Request to update views")
@@ -140,52 +210,67 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
     
     //MARK: BoxSelector
     var previouslySetSelectablePalette = 0
-    // This function will be called different times depending on which selector (selectablePalettes/selectableColors) is called.
-    func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
-        if boxSelector == colorSelector {
-            selectablePalettes?.selectedBox = palette.box
+    // This function will be called different times depending on which selector (selectablePalettes/generalSelectableColors) is called.
+    func selected(boxSelector: Selector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
+        
+        guard let boxSelectorProtocol = boxSelector.boxSelectorProtocol,
+              var generalSelectableColors = generalSelectableColors,
+              var selectableColors = selectableColors,
+              var selectablePalettes = selectablePalettes else {
+            NSLog("Box selector delegate was not set properly")
+            return
+        }
+        
+        if boxSelector == selectableColors {
+            _ = selectablePalettes.select(boxNumber: palette.box)
+            _ = selectableColors.select(boxNumber: palette.box)
+            
             tileEditor?.colorFromPalette = palette.box
         }
         else if boxSelector == selectablePalettes {
-            guard let newColorPalette = selectablePalettes?.palettes[palette.number] else {
-                NSLog("Failed to get the newColorPalette to update colorSelector")
-                return
-            }
+            let newColorPalette = selectablePalettes.palettes[palette.number]
+            
             if palette.number != previouslySetSelectablePalette {
-                colorSelector?.palettes[0] = newColorPalette
+                selectableColors.palettes[0] = newColorPalette
                 previouslySetSelectablePalette = palette.number
             }
+            
+            _ = selectablePalettes.select(paletteNumber: palette.number)
             
             tileEditor?.colorPalette = newColorPalette
             tileEditor?.update()
             
-            colorSelector?.update()
+            selectableColors.redraw()
         }
-        // If a different color is selected from selectableColors, update the color for the colorSelector and the box selected from selectablePalettes
-        else if boxSelector == selectableColors {
+        // If a different color is selected from generalSelectableColors, update the color for the selectableColors and the box selected from selectablePalettes
+        else if boxSelector == generalSelectableColors {
             
             // calculate which color was selected based off of the boxSelected
-            let colorFromPalette = (boxSelector.numberOfBoxesHorizontally*boxSelected.y)+boxSelected.x
+            let numberOfBoxesHorizontally = boxSelectorProtocol.maximumBoxesPerRow
+            let colorFromPalette = (numberOfBoxesHorizontally*boxSelected.y)+boxSelected.x
             guard
-                let availableColors = selectableColors?.palettes[0].colors.count,
+                let availableColors = generalSelectableColors.paletteSelected?.colors.count,
                 availableColors > colorFromPalette else {
                 NSLog("Failed: selectedBoxSelectablePalette")
                 return
             }
             
-            guard let colorSelected = selectableColors?.palettes[0].colors[colorFromPalette],
-                let selectedBoxColorSelector = colorSelector?.palette else {
+            guard let colorFromGeneralSelected = generalSelectableColors.paletteSelected?.colors[colorFromPalette],
+                let paletteForSelectablePalettes = selectablePalettes.paletteSelected,
+                let paletteForColorsSelector = selectableColors.paletteSelected else {
                 NSLog("Failed: selectedBoxSelectablePalette")
                 return
             }
             
-            let paletteForSelectablePalettes = selectablePalettes?.currentPaletteSelected
-            paletteForSelectablePalettes?.colors[selectedBoxColorSelector.box] = colorSelected
+            paletteForSelectablePalettes.colors[selectableColors.currentBoxSelected] = colorFromGeneralSelected
+            _ = selectablePalettes.update(paletteNumber: selectablePalettes.currentPaletteSelected,
+                                          withPalette: paletteForSelectablePalettes)
             
-            let paletteForColorsSelector = colorSelector?.currentPaletteSelected
-            paletteForColorsSelector?.colors[selectedBoxColorSelector.box] = colorSelected
+            paletteForColorsSelector.colors[selectableColors.currentBoxSelected] = colorFromGeneralSelected
+            _ = selectableColors.update(paletteNumber: 0,
+                                        withPalette: paletteForColorsSelector)
             
-            selectablePalettes?.update()
+            selectablePalettes.redraw()
         }
     }
 }
