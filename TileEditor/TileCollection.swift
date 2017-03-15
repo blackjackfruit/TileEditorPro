@@ -242,20 +242,28 @@ class TileCollection: NSObject {
         return i
     }
     
-    func getSelectableArea(from index: IndexPath, dimension: Int) -> Set<Int> {
+    func setSelectableTiles(collectionView: NSCollectionView, from index: IndexPath, dimension: Int) -> [[Int]] {
         
         let startingTileNumber = index[1]
+        var ret: [[Int]] = []
         
-        var ret = Set<Int>()
+        var set = Set<Int>()
         var index = 0
         for _ in 0..<dimension {
+            var row:[Int] = []
             for _ in 0..<dimension {
                 let tile = index+startingTileNumber
-                ret.insert(tile)
+                set.insert(tile)
+                
+                let item = collectionView.item(at: tile) as? TileItem
+                item?.setHighlight(value: true)
+                row.append(tile)
                 index += 1
             }
+            ret.append(row)
             index += numberOfColumns - dimension
         }
+        self.selectedTiles = set.sorted()
         return ret
     }
     
@@ -306,21 +314,7 @@ extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
         }
         let dimension = 4
         let adjustedPosition = tileSelection(from: indexPath, dimension: dimension)
-        self.selectedTiles = getSelectableArea(from: adjustedPosition, dimension: dimension).sorted()
-        
-        var ret: [[Int]] = []
-        var r = 0
-        for _ in 0..<dimension {
-            var row:[Int] = []
-            for i in 0..<dimension  {
-                let v = self.selectedTiles[i+r]
-                let item = collectionView.item(at: v) as? TileItem
-                item?.setHighlight(value: true)
-                row.append(v)
-            }
-            r += dimension
-            ret.append(row)
-        }
+        let ret: [[Int]]  = setSelectableTiles(collectionView: collectionView, from: adjustedPosition, dimension: dimension)
         
         tileCollectionDelegate?.tiles(selected: ret, zoomSize: .x4)
     }

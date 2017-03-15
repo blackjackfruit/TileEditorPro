@@ -56,8 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSLog("Could not get path to save")
         }
     }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidBecomeActive(_ notification: Notification) {
         vc = NSApplication.shared().mainWindow?.contentViewController as? ViewController
         
         let sampleData = Data(count: 8192)
@@ -76,6 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 addFilePathToRecentFiles(path: filePath)
             }
         }
+    }
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
     }
     
     override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {

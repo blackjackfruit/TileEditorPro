@@ -182,7 +182,6 @@ class TileEditor: TileDrawer {
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        NSLog("Request to redraw TileEditor")
         if let ctx = NSGraphicsContext.current()?.cgContext {
             guard tilesToDraw.count > 0 else {
                 NSLog("Cannot draw view because tiles is nil")
