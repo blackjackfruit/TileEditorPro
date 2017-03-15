@@ -1,5 +1,6 @@
 # TileEditor
 NES Tile Editor for editing CHR and roms on macOS
+
 Currently the project is limited by paint options in terms of coloring number of pixels at a time. Editing or creating files of type chr or nes roms is possible, just be forewarned that it is always a good idea have backups.
 
 Project is written using Swift3. 
