@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
+class EditorViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
     
     @IBOutlet var tileEditor: TileEditor?
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
@@ -26,14 +26,18 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
     
     @IBOutlet var tileCollection: TileCollection?
     
-    var zoomSize: ZoomSize = .x4
-    var tileData: TileData? = nil
-    var tileDataType: TileDataType? = .nes
+    var editorViewControllerSettings: EditorViewControllerSettings? = nil
     var pixelsPerTile = 0
     var tileNumbers: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let sampleData = Data(count: 8192)
+        let tileData = TileData(data: sampleData, type: .none)
+        self.editorViewControllerSettings = EditorViewControllerSettings()
+        self.editorViewControllerSettings?.tileData = tileData
+        self.editorViewControllerSettings?.tileDataType = .nes
         
         tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
         
@@ -145,10 +149,15 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
         generalSelectableColors?.palettes = [nesColors]
         generalSelectableColors?.boxSelectorDelegate = self
         generalSelectableColors?.redraw()
+        
+        self.update()
     }
     func update() {
         NSLog("Request to update views")
-        guard let tileDataType = tileDataType, let tileData = tileData, let tiles = tileData.tiles else {
+        guard let editorViewControllerSettings = editorViewControllerSettings,
+            let tileDataType = editorViewControllerSettings.tileDataType,
+            let tileData = editorViewControllerSettings.tileData,
+            let tiles = editorViewControllerSettings.tileData?.tiles else {
             NSLog("Cannot call update without specifying needed parameters")
             NSLog("tileDataType and tileData are needed before updating")
             return
@@ -180,13 +189,13 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
     @IBAction func tileEditorSizeChanged(_ sender: NSPopUpButtonCell) {
         switch sender.indexOfSelectedItem {
         case 0:
-            zoomSize = .x1
+            editorViewControllerSettings?.zoomSize = .x1
         case 1:
-            zoomSize = .x2
+            editorViewControllerSettings?.zoomSize = .x2
         case 2:
-            zoomSize = .x4
+            editorViewControllerSettings?.zoomSize = .x4
         default:
-            zoomSize = .x8
+            editorViewControllerSettings?.zoomSize = .x8
         }
     }
     
@@ -214,7 +223,7 @@ class ViewController: NSViewController, TileEditorProtocol, TileCollectionProtoc
     func selected(boxSelector: Selector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
         
         guard let boxSelectorProtocol = boxSelector.boxSelectorProtocol,
-              var generalSelectableColors = generalSelectableColors,
+              let generalSelectableColors = generalSelectableColors,
               var selectableColors = selectableColors,
               var selectablePalettes = selectablePalettes else {
             NSLog("Box selector delegate was not set properly")

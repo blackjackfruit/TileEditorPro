@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-enum ZoomSize: UInt {
+enum ZoomSize: Int {
     case x1 = 1
     case x2 = 2
     case x4 = 4

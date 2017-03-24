@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -61,12 +62,12 @@
                                     <items>
                                         <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <action selector="newFile:" target="Voe-Tx-rLC" id="cyg-l8-sGA"/>
+                                                <action selector="newDocument:" target="Ady-hI-5gd" id="g6v-qk-jD5"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                             <connections>
-                                                <action selector="openDirectory:" target="Voe-Tx-rLC" id="nL8-jb-J2l"/>
+                                                <action selector="openDocument:" target="Ady-hI-5gd" id="Rav-JU-618"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
@@ -83,14 +84,14 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
+                                        <menuItem title="Save Project…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
-                                                <action selector="saveFile:" target="Voe-Tx-rLC" id="NS3-KE-vj1"/>
+                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="jt9-RS-24x"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save Project As…" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
-                                                <action selector="saveFileAs:" target="Voe-Tx-rLC" id="2bB-tS-c0o"/>
+                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="HnL-OT-wqn"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -113,34 +114,22 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
+                            <menuItem title="ROM" id="a6T-Lo-IOF">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="View" id="HyV-fh-RgO">
+                                <menu key="submenu" title="ROM" id="ct1-2o-LoM">
                                     <items>
-                                        <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
+                                        <menuItem title="Import Data" enabled="NO" id="Ke5-wO-KuB">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
-                                            </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                                        <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
-                                            </connections>
+                                        <menuItem title="Export Data" enabled="NO" id="Hqw-oN-JA5">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="toggleFullScreen:" target="Ady-hI-5gd" id="dU3-MA-1Rq"/>
-                                            </connections>
+                                        <menuItem isSeparatorItem="YES" id="zzK-0x-7ji"/>
+                                        <menuItem title="Import Palette" enabled="NO" id="aHa-va-Lf6">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Export Palette" enabled="NO" id="UTP-rV-8Wu">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -188,12 +177,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TileEditor" customModuleProvider="target">
-                    <connections>
-                        <outlet property="openRecent" destination="tXI-mr-wws" id="pGx-UV-Vw7"/>
-                        <outlet property="saveFile" destination="pxx-59-PXV" id="lB3-vg-9O6"/>
-                    </connections>
-                </customObject>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TileEditor" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -201,9 +185,9 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainTileEditor" id="B8D-0N-5wS" customClass="WindowController" customModule="TileEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -214,79 +198,39 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="74" y="270"/>
         </scene>
-        <!--View Controller-->
+        <!--Editor View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="TileEditor" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="EditorViewController" customModule="TileEditor" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="291"/>
+                        <rect key="frame" x="0.0" y="0.0" width="632" height="291"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileViewEditor" customClass="TileEditor" customModule="TileEditor" customModuleProvider="target">
-                                <rect key="frame" x="75" y="46" width="240" height="240"/>
+                                <rect key="frame" x="5" y="46" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="KGg-ew-gQ7"/>
                                     <constraint firstAttribute="width" constant="240" id="OZa-86-p2i"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="ColorSelector" customModule="TileEditor" customModuleProvider="target">
-                                <rect key="frame" x="75" y="5" width="240" height="40"/>
+                                <rect key="frame" x="5" y="5" width="240" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="saF-6q-cVg"/>
                                 </constraints>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Fe-1F-rz2">
-                                <rect key="frame" x="571" y="48" width="30" height="17"/>
+                                <rect key="frame" x="499" y="48" width="30" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Size" id="gP8-r7-Wk3">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-63-I9z">
-                                <rect key="frame" x="7" y="16" width="14" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="[]" id="qZ8-zY-N2b">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Qqg-30-fs6" userLabel="ActionGroup">
-                                <rect key="frame" x="5" y="46" width="65" height="240"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZGi-4c-YFX">
-                                        <rect key="frame" x="5" y="209" width="25" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="LAa-vp-G2y"/>
-                                            <constraint firstAttribute="width" constant="25" id="uXl-Rx-4p0"/>
-                                        </constraints>
-                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="pencil" imagePosition="only" alignment="center" alternateImage="pencil" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FxR-RO-I6A">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="cellTitle"/>
-                                        </buttonCell>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBM-aS-R46">
-                                        <rect key="frame" x="35" y="209" width="25" height="26"/>
-                                        <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vuF-fa-0aN">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="cellTitle"/>
-                                        </buttonCell>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="aBM-aS-R46" firstAttribute="height" secondItem="ZGi-4c-YFX" secondAttribute="height" id="B46-c0-h5X"/>
-                                    <constraint firstItem="aBM-aS-R46" firstAttribute="leading" secondItem="ZGi-4c-YFX" secondAttribute="trailing" constant="5" id="Ecu-VY-dPo"/>
-                                    <constraint firstItem="aBM-aS-R46" firstAttribute="centerY" secondItem="ZGi-4c-YFX" secondAttribute="centerY" id="LkE-Qp-lIS"/>
-                                    <constraint firstAttribute="trailing" secondItem="aBM-aS-R46" secondAttribute="trailing" constant="5" id="Xib-DS-RH9"/>
-                                    <constraint firstItem="aBM-aS-R46" firstAttribute="width" secondItem="ZGi-4c-YFX" secondAttribute="width" id="aUn-XU-02K"/>
-                                    <constraint firstItem="ZGi-4c-YFX" firstAttribute="leading" secondItem="Qqg-30-fs6" secondAttribute="leading" constant="5" id="cMy-Qw-B4s"/>
-                                    <constraint firstItem="ZGi-4c-YFX" firstAttribute="top" secondItem="Qqg-30-fs6" secondAttribute="top" constant="5" id="vUA-l8-zdm"/>
-                                </constraints>
-                            </customView>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
-                                <rect key="frame" x="602" y="43" width="99" height="26"/>
+                                <rect key="frame" x="530" y="43" width="99" height="26"/>
                                 <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -307,22 +251,22 @@
                                 </connections>
                             </popUpButton>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="TileEditor" customModuleProvider="target">
-                                <rect key="frame" x="573" y="72" width="125" height="214"/>
+                                <rect key="frame" x="501" y="72" width="125" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="gIT-Bg-Akd"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="PaletteSelector" customModule="TileEditor" customModuleProvider="target">
-                                <rect key="frame" x="323" y="5" width="241" height="40"/>
+                                <rect key="frame" x="253" y="5" width="239" height="40"/>
                             </customView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5">
-                                <rect key="frame" x="323" y="46" width="242" height="240"/>
+                                <rect key="frame" x="253" y="46" width="240" height="240"/>
                                 <clipView key="contentView" canDrawConcurrently="YES" drawsBackground="NO" id="4QM-fD-rAs">
-                                    <rect key="frame" x="1" y="1" width="240" height="238"/>
+                                    <rect key="frame" x="1" y="1" width="238" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="238"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="238" height="238"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewGridLayout key="collectionViewLayout" id="lLQ-3l-boh"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -334,12 +278,15 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="WGz-Zt-2AH"/>
+                                </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eXo-6B-w4h">
                                     <rect key="frame" x="-100" y="-100" width="240" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="ucz-Pg-emH">
-                                    <rect key="frame" x="225" y="1" width="16" height="238"/>
+                                    <rect key="frame" x="223" y="1" width="16" height="238"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -352,26 +299,21 @@
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="leading" secondItem="Lgf-zE-XzT" secondAttribute="leading" id="CkR-9r-TRo"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="trailing" secondItem="UYc-Kk-XNE" secondAttribute="trailing" id="D2r-il-C1B"/>
                             <constraint firstAttribute="bottom" secondItem="Dwl-Ls-nzb" secondAttribute="bottom" constant="5" id="QUc-6m-cMV"/>
-                            <constraint firstItem="Qqg-30-fs6" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="Qee-22-391"/>
                             <constraint firstItem="XSG-tK-hpz" firstAttribute="top" secondItem="9as-sB-BI5" secondAttribute="bottom" constant="1" id="RIY-qa-BPL"/>
                             <constraint firstAttribute="trailing" secondItem="UYc-Kk-XNE" secondAttribute="trailing" constant="6" id="TKO-Ps-REn"/>
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="top" secondItem="Lgf-zE-XzT" secondAttribute="bottom" constant="1" id="Tyw-Li-W78"/>
                             <constraint firstItem="9as-sB-BI5" firstAttribute="bottom" secondItem="Lgf-zE-XzT" secondAttribute="bottom" id="UHq-pQ-qPk"/>
-                            <constraint firstItem="Qqg-30-fs6" firstAttribute="bottom" secondItem="Lgf-zE-XzT" secondAttribute="bottom" id="WO2-0Y-Yck"/>
+                            <constraint firstItem="Lgf-zE-XzT" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="5" id="UNG-8f-hyQ"/>
                             <constraint firstItem="UYc-Kk-XNE" firstAttribute="leading" secondItem="8Fe-1F-rz2" secondAttribute="leading" id="X1L-83-XSM"/>
                             <constraint firstItem="9as-sB-BI5" firstAttribute="centerX" secondItem="XSG-tK-hpz" secondAttribute="centerX" id="YBw-ro-KPw"/>
-                            <constraint firstItem="Clg-63-I9z" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="9" id="cIz-PO-gqc"/>
                             <constraint firstItem="9as-sB-BI5" firstAttribute="leading" secondItem="XSG-tK-hpz" secondAttribute="leading" id="ccu-v6-Z0m"/>
                             <constraint firstItem="UYc-Kk-XNE" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="evT-KP-H73"/>
                             <constraint firstItem="9as-sB-BI5" firstAttribute="top" secondItem="UYc-Kk-XNE" secondAttribute="top" id="fO6-8h-qhn"/>
                             <constraint firstItem="UYc-Kk-XNE" firstAttribute="leading" secondItem="9as-sB-BI5" secondAttribute="trailing" constant="8" symbolic="YES" id="g2c-xh-I3V"/>
-                            <constraint firstItem="Clg-63-I9z" firstAttribute="centerY" secondItem="Dwl-Ls-nzb" secondAttribute="centerY" id="gXb-oM-U4v"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="centerY" secondItem="8Fe-1F-rz2" secondAttribute="centerY" id="icd-wx-2dx"/>
-                            <constraint firstItem="Lgf-zE-XzT" firstAttribute="leading" secondItem="Qqg-30-fs6" secondAttribute="trailing" constant="5" id="jZv-8g-P0O"/>
                             <constraint firstItem="Lgf-zE-XzT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="5" id="pGE-tI-GK9"/>
                             <constraint firstItem="Dwl-Ls-nzb" firstAttribute="trailing" secondItem="Lgf-zE-XzT" secondAttribute="trailing" id="tCz-yL-XFE"/>
                             <constraint firstItem="akM-x2-sYL" firstAttribute="leading" secondItem="8Fe-1F-rz2" secondAttribute="trailing" constant="5" id="yiG-wh-Gpx"/>
-                            <constraint firstItem="Qqg-30-fs6" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="5" id="ypd-WD-iPh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -393,7 +335,4 @@
             <point key="canvasLocation" x="67" y="711.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="pencil" width="512" height="512"/>
-    </resources>
 </document>

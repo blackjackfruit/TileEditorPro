@@ -48,6 +48,7 @@ class TileEditor: TileDrawer {
         return ret
     }
     
+    
     override func mouseDown(with event: NSEvent) {
         guard tileData != nil, tileData!.tiles != nil else {
             NSLog("tileData is nil")
@@ -272,7 +273,7 @@ class TileEditor: TileDrawer {
                 let color = colorPalette.colors[colorAtIndex]
                 ctx.setFillColor(color)
                 ctx.addRect(pixel)
-                ctx.setLineWidth(CGFloat(0.1))
+                ctx.setLineWidth(CGFloat(0.2))
                 ctx.drawPath(using: .fillStroke)
                 xIndex += pixelDimention
                 indexPerPixel += 1

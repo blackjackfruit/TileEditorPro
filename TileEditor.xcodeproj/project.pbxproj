@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D100BF5D1E7B815400CB022B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5C1E7B815400CB022B /* Menu.swift */; };
+		D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5E1E80972900CB022B /* TileEditorDocument.swift */; };
 		D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* Selectors.swift */; };
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
@@ -14,15 +16,25 @@
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
 		D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */; };
 		D16913061E6E449A00510216 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16913051E6E449A00510216 /* Palette.swift */; };
+		D16D92091E848B56003DBEDF /* TileEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16D92081E848B56003DBEDF /* TileEditorSettings.swift */; };
+		D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */; };
+		D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */; };
+		D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */; };
+		D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */; };
+		D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */; };
+		D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */; };
 		D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FA21DC9709D00E2F459 /* FileLoader.swift */; };
 		D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
-		D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* ViewController.swift */; };
+		D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
 		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
 		D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6F01DC41EBE00529519 /* Main.storyboard */; };
 		D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6F91DC4208B00529519 /* TileEditor.swift */; };
+		D1BE7D171E80C49300A56600 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BE7D161E80C49300A56600 /* WindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D100BF5C1E7B815400CB022B /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		D100BF5E1E80972900CB022B /* TileEditorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditorDocument.swift; sourceTree = "<group>"; };
 		D106254F1E25DC4B001CF9D8 /* Selectors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
@@ -30,14 +42,22 @@
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
 		D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelectorProtocols.swift; sourceTree = "<group>"; };
 		D16913051E6E449A00510216 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		D16D92081E848B56003DBEDF /* TileEditorSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditorSettings.swift; sourceTree = "<group>"; };
+		D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_32.png; path = Images/TileEditorLogo_32.png; sourceTree = SOURCE_ROOT; };
+		D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_64.png; path = Images/TileEditorLogo_64.png; sourceTree = SOURCE_ROOT; };
+		D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_128.png; path = Images/TileEditorLogo_128.png; sourceTree = SOURCE_ROOT; };
+		D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_256.png; path = Images/TileEditorLogo_256.png; sourceTree = SOURCE_ROOT; };
+		D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_16.png; path = Images/TileEditorLogo_16.png; sourceTree = SOURCE_ROOT; };
+		D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_512.png; path = Images/TileEditorLogo_512.png; sourceTree = SOURCE_ROOT; };
 		D19C6FA21DC9709D00E2F459 /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		D1A2E6E71DC41EBE00529519 /* TileEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D1A2E6EC1DC41EBE00529519 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1A2E6F11DC41EBE00529519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1A2E6F31DC41EBE00529519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A2E6F91DC4208B00529519 /* TileEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditor.swift; sourceTree = "<group>"; };
+		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +104,24 @@
 			children = (
 				D11673581DCAAFC4009F52CB /* TileData.swift */,
 				D19C6FA21DC9709D00E2F459 /* FileLoader.swift */,
+				D100BF5C1E7B815400CB022B /* Menu.swift */,
+				D100BF5E1E80972900CB022B /* TileEditorDocument.swift */,
+				D16D92081E848B56003DBEDF /* TileEditorSettings.swift */,
 			);
 			name = FileProcessing;
+			sourceTree = "<group>";
+		};
+		D16D920A1E849A7C003DBEDF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */,
+				D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */,
+				D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */,
+				D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */,
+				D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */,
+				D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		D19C6FA41DC9725700E2F459 /* Views */ = {
@@ -117,13 +153,15 @@
 		D1A2E6E91DC41EBE00529519 /* TileEditor */ = {
 			isa = PBXGroup;
 			children = (
+				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,
 				D19C6FA41DC9725700E2F459 /* Views */,
 				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
-				D1A2E6EC1DC41EBE00529519 /* ViewController.swift */,
+				D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */,
 				D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */,
 				D1A2E6F01DC41EBE00529519 /* Main.storyboard */,
 				D1A2E6F31DC41EBE00529519 /* Info.plist */,
+				D1BE7D161E80C49300A56600 /* WindowController.swift */,
 			);
 			path = TileEditor;
 			sourceTree = "<group>";
@@ -155,7 +193,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = yellokrow;
 				TargetAttributes = {
 					D1A2E6E61DC41EBD00529519 = {
@@ -187,8 +225,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */,
+				D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */,
+				D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */,
+				D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */,
 				D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */,
+				D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */,
 				D15751031DE220F6001394F7 /* TileItem.xib in Resources */,
+				D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */,
 				D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,10 +246,14 @@
 			files = (
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
 				D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */,
-				D1A2E6ED1DC41EBE00529519 /* ViewController.swift in Sources */,
+				D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */,
+				D16D92091E848B56003DBEDF /* TileEditorSettings.swift in Sources */,
+				D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */,
 				D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */,
 				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
+				D100BF5D1E7B815400CB022B /* Menu.swift in Sources */,
 				D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */,
+				D1BE7D171E80C49300A56600 /* WindowController.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
 				D16913061E6E449A00510216 /* Palette.swift in Sources */,
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,
@@ -245,6 +293,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -294,6 +343,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -324,7 +374,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = TileEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TileEditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -338,7 +388,7 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = TileEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.TileEditor;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

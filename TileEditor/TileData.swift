@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TileDataType {
+enum TileDataType: Int {
     case unknown
     case none
     case nes
