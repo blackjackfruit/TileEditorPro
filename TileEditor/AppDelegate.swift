@@ -11,6 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    @IBOutlet weak var ROMMenu: ROMMenu? = nil
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         
     }

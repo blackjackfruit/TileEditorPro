@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D100BF5D1E7B815400CB022B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5C1E7B815400CB022B /* Menu.swift */; };
+		D100BF5D1E7B815400CB022B /* ROMMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5C1E7B815400CB022B /* ROMMenu.swift */; };
 		D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5E1E80972900CB022B /* TileEditorDocument.swift */; };
 		D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* Selectors.swift */; };
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
+		D14E1D2D1E88B09900FE9F6A /* NESPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */; };
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
 		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
@@ -23,20 +24,22 @@
 		D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */; };
 		D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */; };
 		D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */; };
-		D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C6FA21DC9709D00E2F459 /* FileLoader.swift */; };
 		D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
 		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
 		D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6F01DC41EBE00529519 /* Main.storyboard */; };
 		D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6F91DC4208B00529519 /* TileEditor.swift */; };
 		D1BE7D171E80C49300A56600 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BE7D161E80C49300A56600 /* WindowController.swift */; };
+		D1ED7EB91E8815CF00DE2BFF /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */; };
+		D1ED7EBB1E8816AA00DE2BFF /* FileImportersAndExporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED7EBA1E8816AA00DE2BFF /* FileImportersAndExporters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D100BF5C1E7B815400CB022B /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		D100BF5C1E7B815400CB022B /* ROMMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ROMMenu.swift; sourceTree = "<group>"; };
 		D100BF5E1E80972900CB022B /* TileEditorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditorDocument.swift; sourceTree = "<group>"; };
 		D106254F1E25DC4B001CF9D8 /* Selectors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
+		D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESPalette.swift; sourceTree = "<group>"; };
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
 		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
@@ -49,7 +52,6 @@
 		D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_256.png; path = Images/TileEditorLogo_256.png; sourceTree = SOURCE_ROOT; };
 		D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_16.png; path = Images/TileEditorLogo_16.png; sourceTree = SOURCE_ROOT; };
 		D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_512.png; path = Images/TileEditorLogo_512.png; sourceTree = SOURCE_ROOT; };
-		D19C6FA21DC9709D00E2F459 /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		D1A2E6E71DC41EBE00529519 /* TileEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,8 @@
 		D1A2E6F31DC41EBE00529519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A2E6F91DC4208B00529519 /* TileEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditor.swift; sourceTree = "<group>"; };
 		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
+		D1ED7EBA1E8816AA00DE2BFF /* FileImportersAndExporters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileImportersAndExporters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D14E1D2B1E88B08800FE9F6A /* NES */ = {
+			isa = PBXGroup;
+			children = (
+				D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */,
+			);
+			name = NES;
+			sourceTree = "<group>";
+		};
 		D159C2221E6CE344000791F9 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,10 +115,10 @@
 			isa = PBXGroup;
 			children = (
 				D11673581DCAAFC4009F52CB /* TileData.swift */,
-				D19C6FA21DC9709D00E2F459 /* FileLoader.swift */,
-				D100BF5C1E7B815400CB022B /* Menu.swift */,
 				D100BF5E1E80972900CB022B /* TileEditorDocument.swift */,
 				D16D92081E848B56003DBEDF /* TileEditorSettings.swift */,
+				D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */,
+				D1ED7EBA1E8816AA00DE2BFF /* FileImportersAndExporters.swift */,
 			);
 			name = FileProcessing;
 			sourceTree = "<group>";
@@ -153,6 +165,8 @@
 		D1A2E6E91DC41EBE00529519 /* TileEditor */ = {
 			isa = PBXGroup;
 			children = (
+				D14E1D2B1E88B08800FE9F6A /* NES */,
+				D1ED7EB51E880D9100DE2BFF /* Menu */,
 				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,
 				D19C6FA41DC9725700E2F459 /* Views */,
@@ -164,6 +178,14 @@
 				D1BE7D161E80C49300A56600 /* WindowController.swift */,
 			);
 			path = TileEditor;
+			sourceTree = "<group>";
+		};
+		D1ED7EB51E880D9100DE2BFF /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				D100BF5C1E7B815400CB022B /* ROMMenu.swift */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,16 +266,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D14E1D2D1E88B09900FE9F6A /* NESPalette.swift in Sources */,
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
-				D19C6FA31DC9709D00E2F459 /* FileLoader.swift in Sources */,
 				D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */,
 				D16D92091E848B56003DBEDF /* TileEditorSettings.swift in Sources */,
 				D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */,
 				D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */,
 				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
-				D100BF5D1E7B815400CB022B /* Menu.swift in Sources */,
+				D100BF5D1E7B815400CB022B /* ROMMenu.swift in Sources */,
 				D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */,
+				D1ED7EB91E8815CF00DE2BFF /* FileHandler.swift in Sources */,
 				D1BE7D171E80C49300A56600 /* WindowController.swift in Sources */,
+				D1ED7EBB1E8816AA00DE2BFF /* FileImportersAndExporters.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
 				D16913061E6E449A00510216 /* Palette.swift in Sources */,
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,

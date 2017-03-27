@@ -114,24 +114,36 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="ROM" id="a6T-Lo-IOF">
+                            <menuItem title="ROM" id="a6T-Lo-IOF" customClass="RomMenuItem" customModule="TileEditor" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="ROM" id="ct1-2o-LoM">
+                                <menu key="submenu" title="ROM" id="4fW-pP-TiN" userLabel="ROMMenu" customClass="ROMMenu" customModule="TileEditor" customModuleProvider="target">
                                     <items>
-                                        <menuItem title="Import Data" enabled="NO" id="Ke5-wO-KuB">
+                                        <menuItem title="Import Data" enabled="NO" id="Qzi-Bq-ebT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="importDataWithSender:" target="4fW-pP-TiN" id="DSL-uJ-mVd"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Export Data" enabled="NO" id="XHS-MD-nAi">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportDataWithSender:" target="4fW-pP-TiN" id="kOf-TI-SGD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="noV-Kb-nJ4"/>
+                                        <menuItem title="Import Palette" enabled="NO" id="jCr-oc-7db">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Export Data" enabled="NO" id="Hqw-oN-JA5">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="zzK-0x-7ji"/>
-                                        <menuItem title="Import Palette" enabled="NO" id="aHa-va-Lf6">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Export Palette" enabled="NO" id="UTP-rV-8Wu">
+                                        <menuItem title="Export Palette" enabled="NO" id="Kf2-I8-tlb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="exportData" destination="XHS-MD-nAi" id="rWI-4O-yK8"/>
+                                        <outlet property="exportPalette" destination="Kf2-I8-tlb" id="O1K-gf-50G"/>
+                                        <outlet property="importData" destination="Qzi-Bq-ebT" id="qcm-AB-1MF"/>
+                                        <outlet property="importPalette" destination="jCr-oc-7db" id="Gxk-Zh-DoJ"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
@@ -177,7 +189,11 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TileEditor" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TileEditor" customModuleProvider="target">
+                    <connections>
+                        <outlet property="ROMMenu" destination="4fW-pP-TiN" id="IYe-Bl-KiV"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>

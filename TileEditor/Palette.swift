@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 
+
 /**
  A palette is a group of colors available for a tile
  */

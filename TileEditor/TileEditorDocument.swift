@@ -11,7 +11,7 @@ import AppKit
 
 class TileEditorDocument: NSDocument {
     
-    var tileEditorVC: EditorViewController? = nil
+    var editorViewController: EditorViewController? = nil
     var editorViewControllerSettings: EditorViewControllerSettings? = nil
     
     override init() {
@@ -35,11 +35,18 @@ class TileEditorDocument: NSDocument {
         editorViewController.editorViewControllerSettings?.tileDataType = .nes
         
         editorViewController.update()
-        tileEditorVC = editorViewController
+        self.editorViewController = editorViewController
+        
+        setupMenuItems()
         
         self.addWindowController(windowController)
     }
-    
+    func setupMenuItems() {
+        let delegate = NSApplication.shared().delegate as? AppDelegate
+        let romMenu = delegate?.ROMMenu
+        
+        romMenu?.editorViewController = editorViewController
+    }
     override func data(ofType typeName: String) throws -> Data {
         guard let tileEditorSettings = self.editorViewControllerSettings else {
             throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
