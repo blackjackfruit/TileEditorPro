@@ -26,7 +26,7 @@ class Selector: NSView {
             }
             let selectedPalette = paletteSelected(boxSelected: newValue,
                                                   palettesPerRow: boxSelectorProtocol.palettesPerRow,
-                                                  paletteSize: paletteCurrentlySelected.count)
+                                                  paletteSize: paletteCurrentlySelected.size)
             palette = selectedPalette
             _boxSelected = newValue
         }
@@ -47,7 +47,7 @@ class Selector: NSView {
             
             var numberOfTimesAcross = boxSelectorProtocol.palettesPerRow
             let numberOfPalettes = boxSelectorProtocol.palettes.count
-            let numberOfBoxesPerPalette = boxSelectorProtocol.palettes[0].count
+            let numberOfBoxesPerPalette = boxSelectorProtocol.palettes[0].size
             let dimensionForBox = boxSelectorProtocol.boxDimension
             
             if numberOfPalettes < numberOfTimesAcross {
@@ -60,7 +60,7 @@ class Selector: NSView {
             var numberOfPalettesHorizontallyCounter: CGFloat = 0
             var counter: Int = 0
             for palette in boxSelectorProtocol.palettes {
-                startingPosition = draw(palette: palette,
+                startingPosition = draw(paletteProtocol: palette,
                                         ctx: ctx,
                                         dimension: boxSelectorProtocol.boxDimension,
                                         startingPosition: startingPosition)
@@ -105,7 +105,7 @@ class Selector: NSView {
             NSLog("BoxSelectorProtocol not set")
             return
         }
-        let numberOfBoxesPerPalette = paletteCurrentlySelected.count
+        let numberOfBoxesPerPalette = paletteCurrentlySelected.size
         let p = event.locationInWindow
         let rawMouseCursor = convert(p, from: nil)
         let mouseCursor = CGPoint(x: rawMouseCursor.x, y: self.frame.size.height-rawMouseCursor.y)
@@ -193,7 +193,7 @@ class Selector: NSView {
                            height: height))
         ctx.drawPath(using: .stroke)
     }
-    func draw(palette: Palette,
+    func draw(paletteProtocol: PaletteProtocol,
               ctx: CGContext,
               dimension: (width: CGFloat, height: CGFloat),
               startingPosition: (x: CGFloat, y: CGFloat)) -> (x: CGFloat, y: CGFloat) {
@@ -202,7 +202,8 @@ class Selector: NSView {
         
         var startingXPosition = startingPosition.x
         var startingYPosition = startingPosition.y
-        for color in palette.colors {
+        for palette in paletteProtocol.palette {
+            
             if self.frame.size.width < dimension.width + startingXPosition {
                 startingXPosition = 0
                 startingYPosition = startingYPosition+dimension.height
@@ -212,7 +213,7 @@ class Selector: NSView {
                                y: startingYPosition,
                                width: dimension.width,
                                height: dimension.height))
-            ctx.setFillColor(color)
+            ctx.setFillColor(palette.color)
             ctx.drawPath(using: .fillStroke)
             startingXPosition = startingXPosition + dimension.width
         }
@@ -221,7 +222,7 @@ class Selector: NSView {
 }
 
 class ColorSelector: Selector, BoxSelectorProtocol {
-    var palettes: [Palette] = []
+    var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = true
     var paletteHighlighter: Bool = false
     var palettesPerRow: Int = 1
@@ -238,7 +239,7 @@ class ColorSelector: Selector, BoxSelectorProtocol {
 }
 
 class PaletteSelector: Selector, BoxSelectorProtocol {
-    var palettes: [Palette] = []
+    var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = false
     var paletteHighlighter: Bool = true
     var palettesPerRow: Int = 4
@@ -255,7 +256,7 @@ class PaletteSelector: Selector, BoxSelectorProtocol {
 }
 
 class GeneralColorSelector: Selector, BoxSelectorProtocol {
-    var palettes: [Palette] = []
+    var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = true
     var paletteHighlighter: Bool = false
     var palettesPerRow: Int = 1

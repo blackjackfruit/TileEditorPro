@@ -13,20 +13,20 @@ import Cocoa
 /**
  A palette is a group of colors available for a tile
  */
-class Palette {
-    public var count: Int {
-        get {
-            return colors.count
-        }
-    }
-    public var colors: [CGColor]
-    init() {
-        colors = [NSColor.white.cgColor,
-                  NSColor.lightGray.cgColor,
-                  NSColor.darkGray.cgColor,
-                  NSColor.black.cgColor]
-    }
-    func update(location: Int, color: CGColor) {
-        colors[location] = color
-    }
-}
+//class Palette {
+//    public var count: Int {
+//        get {
+//            return colors.count
+//        }
+//    }
+//    public var colors: [CGColor]
+//    init() {
+//        colors = [NSColor.white.cgColor,
+//                  NSColor.lightGray.cgColor,
+//                  NSColor.darkGray.cgColor,
+//                  NSColor.black.cgColor]
+//    }
+//    func update(location: Int, color: CGColor) {
+//        colors[location] = color
+//    }
+//}

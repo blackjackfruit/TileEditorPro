@@ -15,7 +15,7 @@ protocol EditorViewControllerSettingsProtocol {
     var tileDataType: TileDataType? { get set }
     var isRomData: Bool { get set }
     var isCHRData: Bool { get set }
-    var palettes: [Palette]? { get set }
+    var palettes: [PaletteProtocol]? { get set }
 }
 
 class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSettingsProtocol {
@@ -25,7 +25,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
     var tileDataType: TileDataType? = nil
     var isRomData = false
     var isCHRData = false
-    var palettes: [Palette]? = nil
+    var palettes: [PaletteProtocol]? = nil
     
     override init() {
         

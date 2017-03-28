@@ -57,10 +57,10 @@ class PaletteProccessor: ImporterExporter, FileHandler {
     var path: String? = nil
     var type: PaletteProccessorType? = nil
     
-    func importObject(completion: @escaping  ((_ object: Palette?, _ error: Error?)->Void)) {
+    func importObject(completion: @escaping  ((_ object: PaletteProtocol?, _ error: Error?)->Void)) {
         
     }
-    func exportObject(object: Palette, completion: @escaping  ((_ error: Error?) -> Void)) {
+    func exportObject(object: PaletteProtocol, completion: @escaping  ((_ error: Error?) -> Void)) {
         
     }
 }

@@ -23,7 +23,7 @@ struct TileViewerMapper {
 
 class TileEditor: TileDrawer {
     var delegate: TileEditorProtocol? = nil
-    var colorPalette: Palette = Palette()
+    var colorPalette: PaletteProtocol = NESPalette()
     var zoomSize: ZoomSize = .x4
     var colorFromPalette: Int = 3
     var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
@@ -270,8 +270,8 @@ class TileEditor: TileDrawer {
                                    width: pixelDimention,
                                    height: pixelDimention)
                 let colorAtIndex = tileData[indexPerPixel+startingPosition]
-                let color = colorPalette.colors[colorAtIndex]
-                ctx.setFillColor(color)
+                let color: (_ : String, color: CGColor) = colorPalette.palette[colorAtIndex]
+                ctx.setFillColor(color.color)
                 ctx.addRect(pixel)
                 ctx.setLineWidth(CGFloat(0.2))
                 ctx.drawPath(using: .fillStroke)
