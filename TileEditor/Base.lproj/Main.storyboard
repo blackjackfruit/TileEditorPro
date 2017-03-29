@@ -262,9 +262,6 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
-                                <connections>
-                                    <action selector="tileEditorSizeChanged:" target="XfG-lQ-9wD" id="EVW-LL-nK7"/>
-                                </connections>
                             </popUpButton>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="501" y="72" width="125" height="214"/>

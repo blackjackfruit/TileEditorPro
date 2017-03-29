@@ -7,7 +7,6 @@ Project is written using Swift3.
 
 ### TODO:
 * Project settings
-    * Save Palettes within project settings.
     * Allow the change of the number of tiles selectable (zooming scale 1x, 2x, 4x) at a time.
 * More options for painting such as fill, square, lines, etc.
 * Must replace current implementation of using NSCollection with a custom collection class for improved speed.
