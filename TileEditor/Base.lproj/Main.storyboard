@@ -333,9 +333,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="generalSelectableColors" destination="UYc-Kk-XNE" id="5kD-Zn-Rhq"/>
-                        <outlet property="selectableColors" destination="Dwl-Ls-nzb" id="wIF-fU-5kq"/>
-                        <outlet property="selectablePalettes" destination="XSG-tK-hpz" id="x8S-8h-l3s"/>
+                        <outlet property="generalSelectableColorsOutlet" destination="UYc-Kk-XNE" id="m1q-8m-0Bf"/>
+                        <outlet property="selectableColorsOutlet" destination="Dwl-Ls-nzb" id="nvB-Uj-6HU"/>
+                        <outlet property="selectablePalettesOutlet" destination="XSG-tK-hpz" id="all-b4-0WL"/>
                         <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>

@@ -1,4 +1,4 @@
-//
+
 //  TileEditorDocument.swift
 //  TileEditor
 //
@@ -22,20 +22,26 @@ class TileEditorDocument: NSDocument {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         guard let windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController,
-        let editorViewController = windowController.contentViewController as? EditorViewController else {
-            NSLog("")
+        let createdEditorViewController = windowController.contentViewController as? EditorViewController else {
+            NSLog("WindowController not found")
             return
         }
         
         if self.editorViewControllerSettings == nil {
-            self.editorViewControllerSettings = editorViewController.editorViewControllerSettings
+            self.editorViewControllerSettings = createdEditorViewController.editorViewControllerSettings
         } else {
-            editorViewController.editorViewControllerSettings = editorViewControllerSettings
+            createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
         }
-        editorViewController.editorViewControllerSettings?.tileDataType = .nes
+        createdEditorViewController.editorViewControllerSettings?.tileDataType = .nes
         
-        editorViewController.update()
-        self.editorViewController = editorViewController
+        if let palettes = self.editorViewControllerSettings?.palettes {
+            createdEditorViewController.selectableColors = palettes[0]
+            createdEditorViewController.selectablePalettes = palettes
+            // No need to setup the GeneralColorPalette because that is not saved in the file and the editor will load up the correct one based off of tileDataType
+        }
+        
+        self.editorViewController = createdEditorViewController
+        self.editorViewController?.update()
         
         setupMenuItems()
         

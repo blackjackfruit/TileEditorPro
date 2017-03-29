@@ -26,6 +26,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
     var isRomData = false
     var isCHRData = false
     var palettes: [PaletteProtocol]? = nil
+    var selectedPalette: Int = 0
     
     override init() {
         
@@ -40,7 +41,8 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         guard let dataInput = aDecoder.decodeObject(forKey: "TileData") as? Data,
               let zoomsize = ZoomSize(rawValue: decodedZoomSize),
               let tileDataType = TileDataType(rawValue: type),
-              let tileData = TileData(data: dataInput, type: tileDataType) else {
+              let tileData = TileData(data: dataInput, type: tileDataType),
+              let palettes = aDecoder.decodeObject(forKey: "Palettes") as? [PaletteProtocol] else {
             return
         }
         
@@ -48,6 +50,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         self.zoomSize = zoomsize
         self.tileDataType = tileDataType
         self.tileData = tileData
+        self.palettes = palettes
     }
     
     func encode(with aCoder: NSCoder) {
@@ -64,5 +67,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         aCoder.encode(zoomSize, forKey: "ZoomSize")
         aCoder.encode(data, forKey: "TileData")
         aCoder.encode(tileDataType, forKey: "TileDataType")
+        aCoder.encode(palettes, forKey: "Palettes")
+        aCoder.encode(0, forKey: "SelectedPalette")
     }
 }

@@ -47,7 +47,7 @@ class Selector: NSView {
             
             var numberOfTimesAcross = boxSelectorProtocol.palettesPerRow
             let numberOfPalettes = boxSelectorProtocol.palettes.count
-            let numberOfBoxesPerPalette = boxSelectorProtocol.palettes[0].size
+            let numberOfBoxesPerPalette = boxSelectorProtocol.palettes.first?.size ?? 4
             let dimensionForBox = boxSelectorProtocol.boxDimension
             
             if numberOfPalettes < numberOfTimesAcross {

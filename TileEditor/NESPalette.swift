@@ -9,12 +9,11 @@
 import Foundation
 
 protocol PaletteProtocol: class {
-    var size: Int { get set }
+    var size: Int { get }
     var palette: [(key: String, color: CGColor)] { get set }
     var values: [CGColor] { get }
 }
 extension PaletteProtocol {
-    
     var values: [CGColor] {
         get {
             var ret: [CGColor] = []
@@ -26,9 +25,36 @@ extension PaletteProtocol {
     }
 }
 
-class NESPalette: PaletteProtocol {
-    var size = 4
-    fileprivate var _palette: [(key: String, color: CGColor)]? = nil
+class NESPalette: NSObject, PaletteProtocol, NSCoding {
+    var size = 4 // Number of colors in a NES tile
+    class PaletteBox: NSObject, NSCoding {
+        var key: String
+        var color: CGColor
+        
+        init(key: String, color: CGColor){
+            self.key = key
+            self.color = color
+        }
+        convenience required init?(coder aDecoder: NSCoder) {
+            guard
+                let color = aDecoder.decodeObject(forKey: "Color") as? [CGFloat],
+                let key = aDecoder.decodeObject(forKey: "Key") as? String else {
+                    self.init(key: "", color:CGColor(red: 0, green: 0, blue: 0, alpha: 1))
+                    return
+            }
+            let r = color[0]
+            let g = color[1]
+            let b = color[2]
+            self.init(key: key, color:CGColor(red: r, green: g, blue: b, alpha: 1))
+        }
+        func encode(with aCoder: NSCoder) {
+            aCoder.encode(key, forKey: "Key")
+            let components = self.color.components
+            let color = [components?[0], components?[1],components?[2], components?[3],]
+            aCoder.encode(color, forKey: "Color")
+        }
+    }
+    private var _palette: [(key: String, color: CGColor)]? = nil
     var palette: [(key: String, color: CGColor)]  {
         get {
             if let p = _palette {
@@ -47,7 +73,21 @@ class NESPalette: PaletteProtocol {
         }
     }
     
-    init() {
+    override init() {
+        super.init()
+    }
+    
+    convenience required init?(coder aDecoder: NSCoder) {
+        self.init()
+        guard let paletteBoxArray = aDecoder.decodeObject(forKey: "Palette") as? [PaletteBox] else {
+            NSLog("Failed")
+            return
+        }
+        var palettes: [(key: String, color: CGColor)] = []
+        paletteBoxArray.forEach { (pb: PaletteBox) in
+            palettes.append((pb.key, pb.color))
+        }
+        self._palette = palettes
     }
     
     func randomColor() -> (String, CGColor) {
@@ -55,11 +95,24 @@ class NESPalette: PaletteProtocol {
         
         return NESColors[randomNumber]
     }
+    
+    func encode(with aCoder: NSCoder) {
+        var paletteBoxArray: [PaletteBox] = []
+        self._palette?.forEach({ (tuple: (key: String, color: CGColor)) in
+            paletteBoxArray.append(PaletteBox(key: tuple.key, color: tuple.color))
+        })
+        aCoder.encode(paletteBoxArray, forKey: "Palette")
+    }
+}
+
+class GeneralNESColorPalette: PaletteProtocol {
+    var size: Int = 64 // All colors which the NES PPU understands
+    var palette: [(key: String, color: CGColor)] = NESColors
 }
 
 // Default colors for the available colors
 // TODO: Must verify that the keys match values
-var NESColors = [
+fileprivate var NESColors = [
     ("00", CGColor(red: 0.329411764705882, green: 0.329411764705882, blue: 0.329411764705882, alpha: 1.0)),
     ("10", CGColor(red: 0.596078431372549, green: 0.588235294117647, blue: 0.596078431372549, alpha: 1.0)),
     ("20", CGColor(red: 0.925490196078431, green: 0.933333333333333, blue: 0.925490196078431, alpha: 1.0)),
