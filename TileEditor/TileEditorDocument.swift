@@ -32,7 +32,7 @@ class TileEditorDocument: NSDocument {
         } else {
             createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
         }
-        createdEditorViewController.editorViewControllerSettings?.tileDataType = .nes
+        createdEditorViewController.editorViewControllerSettings?.consoleType = .nes
         
         if let palettes = self.editorViewControllerSettings?.palettes {
             createdEditorViewController.selectableColors = palettes[0]

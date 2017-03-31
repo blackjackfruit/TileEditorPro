@@ -28,7 +28,7 @@ class ROMMenu: NSMenu {
                 
                 return
             }
-            let tileData = TileData(data: data, type: .none)
+            let tileData = TileData(data: data, type: .nes)
             self.editorViewController?.editorViewControllerSettings?.tileData = tileData
             self.editorViewController?.update()
         }

@@ -24,7 +24,7 @@ class DataProcessor: ImporterExporter, FileHandler {
     
     var path: String? = nil
     var type: DataProcessorType? = nil
-    var dataType: TileDataType? = nil
+    var consoleType: ConsoleType? = nil
     
     func importObject(completion: @escaping ((_ object: Data?, _ error: Error?)->Void)) {
         self.importRaw { [weak self] (data: Data?) in
@@ -37,7 +37,7 @@ class DataProcessor: ImporterExporter, FileHandler {
         }
     }
     
-    static func checkType(data: Data) -> TileDataType {
+    static func checkType(data: Data) -> ConsoleType {
         if data.count >= 16 {
             let subdata = data.subdata(in: 0..<3)
             let dataFormat = "NES".data(using: String.Encoding.utf8)
@@ -46,7 +46,7 @@ class DataProcessor: ImporterExporter, FileHandler {
                 return .nes
             }
         }
-        return .none
+        return .unknown
     }
 }
 

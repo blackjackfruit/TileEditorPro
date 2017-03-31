@@ -190,8 +190,8 @@ class TileCollection: NSObject {
             NSLog("ERROR: No tile data")
             return nil
         }
-        let startingLocation = position*allTiles.type.numberOfPixels()*allTiles.type.numberOfPixels()
-        let sizeOfTile = allTiles.type.numberOfPixels()*allTiles.type.numberOfPixels()
+        let startingLocation = position*allTiles.consoleType.numberOfPixels()*allTiles.consoleType.numberOfPixels()
+        let sizeOfTile = allTiles.consoleType.numberOfPixels()*allTiles.consoleType.numberOfPixels()
         if startingLocation+sizeOfTile > allTiles.numberOfTiles()*sizeOfTile {
             NSLog("ERROR: Attempted to get item at index out of bounds")
             return nil

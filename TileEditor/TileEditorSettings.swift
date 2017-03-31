@@ -12,7 +12,7 @@ protocol EditorViewControllerSettingsProtocol {
     var version: Int { get set }
     var zoomSize: ZoomSize { get set }
     var tileData: TileData? { get set }
-    var tileDataType: TileDataType? { get set }
+    var consoleType: ConsoleType? { get set }
     var isRomData: Bool { get set }
     var isCHRData: Bool { get set }
     var palettes: [PaletteProtocol]? { get set }
@@ -22,7 +22,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
     var version: Int = 0
     var zoomSize: ZoomSize = .x4
     var tileData: TileData? = nil
-    var tileDataType: TileDataType? = nil
+    var consoleType: ConsoleType? = nil
     var isRomData = false
     var isCHRData = false
     var palettes: [PaletteProtocol]? = nil
@@ -40,15 +40,15 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         
         guard let dataInput = aDecoder.decodeObject(forKey: "TileData") as? Data,
               let zoomsize = ZoomSize(rawValue: decodedZoomSize),
-              let tileDataType = TileDataType(rawValue: type),
-              let tileData = TileData(data: dataInput, type: tileDataType),
+              let consoleType = ConsoleType(rawValue: type),
+              let tileData = TileData(data: dataInput, type: consoleType),
               let palettes = aDecoder.decodeObject(forKey: "Palettes") as? [PaletteProtocol] else {
             return
         }
         
         self.version = version
         self.zoomSize = zoomsize
-        self.tileDataType = tileDataType
+        self.consoleType = consoleType
         self.tileData = tileData
         self.palettes = palettes
     }
@@ -61,12 +61,12 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
                else {
             return
         }
-        let tileDataType = Int(tileData.type.rawValue)
+        let tileDataType = Int(tileData.consoleType.rawValue)
         
         aCoder.encode(version, forKey: "Version")
         aCoder.encode(zoomSize, forKey: "ZoomSize")
         aCoder.encode(data, forKey: "TileData")
-        aCoder.encode(tileDataType, forKey: "TileDataType")
+        aCoder.encode(consoleType, forKey: "ConsoleType")
         aCoder.encode(palettes, forKey: "Palettes")
         aCoder.encode(0, forKey: "SelectedPalette")
     }

@@ -8,14 +8,13 @@
 
 import Foundation
 
-enum TileDataType: Int {
+enum ConsoleType: Int {
     case unknown
-    case none
     case nes
     
     func numberOfPixels() -> Int {
         switch self {
-        case .nes, .none:
+        case .nes:
             return 8
         case .unknown:
             return -1
@@ -25,13 +24,12 @@ enum TileDataType: Int {
 
 class TileData {
     fileprivate var tilesInternal: [Int]? = nil
-    fileprivate var currentTileDataType: TileDataType = .none
     fileprivate var dataInternal: Data? = nil
     
-    private (set) var type: TileDataType
+    private (set) var consoleType: ConsoleType = .nes
     var originalData: Data? = nil
     var modifiedData: Data? {
-        switch type {
+        switch consoleType {
         case .nes:
             return nesTileFormat()
         default:
@@ -41,14 +39,12 @@ class TileData {
     var formatHeader: Data? = nil
     var tiles: [Int]? = nil
     
-    init?(data: Data, type: TileDataType) {
+    init?(data: Data, type: ConsoleType) {
         NSLog("Creating new TileData object")
         self.originalData = data
-        self.type = type
+        self.consoleType = type
         
         switch type {
-        case .none:
-            self.tiles = self.rawTiles(data: data)
         case .nes:
             formatHeader = data.subdata(in: 0..<16)
             let tArray = tileArray(data: data)
@@ -73,11 +69,8 @@ class TileData {
         if tiles.count == 0 {
             return 0
         }
-        switch type {
+        switch consoleType {
         case .nes:
-            num = tiles.count/64
-            break
-        case .none:
             num = tiles.count/64
             break
         default: break
