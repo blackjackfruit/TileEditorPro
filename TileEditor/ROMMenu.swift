@@ -28,9 +28,15 @@ class ROMMenu: NSMenu {
                 
                 return
             }
-            let tileData = TileData(data: data, type: .nes)
-            self.editorViewController?.editorViewControllerSettings?.tileData = tileData
-            self.editorViewController?.update()
+            
+            if let console = ConsoleDataFactory.generate(data: data) {
+                self.editorViewController?.tileEditor?.tileData = console.1
+                self.editorViewController?.editorViewControllerSettings?.tileData = console.1
+                self.editorViewController?.update()
+                
+            } else {
+                NSLog("")
+            }
         }
     }
     
@@ -40,9 +46,9 @@ class ROMMenu: NSMenu {
         }
         var dataToExport: Data? = nil
         if editorSettings.isCHRData {
-            dataToExport = editorSettings.tileData?.modifiedData
+            dataToExport = editorSettings.tileData?.data
         } else {
-            dataToExport = editorSettings.tileData?.modifiedData
+            dataToExport = editorSettings.tileData?.data
         }
         
         if let data = dataToExport {

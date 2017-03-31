@@ -32,7 +32,6 @@ class TileEditorDocument: NSDocument {
         } else {
             createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
         }
-        createdEditorViewController.editorViewControllerSettings?.consoleType = .nes
         
         if let palettes = self.editorViewControllerSettings?.palettes {
             createdEditorViewController.selectableColors = palettes[0]
@@ -51,7 +50,7 @@ class TileEditorDocument: NSDocument {
         let delegate = NSApplication.shared().delegate as? AppDelegate
         let romMenu = delegate?.ROMMenu
         
-        romMenu?.editorViewController = editorViewController
+        romMenu?.editorViewController = self.editorViewController
     }
     override func data(ofType typeName: String) throws -> Data {
         guard let tileEditorSettings = self.editorViewControllerSettings else {

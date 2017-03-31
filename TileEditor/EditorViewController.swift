@@ -55,14 +55,11 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         _ = setupTileEditor()
     }
     private func setupEditorViewControllerSettings() -> Bool {
-        let sampleData = Data(count: 8192)
-        let tileData = TileData(data: sampleData, type: self.tileDataType)
-        self.editorViewControllerSettings = EditorViewControllerSettings()
-        self.editorViewControllerSettings?.tileData = tileData
-        self.editorViewControllerSettings?.consoleType = self.tileDataType
+        if self.editorViewControllerSettings == nil {
+           self.editorViewControllerSettings = EditorViewControllerSettings()
+        }
         
         self.editorViewControllerSettings?.palettes = self.selectablePalettes
-        
         return true
     }
     private func setupTileEditor() {
@@ -99,27 +96,36 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         return true
     }
     func update() {
+        var tileData = self.editorViewControllerSettings?.tileData
+        if let data = tileData?.data {
+            let tempTileData = ConsoleDataFactory.generate(data: data)
+            tileData = tempTileData?.1
+        } else {
+            tileData = ConsoleDataFactory.generate(type: .nes)
+            self.editorViewControllerSettings?.tileData = tileData
+        }
+        
+        self.tileEditor?.tileData = tileData
+
         NSLog("Request to update views")
         guard let editorViewControllerSettings = editorViewControllerSettings,
             let consoleType = editorViewControllerSettings.consoleType,
-            let tileData = editorViewControllerSettings.tileData,
-            let tiles = editorViewControllerSettings.tileData?.tiles else {
+            let tiles = tileData?.tiles else {
             NSLog("Cannot call update without specifying needed parameters")
             NSLog("tileDataType and tileData are needed before updating")
             return
         }
+        
         _ = setupEditorViewControllerSettings()
         _ = setupPaletteSelectors()
         
         self.generalSelectableColorsOutlet?.redraw()
         
         switch consoleType {
-            case .nes:
+            case .nes, .nesROM:
                 pixelsPerTile = 8
-        case .unknown:
-            NSLog("View controller did not set tile data type, thus we cannot draw anything")
-            return
         }
+        self.editorViewControllerSettings?.tileData = tileData
         
         self.tileEditor?.tileData = tileData
         self.tileEditor?.numberOfPixelsPerTile = pixelsPerTile

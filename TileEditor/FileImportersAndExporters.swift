@@ -27,7 +27,7 @@ class DataProcessor: ImporterExporter, FileHandler {
     var consoleType: ConsoleType? = nil
     
     func importObject(completion: @escaping ((_ object: Data?, _ error: Error?)->Void)) {
-        self.importRaw { [weak self] (data: Data?) in
+        _ = self.importRaw { [weak self] (data: Data?) in
             completion(data, nil)
         }
     }
@@ -35,18 +35,6 @@ class DataProcessor: ImporterExporter, FileHandler {
         self.exportRaw(data: object) { (error: Error?) in
             completion(error)
         }
-    }
-    
-    static func checkType(data: Data) -> ConsoleType {
-        if data.count >= 16 {
-            let subdata = data.subdata(in: 0..<3)
-            let dataFormat = "NES".data(using: String.Encoding.utf8)
-            
-            if subdata == dataFormat {
-                return .nes
-            }
-        }
-        return .unknown
     }
 }
 

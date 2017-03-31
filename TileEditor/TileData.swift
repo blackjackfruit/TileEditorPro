@@ -9,57 +9,37 @@
 import Foundation
 
 enum ConsoleType: Int {
-    case unknown
     case nes
+    case nesROM
     
     func numberOfPixels() -> Int {
         switch self {
-        case .nes:
+        case .nes, .nesROM:
             return 8
-        case .unknown:
-            return -1
         }
     }
 }
+enum PaletteType: Int {
+    case nes
+}
 
 class TileData {
-    fileprivate var tilesInternal: [Int]? = nil
-    fileprivate var dataInternal: Data? = nil
-    
     private (set) var consoleType: ConsoleType = .nes
-    var originalData: Data? = nil
-    var modifiedData: Data? {
+    var data: Data? {
         switch consoleType {
         case .nes:
             return nesTileFormat()
-        default:
-            return unknownTileFormat()
+        case .nesROM:
+            return nesTileFormat()
         }
     }
     var formatHeader: Data? = nil
     var tiles: [Int]? = nil
     
-    init?(data: Data, type: ConsoleType) {
+    init(tiles: [Int], type: ConsoleType) {
         NSLog("Creating new TileData object")
-        self.originalData = data
         self.consoleType = type
-        
-        switch type {
-        case .nes:
-            formatHeader = data.subdata(in: 0..<16)
-            let tArray = tileArray(data: data)
-            self.tiles = self.nesTiles(fromArray: tArray)
-        case .unknown:
-            NSLog("Could not create TileData object")
-            return nil
-        }
-        
-        if self.tiles != nil {
-            NSLog("Finished creating '\(type)' type for TileData object")
-        } else {
-            return nil
-        }
-        
+        self.tiles = tiles
     }
     func numberOfTiles() -> Int {
         guard let tiles = tiles else {
@@ -77,45 +57,12 @@ class TileData {
         }
         return num
     }
-    internal func tileArray(data: Data) ->[Int] {
-        let offset = 8
-        var output: [Int] = []
-        var r = 0
-        let numberOfBytesInFile = data.count
-        while (r < numberOfBytesInFile) {
-            for i in 0..<8 {
-                let channelAByte = data[r+i]
-                let channelBByte = data[r+i+offset]
-                let row = self.returnRowOfPixelValues(channelA: channelAByte, channelB: channelBByte)
-                output += row
-            }
-            r += 16
-        }
-        return output
-    }
-    internal func rawTiles(data: Data) -> [Int]? {
-        guard let data = originalData else {
-            return nil
-        }
-        let output = tileArray(data: data)
-        return output
-    }
-    internal func nesTiles(fromArray: [Int]) -> [Int]? {
-        let ret = Array(fromArray[64..<fromArray.count])
-        NSLog("Start processing NES file")
-        NSLog("Finished processing NES file")
-        return ret
-    }
-    internal func unknownTileFormat() -> Data? {
-        return formatTileDataAsNES(usingHeader: nil)
-    }
     // adds nes header to tile array before returning data
-    internal func nesTileFormat() -> Data? {
-        
+    func nesTileFormat() -> Data? {
         return formatTileDataAsNES(usingHeader: formatHeader)
     }
     
-    internal func formatTileDataAsNES(usingHeader: Data?) -> Data? {
+    func formatTileDataAsNES(usingHeader: Data?) -> Data? {
         guard let tiles = tiles else {
             NSLog("Tiles is nil")
             return nil
@@ -188,35 +135,5 @@ class TileData {
             return usingHeader! + tileData
         }
         return tileData
-    }
-    
-    private func returnRowOfPixelValues(channelA: UInt8, channelB: UInt8) -> [Int] {
-        var byte: [Int] = []
-        
-        // Run through the bits individually
-        var countDown: UInt8 = 7
-        repeat {
-            let channelABit = (channelA >> countDown) & 0b00000001
-            let channelBBit = (channelB >> countDown) & 0b00000001
-            
-            if channelABit == 0 && channelBBit == 0 {
-                byte.append(0)
-            }
-            else if channelABit == 0 && channelBBit == 1 {
-                byte.append(1)
-            }
-            else if channelABit == 1 && channelBBit == 0 {
-                byte.append(2)
-            }
-            else {
-                byte.append(3)
-            }
-            
-            if countDown == 0 {
-                break
-            }
-            countDown -= 1
-        } while (countDown >= 0)
-        return byte
     }
 }
