@@ -136,6 +136,9 @@
                                         </menuItem>
                                         <menuItem title="Export Palette" enabled="NO" id="Kf2-I8-tlb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="exportPaletteWithSender:" target="4fW-pP-TiN" id="fYe-Qt-DOx"/>
+                                            </connections>
                                         </menuItem>
                                     </items>
                                     <connections>

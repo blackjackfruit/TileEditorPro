@@ -120,7 +120,34 @@ class ConsoleDataFactory: Factory {
 
 class PaletteFactory: Factory {
     
+    static func convert(array: [String], type: PaletteType) -> Data? {
+        switch type {
+        case .nes:
+            let stringOfHexValues = array.flatMap({ $0 }).joined()
+            // This is the number of bytes to save per 8 palettes. The bytesToSave should be 32
+            let bytesToSave = stringOfHexValues.characters.count/2
+            if bytesToSave == 32,
+                let hexValues = stringOfHexValues.toHex()  {
+                return Data(bytes: hexValues)
+            }
+        }
+        return nil
+    }
+    
     static func generate(data: Data) -> (PaletteType, PaletteProtocol)? {
+        let paletteFactory = PaletteFactory()
+        if let paletteType = paletteFactory.paletteType(data: data) {
+            var paletteGenerated: PaletteProtocol? = nil
+            switch paletteType {
+            case .nes:
+                paletteGenerated = paletteFactory.nesPalette(data: data)
+            }
+            guard let palette = paletteGenerated else {
+                return nil
+            }
+            return (paletteType, palette)
+        }
+        
         return nil
     }
     
@@ -130,5 +157,17 @@ class PaletteFactory: Factory {
             return NESPalette()
         }
     }
-    
+    func nesPalette(data: Data) -> PaletteProtocol {
+        
+        
+        
+        return NESPalette()
+    }
+    func paletteType(data: Data) -> PaletteType? {
+        // Check if Data is of type NES ( 32 bytes long )
+        if data.count == 32 {
+            return .nes
+        }
+        return nil
+    }
 }

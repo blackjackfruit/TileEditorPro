@@ -33,7 +33,6 @@ class ROMMenu: NSMenu {
                 self.editorViewController?.tileEditor?.tileData = console.1
                 self.editorViewController?.editorViewControllerSettings?.tileData = console.1
                 self.editorViewController?.update()
-                
             } else {
                 NSLog("")
             }
@@ -65,6 +64,22 @@ class ROMMenu: NSMenu {
     }
     
     @IBAction func exportPalette(sender: AnyObject) {
+        guard let editorSettings = editorViewController?.editorViewControllerSettings else {
+            return
+        }
+        var keys: [String] = []
+        editorSettings.palettes?.forEach({ (palette: PaletteProtocol) in
+            palette.palette.forEach({ (tuple: (key: String, color: CGColor)) in
+                keys.append( tuple.key )
+            })
+        })
+        if let paletteData = PaletteFactory.convert(array: keys, type: .nes) {
+            dataProcessor.exportObject(object: paletteData, completion: { (error: Error?) in
+                print("ExportPaletteData: \(error)")
+            })
+        } else {
+            NSLog("Palette Data")
+        }
         
     }
 }
