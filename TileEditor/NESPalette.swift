@@ -8,38 +8,21 @@
 
 import Foundation
 
-protocol PaletteProtocol: class {
-    var size: Int { get }
-    var palette: [(key: String, color: CGColor)] { get set }
-    var values: [CGColor] { get }
-}
-extension PaletteProtocol {
-    var values: [CGColor] {
-        get {
-            var ret: [CGColor] = []
-            palette.forEach { (set: (_ : String, color: CGColor)) in
-                ret.append(set.color)
-            }
-            return ret
-        }
-    }
-}
-
 class NESPalette: NSObject, PaletteProtocol, NSCoding {
     var size = 4 // Number of colors in a NES tile
     class PaletteBox: NSObject, NSCoding {
-        var key: String
+        var key: UInt8
         var color: CGColor
         
-        init(key: String, color: CGColor){
+        init(key: UInt8, color: CGColor){
             self.key = key
             self.color = color
         }
         convenience required init?(coder aDecoder: NSCoder) {
             guard
                 let color = aDecoder.decodeObject(forKey: "Color") as? [CGFloat],
-                let key = aDecoder.decodeObject(forKey: "Key") as? String else {
-                    self.init(key: "", color:CGColor(red: 0, green: 0, blue: 0, alpha: 1))
+                let key = aDecoder.decodeObject(forKey: "Key") as? UInt8 else {
+                    self.init(key: 0, color:CGColor(red: 0, green: 0, blue: 0, alpha: 1))
                     return
             }
             let r = color[0]
@@ -54,13 +37,13 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
             aCoder.encode(color, forKey: "Color")
         }
     }
-    private var _palette: [(key: String, color: CGColor)]? = nil
-    var palette: [(key: String, color: CGColor)]  {
+    private var _palette: [(key: UInt8, color: CGColor)]? = nil
+    var palette: [(key: UInt8, color: CGColor)]  {
         get {
             if let p = _palette {
                 return p
             }
-            var ret =  [(String, CGColor)]()
+            var ret =  [(UInt8, CGColor)]()
             
             for _ in 0..<size {
                 ret.append(randomColor())
@@ -83,22 +66,33 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
             NSLog("Failed")
             return
         }
-        var palettes: [(key: String, color: CGColor)] = []
+        var palettes: [(key: UInt8, color: CGColor)] = []
         paletteBoxArray.forEach { (pb: PaletteBox) in
             palettes.append((pb.key, pb.color))
         }
         self._palette = palettes
     }
     
-    func randomColor() -> (String, CGColor) {
+    // Input can be a string with four colors of format 01203211 or pass the full 32 bytes (64 characters) as string with format xx
+    // return nil if the string is an odd number of chracters/bytes 
+    static func getPalette(input: String) -> [PaletteProtocol]? {
+        
+        return nil
+    }
+    
+    func randomColor() -> (UInt8, CGColor) {
         let randomNumber = Int(arc4random_uniform(UInt32(NESColors.count)))
         
-        return NESColors[randomNumber]
+        let key = Array(NESColors.keys)[randomNumber]
+        guard let color = NESColors[key] else {
+            return (0, CGColor(red: 0.329411764705882, green: 0.329411764705882, blue: 0.329411764705882, alpha: 1.0))
+        }
+        return (key, color)
     }
     
     func encode(with aCoder: NSCoder) {
         var paletteBoxArray: [PaletteBox] = []
-        self._palette?.forEach({ (tuple: (key: String, color: CGColor)) in
+        self._palette?.forEach({ (tuple: (key: UInt8, color: CGColor)) in
             paletteBoxArray.append(PaletteBox(key: tuple.key, color: tuple.color))
         })
         aCoder.encode(paletteBoxArray, forKey: "Palette")
@@ -107,74 +101,156 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
 
 class GeneralNESColorPalette: PaletteProtocol {
     var size: Int = 64 // All colors which the NES PPU understands
-    var palette: [(key: String, color: CGColor)] = NESColors
+    var palette: [(key: UInt8, color: CGColor)] = GeneralNESColorPalette.nesColors()
+    
+    static func nesColors() ->  [(key: UInt8, color: CGColor)] {
+        return sortedNesColors()
+    }
 }
 
 // Default colors for the available colors
 // TODO: Must verify that the keys match values
-fileprivate var NESColors = [
-    ("00", CGColor(red: 0.329411764705882, green: 0.329411764705882, blue: 0.329411764705882, alpha: 1.0)),
-    ("10", CGColor(red: 0.596078431372549, green: 0.588235294117647, blue: 0.596078431372549, alpha: 1.0)),
-    ("20", CGColor(red: 0.925490196078431, green: 0.933333333333333, blue: 0.925490196078431, alpha: 1.0)),
-    ("30", CGColor(red: 0.925490196078431, green: 0.933333333333333, blue: 0.925490196078431, alpha: 1.0)),
-    ("01", CGColor(red: 0.0, green: 0.117647058823529, blue: 0.454901960784314, alpha: 1.0)),
-    ("11", CGColor(red: 0.0313725490196078, green: 0.298039215686275, blue: 0.768627450980392, alpha: 1.0)),
-    ("21", CGColor(red: 0.0, green: 0.298039215686275, blue: 0.603921568627451, alpha: 1.0)),
-    ("31", CGColor(red: 0.658823529411765, green: 0.8, blue: 0.925490196078431, alpha: 1.0)),
-    ("02", CGColor(red: 0.0313725490196078, green: 0.0627450980392157, blue: 0.564705882352941, alpha: 1.0)),
-    ("12", CGColor(red: 0.188235294117647, green: 0.196078431372549, blue: 0.925490196078431, alpha: 1.0)),
-    ("22", CGColor(red: 0.470588235294118, green: 0.486274509803922, blue: 0.925490196078431, alpha: 1.0)),
-    ("32", CGColor(red: 0.737254901960784, green: 0.737254901960784, blue: 0.925490196078431, alpha: 1.0)),
-    ("03", CGColor(red: 0.188235294117647, green: 0.0, blue: 0.533333333333333, alpha: 1.0)),
-    ("13", CGColor(red: 0.36078431372549, green: 0.117647058823529, blue: 0.894117647058824, alpha: 1.0)),
-    ("23", CGColor(red: 0.690196078431373, green: 0.384313725490196, blue: 0.925490196078431, alpha: 1.0)),
-    ("33", CGColor(red: 0.831372549019608, green: 0.698039215686274, blue: 0.925490196078431, alpha: 1.0)),
-    ("04", CGColor(red: 0.266666666666667, green: 0.0, blue: 0.392156862745098, alpha: 1.0)),
-    ("14", CGColor(red: 0.533333333333333, green: 0.0784313725490196, blue: 0.690196078431373, alpha: 1.0)),
-    ("24", CGColor(red: 0.894117647058824, green: 0.329411764705882, blue: 0.925490196078431, alpha: 1.0)),
-    ("34", CGColor(red: 0.925490196078431, green: 0.682352941176471, blue: 0.925490196078431, alpha: 1.0)),
-    ("05", CGColor(red: 0.36078431372549, green: 0.0, blue: 0.188235294117647, alpha: 1.0)),
-    ("15", CGColor(red: 0.627450980392157, green: 0.0784313725490196, blue: 0.392156862745098, alpha: 1.0)),
-    ("25", CGColor(red: 0.925490196078431, green: 0.345098039215686, blue: 0.705882352941177, alpha: 1.0)),
-    ("35", CGColor(red: 0.925490196078431, green: 0.682352941176471, blue: 0.831372549019608, alpha: 1.0)),
-    ("06", CGColor(red: 0.329411764705882, green: 0.0156862745098039, blue: 0.0, alpha: 1.0)),
-    ("16", CGColor(red: 0.596078431372549, green: 0.133333333333333, blue: 0.125490196078431, alpha: 1.0)),
-    ("26", CGColor(red: 0.925490196078431, green: 0.415686274509804, blue: 0.392156862745098, alpha: 1.0)),
-    ("36", CGColor(red: 0.925490196078431, green: 0.705882352941177, blue: 0.690196078431373, alpha: 1.0)),
-    ("07", CGColor(red: 0.235294117647059, green: 0.0941176470588235, blue: 0.0, alpha: 1.0)),
-    ("17", CGColor(red: 0.470588235294118, green: 0.235294117647059, blue: 0.0, alpha: 1.0)),
-    ("27", CGColor(red: 0.831372549019608, green: 0.533333333333333, blue: 0.125490196078431, alpha: 1.0)),
-    ("37", CGColor(red: 0.894117647058824, green: 0.768627450980392, blue: 0.564705882352941, alpha: 1.0)),
-    ("08", CGColor(red: 0.125490196078431, green: 0.164705882352941, blue: 0.0, alpha: 1.0)),
-    ("18", CGColor(red: 0.329411764705882, green: 0.352941176470588, blue: 0.0, alpha: 1.0)),
-    ("28", CGColor(red: 0.627450980392157, green: 0.666666666666667, blue: 0.0, alpha: 1.0)),
-    ("38", CGColor(red: 0.8, green: 0.823529411764706, blue: 0.470588235294118, alpha: 1.0)),
-    ("09", CGColor(red: 0.0313725490196078, green: 0.227450980392157, blue: 0.0, alpha: 1.0)),
-    ("19", CGColor(red: 0.156862745098039, green: 0.447058823529412, blue: 0.0, alpha: 1.0)),
-    ("29", CGColor(red: 0.454901960784314, green: 0.768627450980392, blue: 0.0, alpha: 1.0)),
-    ("39", CGColor(red: 0.705882352941177, green: 0.870588235294118, blue: 0.470588235294118, alpha: 1.0)),
-    ("0a", CGColor(red: 0.0, green: 0.250980392156863, blue: 0.0, alpha: 1.0)),
-    ("1a", CGColor(red: 0.0313725490196078, green: 0.486274509803922, blue: 0.0, alpha: 1.0)),
-    ("2a", CGColor(red: 0.298039215686275, green: 0.815686274509804, blue: 0.125490196078431, alpha: 1.0)),
-    ("3a", CGColor(red: 0.658823529411765, green: 0.886274509803922, blue: 0.564705882352941, alpha: 1.0)),
-    ("0b", CGColor(red: 0.0, green: 0.235294117647059, blue: 0.0, alpha: 1.0)),
-    ("1b", CGColor(red: 0.0, green: 0.462745098039216, blue: 0.156862745098039, alpha: 1.0)),
-    ("2b", CGColor(red: 0.219607843137255, green: 0.8, blue: 0.423529411764706, alpha: 1.0)),
-    ("3b", CGColor(red: 0.596078431372549, green: 0.886274509803922, blue: 0.705882352941177, alpha: 1.0)),
-    ("0c", CGColor(red: 0.0, green: 0.196078431372549, blue: 0.235294117647059, alpha: 1.0)),
-    ("1c", CGColor(red: 0.0, green: 0.4, blue: 0.470588235294118, alpha: 1.0)),
-    ("2c", CGColor(red: 0.219607843137255, green: 0.705882352941177, blue: 0.8, alpha: 1.0)),
-    ("3c", CGColor(red: 0.627450980392157, green: 0.83921568627451, blue: 0.894117647058824, alpha: 1.0)),
-    ("0d", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("1d", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("2d", CGColor(red: 0.235294117647059, green: 0.0, blue: 0.235294117647059, alpha: 1.0)),
-    ("3d", CGColor(red: 0.627450980392157, green: 0.635294117647059, blue: 0.627450980392157, alpha: 1.0)),
-    ("0e", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("1e", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("2e", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("3e", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("0f", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("1f", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("2f", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)),
-    ("3f", CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0))
+fileprivate var NESColors: [UInt8: CGColor] = [
+    0x00: CGColor(red: 0.329411764705882, green: 0.329411764705882, blue: 0.329411764705882, alpha: 1.0),
+    0x10: CGColor(red: 0.596078431372549, green: 0.588235294117647, blue: 0.596078431372549, alpha: 1.0),
+    0x20: CGColor(red: 0.925490196078431, green: 0.933333333333333, blue: 0.925490196078431, alpha: 1.0),
+    0x30: CGColor(red: 0.925490196078431, green: 0.933333333333333, blue: 0.925490196078431, alpha: 1.0),
+    
+    0x01: CGColor(red: 0.0, green: 0.117647058823529, blue: 0.454901960784314, alpha: 1.0),
+    0x11: CGColor(red: 0.0313725490196078, green: 0.298039215686275, blue: 0.768627450980392, alpha: 1.0),
+    0x21: CGColor(red: 0.0, green: 0.298039215686275, blue: 0.603921568627451, alpha: 1.0),
+    0x31: CGColor(red: 0.658823529411765, green: 0.8, blue: 0.925490196078431, alpha: 1.0),
+    0x02: CGColor(red: 0.0313725490196078, green: 0.0627450980392157, blue: 0.564705882352941, alpha: 1.0),
+    0x12: CGColor(red: 0.188235294117647, green: 0.196078431372549, blue: 0.925490196078431, alpha: 1.0),
+    0x22: CGColor(red: 0.470588235294118, green: 0.486274509803922, blue: 0.925490196078431, alpha: 1.0),
+    0x32: CGColor(red: 0.737254901960784, green: 0.737254901960784, blue: 0.925490196078431, alpha: 1.0),
+    0x03: CGColor(red: 0.188235294117647, green: 0.0, blue: 0.533333333333333, alpha: 1.0),
+    0x13: CGColor(red: 0.36078431372549, green: 0.117647058823529, blue: 0.894117647058824, alpha: 1.0),
+    0x23: CGColor(red: 0.690196078431373, green: 0.384313725490196, blue: 0.925490196078431, alpha: 1.0),
+    0x33: CGColor(red: 0.831372549019608, green: 0.698039215686274, blue: 0.925490196078431, alpha: 1.0),
+    0x04: CGColor(red: 0.266666666666667, green: 0.0, blue: 0.392156862745098, alpha: 1.0),
+    0x14: CGColor(red: 0.533333333333333, green: 0.0784313725490196, blue: 0.690196078431373, alpha: 1.0),
+    0x24: CGColor(red: 0.894117647058824, green: 0.329411764705882, blue: 0.925490196078431, alpha: 1.0),
+    0x34: CGColor(red: 0.925490196078431, green: 0.682352941176471, blue: 0.925490196078431, alpha: 1.0),
+    0x05: CGColor(red: 0.36078431372549, green: 0.0, blue: 0.188235294117647, alpha: 1.0),
+    0x15: CGColor(red: 0.627450980392157, green: 0.0784313725490196, blue: 0.392156862745098, alpha: 1.0),
+    0x25: CGColor(red: 0.925490196078431, green: 0.345098039215686, blue: 0.705882352941177, alpha: 1.0),
+    0x35: CGColor(red: 0.925490196078431, green: 0.682352941176471, blue: 0.831372549019608, alpha: 1.0),
+    0x06: CGColor(red: 0.329411764705882, green: 0.0156862745098039, blue: 0.0, alpha: 1.0),
+    0x16: CGColor(red: 0.596078431372549, green: 0.133333333333333, blue: 0.125490196078431, alpha: 1.0),
+    0x26: CGColor(red: 0.925490196078431, green: 0.415686274509804, blue: 0.392156862745098, alpha: 1.0),
+    0x36: CGColor(red: 0.925490196078431, green: 0.705882352941177, blue: 0.690196078431373, alpha: 1.0),
+    0x07: CGColor(red: 0.235294117647059, green: 0.0941176470588235, blue: 0.0, alpha: 1.0),
+    0x17: CGColor(red: 0.470588235294118, green: 0.235294117647059, blue: 0.0, alpha: 1.0),
+    0x27: CGColor(red: 0.831372549019608, green: 0.533333333333333, blue: 0.125490196078431, alpha: 1.0),
+    0x37: CGColor(red: 0.894117647058824, green: 0.768627450980392, blue: 0.564705882352941, alpha: 1.0),
+    0x08: CGColor(red: 0.125490196078431, green: 0.164705882352941, blue: 0.0, alpha: 1.0),
+    0x18: CGColor(red: 0.329411764705882, green: 0.352941176470588, blue: 0.0, alpha: 1.0),
+    0x28: CGColor(red: 0.627450980392157, green: 0.666666666666667, blue: 0.0, alpha: 1.0),
+    0x38: CGColor(red: 0.8, green: 0.823529411764706, blue: 0.470588235294118, alpha: 1.0),
+    0x09: CGColor(red: 0.0313725490196078, green: 0.227450980392157, blue: 0.0, alpha: 1.0),
+    0x19: CGColor(red: 0.156862745098039, green: 0.447058823529412, blue: 0.0, alpha: 1.0),
+    0x29: CGColor(red: 0.454901960784314, green: 0.768627450980392, blue: 0.0, alpha: 1.0),
+    0x39: CGColor(red: 0.705882352941177, green: 0.870588235294118, blue: 0.470588235294118, alpha: 1.0),
+    0x0a: CGColor(red: 0.0, green: 0.250980392156863, blue: 0.0, alpha: 1.0),
+    0x1a: CGColor(red: 0.0313725490196078, green: 0.486274509803922, blue: 0.0, alpha: 1.0),
+    0x2a: CGColor(red: 0.298039215686275, green: 0.815686274509804, blue: 0.125490196078431, alpha: 1.0),
+    0x3a: CGColor(red: 0.658823529411765, green: 0.886274509803922, blue: 0.564705882352941, alpha: 1.0),
+    0x0b: CGColor(red: 0.0, green: 0.235294117647059, blue: 0.0, alpha: 1.0),
+    0x1b: CGColor(red: 0.0, green: 0.462745098039216, blue: 0.156862745098039, alpha: 1.0),
+    0x2b: CGColor(red: 0.219607843137255, green: 0.8, blue: 0.423529411764706, alpha: 1.0),
+    0x3b: CGColor(red: 0.596078431372549, green: 0.886274509803922, blue: 0.705882352941177, alpha: 1.0),
+    0x0c: CGColor(red: 0.0, green: 0.196078431372549, blue: 0.235294117647059, alpha: 1.0),
+    0x1c: CGColor(red: 0.0, green: 0.4, blue: 0.470588235294118, alpha: 1.0),
+    0x2c: CGColor(red: 0.219607843137255, green: 0.705882352941177, blue: 0.8, alpha: 1.0),
+    0x3c: CGColor(red: 0.627450980392157, green: 0.83921568627451, blue: 0.894117647058824, alpha: 1.0),
+    0x0d: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x1d: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x2d: CGColor(red: 0.235294117647059, green: 0.0, blue: 0.235294117647059, alpha: 1.0),
+    0x3d: CGColor(red: 0.627450980392157, green: 0.635294117647059, blue: 0.627450980392157, alpha: 1.0),
+    0x0e: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x1e: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x2e: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x3e: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x0f: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x1f: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x2f: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+    0x3f: CGColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
 ]
+
+fileprivate let nesKeyOrder: [UInt8] = [
+    0x00,
+    0x10,
+    0x20,
+    0x30,
+    0x01,
+    0x11,
+    0x21,
+    0x31,
+    0x02,
+    0x12,
+    0x22,
+    0x32,
+    0x03,
+    0x13,
+    0x23,
+    0x33,
+    0x04,
+    0x14,
+    0x24,
+    0x34,
+    0x05,
+    0x15,
+    0x25,
+    0x35,
+    0x06,
+    0x16,
+    0x26,
+    0x36,
+    0x07,
+    0x17,
+    0x27,
+    0x37,
+    0x08,
+    0x18,
+    0x28,
+    0x38,
+    0x09,
+    0x19,
+    0x29,
+    0x39,
+    0x0a,
+    0x1a,
+    0x2a,
+    0x3a,
+    0x0b,
+    0x1b,
+    0x2b,
+    0x3b,
+    0x0c,
+    0x1c,
+    0x2c,
+    0x3c,
+    0x0d,
+    0x1d,
+    0x2d,
+    0x3d,
+    0x0e,
+    0x1e,
+    0x2e,
+    0x3e,
+    0x0f,
+    0x1f,
+    0x2f,
+    0x3f
+]
+
+fileprivate func sortedNesColors() -> [(UInt8, CGColor)] {
+    var ret = [(UInt8, CGColor)]()
+    nesKeyOrder.forEach { (key: UInt8) in
+        // TODO: Must remove force unwrap
+        ret.append((key, NESColors[key]!))
+    }
+    
+    return ret
+}

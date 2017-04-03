@@ -43,6 +43,7 @@ class ROMMenu: NSMenu {
         guard let editorSettings = editorViewController?.editorViewControllerSettings else {
             return
         }
+        
         var dataToExport: Data? = nil
         if editorSettings.isCHRData {
             dataToExport = editorSettings.tileData?.data
@@ -60,26 +61,30 @@ class ROMMenu: NSMenu {
     }
     
     @IBAction func importPalette(sender: AnyObject) {
-        
-    }
-    
-    @IBAction func exportPalette(sender: AnyObject) {
         guard let editorSettings = editorViewController?.editorViewControllerSettings else {
             return
         }
-        var keys: [String] = []
-        editorSettings.palettes?.forEach({ (palette: PaletteProtocol) in
-            palette.palette.forEach({ (tuple: (key: String, color: CGColor)) in
-                keys.append( tuple.key )
-            })
-        })
-        if let paletteData = PaletteFactory.convert(array: keys, type: .nes) {
-            dataProcessor.exportObject(object: paletteData, completion: { (error: Error?) in
-                print("ExportPaletteData: \(error)")
-            })
-        } else {
-            NSLog("Palette Data")
+        paletteProcessor.paletteType = .nes
+        paletteProcessor.importObject { [weak self] (palettes: [PaletteProtocol]?, error: Error?) in
+            guard let palettes = palettes else {
+                print("Could not import palette(s): \(error)")
+                return
+            }
+            editorSettings.palettes = palettes
+            self?.editorViewController?.update()
         }
-        
+    }
+    
+    @IBAction func exportPalette(sender: AnyObject) {
+        guard let editorSettings = editorViewController?.editorViewControllerSettings, let palettes = editorSettings.palettes else {
+            return
+        }
+        paletteProcessor.paletteType = .nes
+        paletteProcessor.exportObject(object: palettes) { (error: Error?) in
+            guard error == nil else {
+                print("Could not export palette(s): \(error)")
+                return
+            }
+        }
     }
 }

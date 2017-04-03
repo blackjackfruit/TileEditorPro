@@ -270,7 +270,7 @@ class TileEditor: TileDrawer {
                                    width: pixelDimention,
                                    height: pixelDimention)
                 let colorAtIndex = tileData[indexPerPixel+startingPosition]
-                let color: (_ : String, color: CGColor) = colorPalette.palette[colorAtIndex]
+                let color: (_ : UInt8, color: CGColor) = colorPalette.palette[colorAtIndex]
                 ctx.setFillColor(color.color)
                 ctx.addRect(pixel)
                 ctx.setLineWidth(CGFloat(0.2))

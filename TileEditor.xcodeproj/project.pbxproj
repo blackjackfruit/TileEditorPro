@@ -15,6 +15,7 @@
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
 		D15751031DE220F6001394F7 /* TileItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = D15751021DE220F6001394F7 /* TileItem.xib */; };
 		D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167997B1DCE6B6C001D259A /* TileDrawer.swift */; };
+		D167D5891E91E4A800724AD6 /* Data+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D167D5881E91E4A800724AD6 /* Data+String.swift */; };
 		D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */; };
 		D16D92091E848B56003DBEDF /* TileEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16D92081E848B56003DBEDF /* TileEditorSettings.swift */; };
 		D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */; };
@@ -44,6 +45,7 @@
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
 		D15751021DE220F6001394F7 /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D167997B1DCE6B6C001D259A /* TileDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileDrawer.swift; sourceTree = "<group>"; };
+		D167D5881E91E4A800724AD6 /* Data+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+String.swift"; sourceTree = "<group>"; };
 		D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelectorProtocols.swift; sourceTree = "<group>"; };
 		D16D92081E848B56003DBEDF /* TileEditorSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditorSettings.swift; sourceTree = "<group>"; };
 		D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_32.png; path = Images/TileEditorLogo_32.png; sourceTree = SOURCE_ROOT; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D1AC8EDE1E8F0E5400904DB1 /* String+Hex.swift */,
+				D167D5881E91E4A800724AD6 /* Data+String.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				D1ED7EBB1E8816AA00DE2BFF /* FileImportersAndExporters.swift in Sources */,
 				D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */,
 				D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */,
+				D167D5891E91E4A800724AD6 /* Data+String.swift in Sources */,
 				D11673591DCAAFC4009F52CB /* TileData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

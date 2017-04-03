@@ -133,6 +133,9 @@
                                         <menuItem isSeparatorItem="YES" id="noV-Kb-nJ4"/>
                                         <menuItem title="Import Palette" enabled="NO" id="jCr-oc-7db">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="importPaletteWithSender:" target="4fW-pP-TiN" id="Mnr-Tf-cWl"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Export Palette" enabled="NO" id="Kf2-I8-tlb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -145,7 +148,6 @@
                                         <outlet property="exportData" destination="XHS-MD-nAi" id="rWI-4O-yK8"/>
                                         <outlet property="exportPalette" destination="Kf2-I8-tlb" id="O1K-gf-50G"/>
                                         <outlet property="importData" destination="Qzi-Bq-ebT" id="qcm-AB-1MF"/>
-                                        <outlet property="importPalette" destination="jCr-oc-7db" id="Gxk-Zh-DoJ"/>
                                     </connections>
                                 </menu>
                             </menuItem>

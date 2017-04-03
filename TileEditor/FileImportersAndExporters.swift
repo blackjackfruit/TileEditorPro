@@ -27,7 +27,7 @@ class DataProcessor: ImporterExporter, FileHandler {
     var consoleType: ConsoleType? = nil
     
     func importObject(completion: @escaping ((_ object: Data?, _ error: Error?)->Void)) {
-        _ = self.importRaw { [weak self] (data: Data?) in
+        _ = self.importRaw { (data: Data?) in
             completion(data, nil)
         }
     }
@@ -44,11 +44,46 @@ enum PaletteProccessorType {
 class PaletteProccessor: ImporterExporter, FileHandler {
     var path: String? = nil
     var type: PaletteProccessorType? = nil
+    var paletteType: PaletteType? = nil
     
-    func importObject(completion: @escaping  ((_ object: PaletteProtocol?, _ error: Error?)->Void)) {
-        
+    func importObject(completion: @escaping  ((_ object: [PaletteProtocol]?, _ error: Error?)->Void)) {
+        guard let paletteType = paletteType else {
+            print("Palette Type is nil")
+            completion(nil, NSError(domain: "", code: 0, userInfo:nil))
+            return
+        }
+        _ = self.importRaw(completion: { (data: Data?) in
+            guard let data = data else {
+                return
+            }
+            let palette = PaletteFactory.generate(data: data)
+            if let generatedPaletteType = palette?.0, let paletteProtocol = palette?.1,
+                generatedPaletteType == paletteType {
+                completion(paletteProtocol, nil)
+                return
+            }
+            
+            completion(nil, NSError(domain: "", code: 0, userInfo: nil))
+        })
     }
-    func exportObject(object: PaletteProtocol, completion: @escaping  ((_ error: Error?) -> Void)) {
-        
+    func exportObject(object: [PaletteProtocol], completion: @escaping  ((_ error: Error?) -> Void)) {
+        guard let paletteType = paletteType else {
+            print("Palette Type is nil")
+            completion(NSError(domain: "", code: 0, userInfo: nil))
+            return
+        }
+        var keys: [UInt8] = []
+        object.forEach({ (palette: PaletteProtocol) in
+            palette.palette.forEach({ (tuple: (key: UInt8, color: CGColor)) in
+                keys.append( tuple.key )
+            })
+        })
+        if let paletteData = PaletteFactory.convert(array: keys, type: paletteType) {
+            self.exportRaw(data: paletteData, completion: { (error: Error?) in
+                completion(error)
+            })
+        } else {
+            NSLog("Could not convert Palette to Data")
+        }
     }
 }

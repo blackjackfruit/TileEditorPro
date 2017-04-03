@@ -8,6 +8,23 @@
 
 import Foundation
 
+protocol PaletteProtocol: class {
+    var size: Int { get }
+    var palette: [(key: UInt8, color: CGColor)] { get set }
+    var values: [CGColor] { get }
+}
+extension PaletteProtocol {
+    var values: [CGColor] {
+        get {
+            var ret: [CGColor] = []
+            palette.forEach { (set: (_ : UInt8, color: CGColor)) in
+                ret.append(set.color)
+            }
+            return ret
+        }
+    }
+}
+
 protocol Factory {
     associatedtype T
     associatedtype P
@@ -120,24 +137,21 @@ class ConsoleDataFactory: Factory {
 
 class PaletteFactory: Factory {
     
-    static func convert(array: [String], type: PaletteType) -> Data? {
+    static func convert(array: [UInt8], type: PaletteType) -> Data? {
         switch type {
         case .nes:
-            let stringOfHexValues = array.flatMap({ $0 }).joined()
             // This is the number of bytes to save per 8 palettes. The bytesToSave should be 32
-            let bytesToSave = stringOfHexValues.characters.count/2
-            if bytesToSave == 32,
-                let hexValues = stringOfHexValues.toHex()  {
-                return Data(bytes: hexValues)
+            if array.count == 32 {
+                return Data(bytes: array)
             }
         }
         return nil
     }
     
-    static func generate(data: Data) -> (PaletteType, PaletteProtocol)? {
+    static func generate(data: Data) -> (PaletteType, [PaletteProtocol])? {
         let paletteFactory = PaletteFactory()
         if let paletteType = paletteFactory.paletteType(data: data) {
-            var paletteGenerated: PaletteProtocol? = nil
+            var paletteGenerated: [PaletteProtocol]? = nil
             switch paletteType {
             case .nes:
                 paletteGenerated = paletteFactory.nesPalette(data: data)
@@ -151,17 +165,19 @@ class PaletteFactory: Factory {
         return nil
     }
     
-    static func generate(type: PaletteType) -> PaletteProtocol? {
+    static func generate(type: PaletteType) -> [PaletteProtocol]? {
         switch type {
         case .nes:
-            return NESPalette()
+            return [NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette()]
         }
     }
-    func nesPalette(data: Data) -> PaletteProtocol {
+    func nesPalette(data: Data) -> [PaletteProtocol]? {
+        if data.count == 32,
+            let dataToHexString = data.toString() {
+            return NESPalette.getPalette(input: dataToHexString)
+        }
         
-        
-        
-        return NESPalette()
+        return nil
     }
     func paletteType(data: Data) -> PaletteType? {
         // Check if Data is of type NES ( 32 bytes long )
