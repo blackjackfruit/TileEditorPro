@@ -8,6 +8,7 @@
 
 import Foundation
 
+// A NES palette consists of four colors of the available 64
 class NESPalette: NSObject, PaletteProtocol, NSCoding {
     var size = 4 // Number of colors in a NES tile
     class PaletteBox: NSObject, NSCoding {
@@ -60,6 +61,22 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
         super.init()
     }
     
+    convenience init?(data: Data) {
+        guard data.count == 4,
+            let color0 = NESColors[data[0]],
+            let color1 = NESColors[data[1]],
+            let color2 = NESColors[data[2]],
+            let color3 = NESColors[data[3]] else {
+            return nil
+        }
+        self.init()
+        let palette = [(data[0], color0),
+                       (data[1], color1),
+                       (data[2], color2),
+                       (data[3], color3)]
+        self.palette = palette
+    }
+    
     convenience required init?(coder aDecoder: NSCoder) {
         self.init()
         guard let paletteBoxArray = aDecoder.decodeObject(forKey: "Palette") as? [PaletteBox] else {
@@ -73,11 +90,23 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
         self._palette = palettes
     }
     
-    // Input can be a string with four colors of format 01203211 or pass the full 32 bytes (64 characters) as string with format xx
-    // return nil if the string is an odd number of chracters/bytes 
-    static func getPalette(input: String) -> [PaletteProtocol]? {
+    // Input must have data with bytes between 00-30 and 00-0f. The number of bytes must be a multiple of 4
+    // return nil if the data is not a multiple of 4 or if byte value is not of the allowable bytes
+    static func generateArrayOfPalettes(input: Data) -> [NESPalette]? {
+        if input.count%4 != 0 {
+            return nil
+        }
+        var ret: [NESPalette] = []
+        var index = 0
+        for _ in stride(from: 0, to: input.count, by: 4) {
+            guard let nesPalette = NESPalette(data: input.subdata(in: index..<index+4)) else {
+                return nil
+            }
+            index += 4
+            ret.append(nesPalette)
+        }
         
-        return nil
+        return ret
     }
     
     func randomColor() -> (UInt8, CGColor) {

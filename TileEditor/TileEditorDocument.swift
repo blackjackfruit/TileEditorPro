@@ -27,14 +27,13 @@ class TileEditorDocument: NSDocument {
             return
         }
         
-        if self.editorViewControllerSettings == nil {
-            self.editorViewControllerSettings = createdEditorViewController.editorViewControllerSettings
-        } else {
+        if let editorViewControllerSettings = self.editorViewControllerSettings {
             createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
+        } else {
+            self.editorViewControllerSettings = createdEditorViewController.editorViewControllerSettings
         }
         
         if let palettes = self.editorViewControllerSettings?.palettes {
-            createdEditorViewController.selectableColors = palettes[0]
             createdEditorViewController.selectablePalettes = palettes
             // No need to setup the GeneralColorPalette because that is not saved in the file and the editor will load up the correct one based off of tileDataType
         }

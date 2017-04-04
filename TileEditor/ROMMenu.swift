@@ -31,7 +31,7 @@ class ROMMenu: NSMenu {
             
             if let console = ConsoleDataFactory.generate(data: data) {
                 self.editorViewController?.tileEditor?.tileData = console.1
-                self.editorViewController?.editorViewControllerSettings?.tileData = console.1
+                self.editorViewController?.editorViewControllerSettings.tileData = console.1
                 self.editorViewController?.update()
             } else {
                 NSLog("")
@@ -71,6 +71,7 @@ class ROMMenu: NSMenu {
                 return
             }
             editorSettings.palettes = palettes
+            self?.editorViewController?.selectablePalettes = palettes
             self?.editorViewController?.update()
         }
     }

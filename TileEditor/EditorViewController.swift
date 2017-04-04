@@ -30,13 +30,31 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     
     @IBOutlet var tileCollection: TileCollection?
     
-    var editorViewControllerSettings: EditorViewControllerSettings? = nil
+    private var _editorViewControllerSettings: EditorViewControllerSettings? = nil
+    var editorViewControllerSettings: EditorViewControllerSettings {
+        get {
+            guard let editorViewControllerSettings = self._editorViewControllerSettings else {
+                let editorViewControllerSettings = EditorViewControllerSettings()
+                self._editorViewControllerSettings = editorViewControllerSettings
+                return editorViewControllerSettings
+            }
+            return editorViewControllerSettings
+        } set {
+            self._editorViewControllerSettings = newValue
+        }
+    }
     var pixelsPerTile = 0
     var tileNumbers: [Int] = []
     
+    // The colors currently selected from the selectable palettes
+    
     // These paletteProtocols can be set externally (when opening a project) or if not a random Palettes will be created using the default TileDataType
-    var selectableColors: PaletteProtocol? = nil
     var selectablePalettes: [PaletteProtocol]? = nil
+    var selectedPalette: PaletteProtocol? {
+        get {
+            return self.selectablePalettes?[self.editorViewControllerSettings.selectedPalette]
+        }
+    }
     
     var tileDataType: ConsoleType = .nes
     
@@ -55,11 +73,9 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         _ = setupTileEditor()
     }
     private func setupEditorViewControllerSettings() -> Bool {
-        if self.editorViewControllerSettings == nil {
-           self.editorViewControllerSettings = EditorViewControllerSettings()
-        }
         
-        self.editorViewControllerSettings?.palettes = self.selectablePalettes
+        self.editorViewControllerSettings.palettes = self.selectablePalettes
+        
         return true
     }
     private func setupTileEditor() {
@@ -78,7 +94,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         let generalColors: PaletteProtocol
         switch self.tileDataType {
         case .nes:
-            colors = self.selectableColors ?? NESPalette()
+            colors = self.selectedPalette ?? NESPalette()
             palettes = self.selectablePalettes ?? [colors, NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette()]
             generalColors = GeneralNESColorPalette()
         default:
@@ -90,25 +106,24 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         self.selectablePalettesOutlet?.palettes = palettes
         self.generalSelectableColorsOutlet?.palettes = [generalColors]
         
-        self.selectableColors = colors
         self.selectablePalettes = palettes
         
         return true
     }
     func update() {
-        var tileData = self.editorViewControllerSettings?.tileData
+        var tileData = self.editorViewControllerSettings.tileData
         if let data = tileData?.data {
             let tempTileData = ConsoleDataFactory.generate(data: data)
             tileData = tempTileData?.1
         } else {
             tileData = ConsoleDataFactory.generate(type: .nes)
-            self.editorViewControllerSettings?.tileData = tileData
+            self.editorViewControllerSettings.tileData = tileData
         }
         
         self.tileEditor?.tileData = tileData
 
         NSLog("Request to update views")
-        guard let editorViewControllerSettings = editorViewControllerSettings,
+        guard
             let consoleType = editorViewControllerSettings.consoleType,
             let tiles = tileData?.tiles else {
             NSLog("Cannot call update without specifying needed parameters")
@@ -125,7 +140,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
             case .nes, .nesROM:
                 pixelsPerTile = 8
         }
-        self.editorViewControllerSettings?.tileData = tileData
+        self.editorViewControllerSettings.tileData = tileData
         
         self.tileEditor?.tileData = tileData
         self.tileEditor?.numberOfPixelsPerTile = pixelsPerTile
@@ -145,13 +160,13 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     @IBAction func tileEditorSizeChanged(_ sender: NSPopUpButtonCell) {
         switch sender.indexOfSelectedItem {
         case 0:
-            editorViewControllerSettings?.zoomSize = .x1
+            editorViewControllerSettings.zoomSize = .x1
         case 1:
-            editorViewControllerSettings?.zoomSize = .x2
+            editorViewControllerSettings.zoomSize = .x2
         case 2:
-            editorViewControllerSettings?.zoomSize = .x4
+            editorViewControllerSettings.zoomSize = .x4
         default:
-            editorViewControllerSettings?.zoomSize = .x8
+            editorViewControllerSettings.zoomSize = .x8
         }
     }
     

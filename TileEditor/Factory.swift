@@ -154,7 +154,7 @@ class PaletteFactory: Factory {
             var paletteGenerated: [PaletteProtocol]? = nil
             switch paletteType {
             case .nes:
-                paletteGenerated = paletteFactory.nesPalette(data: data)
+                paletteGenerated = NESPalette.generateArrayOfPalettes(input: data)
             }
             guard let palette = paletteGenerated else {
                 return nil
@@ -170,14 +170,6 @@ class PaletteFactory: Factory {
         case .nes:
             return [NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette(),NESPalette()]
         }
-    }
-    func nesPalette(data: Data) -> [PaletteProtocol]? {
-        if data.count == 32,
-            let dataToHexString = data.toString() {
-            return NESPalette.getPalette(input: dataToHexString)
-        }
-        
-        return nil
     }
     func paletteType(data: Data) -> PaletteType? {
         // Check if Data is of type NES ( 32 bytes long )

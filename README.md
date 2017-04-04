@@ -12,4 +12,5 @@ Project is written using Swift3.
 * Must replace current implementation of using NSCollection with a custom collection class for improved speed.
 * Need to gray out import/export of data and palettes.
 * Error checking is missing for incorrect data for importing of data.
+* Need to save the selected color and select it when a file is opened 
 * Need to write Unit Tests.
