@@ -10,7 +10,7 @@ import Foundation
 import QuartzCore
 import Cocoa
 
-protocol TileEditorProtocol {
+protocol TileEditorProtocol: class {
     func pixelDataChanged(tileNumbers: [Int])
 }
 
@@ -22,8 +22,8 @@ struct TileViewerMapper {
 }
 
 class TileEditor: TileDrawer {
-    var delegate: TileEditorProtocol? = nil
-    var colorPalette: PaletteProtocol = NESPalette()
+    weak var delegate: TileEditorProtocol? = nil
+    weak var colorPalette: PaletteProtocol? = nil
     var zoomSize: ZoomSize = .x4
     var colorFromPalette: Int = 3
     var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
@@ -48,6 +48,9 @@ class TileEditor: TileDrawer {
         return ret
     }
     
+    deinit {
+        
+    }
     
     override func mouseDown(with event: NSEvent) {
         guard tileData != nil, tileData!.tiles != nil else {
@@ -163,7 +166,8 @@ class TileEditor: TileDrawer {
     }
     
     func update() {
-        guard let tileData = tileData, let tiles = tileData.tiles else {
+        guard let tileData = tileData, let tiles = tileData.tiles,
+            self.tilesSelected.count > 0, self.tilesSelected[0].count > 0 else {
             NSLog("ERROR: no tile data for editor")
             return
         }
@@ -255,7 +259,7 @@ class TileEditor: TileDrawer {
                   startingPosition: Int,
                   pixelDimention: CGFloat,
                   x: Int, y: Int) {
-        if tileData.count == 0{
+        guard let colorPalette = self.colorPalette, tileData.count > 0 else {
             NSLog("Tile Editor pixel data is empty")
             return
         }

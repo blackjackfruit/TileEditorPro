@@ -9,18 +9,23 @@
 import Foundation
 import Cocoa
 
-class ROMMenu: NSMenu {
+class ROMMenu: NSMenu, NSMenuDelegate {
     
     @IBOutlet weak var importData: NSMenuItem? = nil
     @IBOutlet weak var exportData: NSMenuItem? = nil
     @IBOutlet weak var importPalette: NSMenuItem? = nil
     @IBOutlet weak var exportPalette: NSMenuItem? = nil
     
-    var editorViewController: EditorViewController? = nil
+    weak var editorViewController: EditorViewController? = nil
     var pathOfFile: String? = nil
     
     var dataProcessor = DataProcessor()
     var paletteProcessor = PaletteProccessor()
+    
+    required init(coder decoder: NSCoder) {
+        super.init(coder: decoder)
+//        self.delegate = self
+    }
     
     @IBAction func importData(sender: AnyObject) {
         dataProcessor.importObject { (data: Data?, error: Error?) in
@@ -87,5 +92,19 @@ class ROMMenu: NSMenu {
                 return
             }
         }
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        guard self.editorViewController != nil else {
+            self.importData?.isEnabled = false
+            self.exportData?.isEnabled = false
+            self.importPalette?.isEnabled = false
+            self.exportPalette?.isEnabled = false
+            return
+        }
+        self.importData?.isEnabled = true
+        self.exportData?.isEnabled = true
+        self.importPalette?.isEnabled = true
+        self.exportPalette?.isEnabled = true
     }
 }

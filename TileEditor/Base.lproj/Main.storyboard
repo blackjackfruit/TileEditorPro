@@ -148,6 +148,7 @@
                                         <outlet property="exportData" destination="XHS-MD-nAi" id="rWI-4O-yK8"/>
                                         <outlet property="exportPalette" destination="Kf2-I8-tlb" id="O1K-gf-50G"/>
                                         <outlet property="importData" destination="Qzi-Bq-ebT" id="qcm-AB-1MF"/>
+                                        <outlet property="importPalette" destination="jCr-oc-7db" id="L3q-f4-OmZ"/>
                                     </connections>
                                 </menu>
                             </menuItem>
@@ -206,7 +207,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainTileEditor" id="B8D-0N-5wS" customClass="WindowController" customModule="TileEditor" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainTileEditor" id="B8D-0N-5wS" customClass="MainTileEditorWindow" customModule="TileEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -214,7 +215,7 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="kcg-wN-lBq"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -229,7 +230,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="632" height="291"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileViewEditor" customClass="TileEditor" customModule="TileEditor" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileEditor" customClass="TileEditor" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="5" y="46" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="KGg-ew-gQ7"/>
@@ -277,7 +278,7 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="PaletteSelector" customModule="TileEditor" customModuleProvider="target">
                                 <rect key="frame" x="253" y="5" width="239" height="40"/>
                             </customView>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5">
+                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9as-sB-BI5" userLabel="TileViewerCollection">
                                 <rect key="frame" x="253" y="46" width="240" height="240"/>
                                 <clipView key="contentView" canDrawConcurrently="YES" drawsBackground="NO" id="4QM-fD-rAs">
                                     <rect key="frame" x="1" y="1" width="238" height="238"/>
@@ -289,8 +290,8 @@
                                             <collectionViewGridLayout key="collectionViewLayout" id="lLQ-3l-boh"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
-                                                <outlet property="dataSource" destination="sOO-N1-WHX" id="4cb-U6-PzF"/>
-                                                <outlet property="delegate" destination="sOO-N1-WHX" id="rXP-hM-8Wi"/>
+                                                <outlet property="dataSource" destination="sOO-N1-WHX" id="6dt-uU-JHa"/>
+                                                <outlet property="delegate" destination="sOO-N1-WHX" id="903-aR-Bv1"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>
@@ -338,7 +339,7 @@
                         <outlet property="generalSelectableColorsOutlet" destination="UYc-Kk-XNE" id="m1q-8m-0Bf"/>
                         <outlet property="selectableColorsOutlet" destination="Dwl-Ls-nzb" id="nvB-Uj-6HU"/>
                         <outlet property="selectablePalettesOutlet" destination="XSG-tK-hpz" id="all-b4-0WL"/>
-                        <outlet property="tileCollection" destination="sOO-N1-WHX" id="Fu6-AF-BBX"/>
+                        <outlet property="tileCollection" destination="sOO-N1-WHX" id="B2u-kY-xlm"/>
                         <outlet property="tileEditor" destination="Lgf-zE-XzT" id="wra-2X-2of"/>
                         <outlet property="tileEditorSize" destination="Xqv-DY-OWJ" id="xO3-4i-PUQ"/>
                     </connections>
@@ -346,7 +347,7 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="sOO-N1-WHX" customClass="TileCollection" customModule="TileEditor" customModuleProvider="target">
                     <connections>
-                        <outlet property="tileCollectionViewer" destination="8ru-Qx-bpS" id="lDg-yt-f1z"/>
+                        <outlet property="tileCollectionViewer" destination="8ru-Qx-bpS" id="BSI-co-bMT"/>
                     </connections>
                 </customObject>
             </objects>

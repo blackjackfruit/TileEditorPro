@@ -79,12 +79,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D14E1D2B1E88B08800FE9F6A /* NES */ = {
+		D14E1D2B1E88B08800FE9F6A /* ConsolePalettes */ = {
 			isa = PBXGroup;
 			children = (
 				D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */,
 			);
-			name = NES;
+			name = ConsolePalettes;
 			sourceTree = "<group>";
 		};
 		D159C2221E6CE344000791F9 /* Editor */ = {
@@ -170,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				D1AC8EDD1E8F0E3200904DB1 /* Extensions */,
-				D14E1D2B1E88B08800FE9F6A /* NES */,
+				D14E1D2B1E88B08800FE9F6A /* ConsolePalettes */,
 				D1ED7EB51E880D9100DE2BFF /* Menu */,
 				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,

@@ -11,8 +11,9 @@ import AppKit
 
 class TileEditorDocument: NSDocument {
     
-    var editorViewController: EditorViewController? = nil
-    var editorViewControllerSettings: EditorViewControllerSettings? = nil
+    weak var editorViewController: EditorViewController? = nil
+    weak var editorViewControllerSettings: EditorViewControllerSettings? = nil
+    weak var windowController: NSWindowController? = nil
     
     override init() {
         super.init()
@@ -21,8 +22,10 @@ class TileEditorDocument: NSDocument {
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        guard let windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController,
-        let createdEditorViewController = windowController.contentViewController as? EditorViewController else {
+        self.windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController
+        guard let windowController = self.windowController,
+              let createdEditorViewController = windowController.contentViewController as? EditorViewController 
+        else {
             NSLog("WindowController not found")
             return
         }
@@ -64,4 +67,10 @@ class TileEditorDocument: NSDocument {
         }
         self.editorViewControllerSettings = tileEditorSettings
     }
+    
+//    override func close() {
+//        self.windowController?.close()
+//        self.editorViewController = nil
+//        self.editorViewControllerSettings = nil
+//    }
 }

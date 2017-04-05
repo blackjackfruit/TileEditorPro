@@ -10,8 +10,8 @@ import Foundation
 import Cocoa
 
 class Selector: NSView {
-    var boxSelectorProtocol: BoxSelectorProtocol? = nil
-    var boxSelectorDelegate: BoxSelectorDelegate? = nil
+    weak var boxSelectorProtocol: BoxSelectorProtocol? = nil
+    weak var boxSelectorDelegate: BoxSelectorDelegate? = nil
     
     var palette: (number: Int, box: Int) = (0,0)
     var _boxSelected: (x: Int, y: Int) = (0,0)

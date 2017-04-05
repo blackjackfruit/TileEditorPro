@@ -17,7 +17,7 @@ enum ZoomSize: Int {
     case x16 = 16
 }
 
-protocol TileCollectionProtocol {
+protocol TileCollectionProtocol: class {
     func tiles(selected: [[Int]], zoomSize: ZoomSize)
 }
 
@@ -133,11 +133,11 @@ class TileItem: NSCollectionViewItem {
 }
 
 class TileCollection: NSObject {
-    var tileCollectionDelegate: TileCollectionProtocol? = nil
+    weak var tileCollectionDelegate: TileCollectionProtocol? = nil
     private var numberOfColumns: Int = 0
     private var numberOfRows: Int = 0
     
-    var tileData: TileData? = nil
+    weak var tileData: TileData? = nil
     var dimensionOfSelectableTiles = 4
     
     // Currently selected tiles

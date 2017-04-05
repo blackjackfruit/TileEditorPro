@@ -14,7 +14,7 @@ enum EditorType {
 
 class EditorViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
     
-    @IBOutlet var tileEditor: TileEditor?
+    @IBOutlet weak var tileEditor: TileEditor?
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
@@ -28,7 +28,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     // All selectable colors to choose from
     @IBOutlet weak var generalSelectableColorsOutlet: GeneralColorSelector?
     
-    @IBOutlet var tileCollection: TileCollection?
+    @IBOutlet weak var tileCollection: TileCollection?
     
     private var _editorViewControllerSettings: EditorViewControllerSettings? = nil
     var editorViewControllerSettings: EditorViewControllerSettings {
@@ -72,6 +72,10 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         
         _ = setupTileEditor()
     }
+    deinit {
+        
+    }
+    
     private func setupEditorViewControllerSettings() -> Bool {
         
         self.editorViewControllerSettings.palettes = self.selectablePalettes

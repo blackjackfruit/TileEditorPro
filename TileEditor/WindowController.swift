@@ -8,7 +8,10 @@
 
 import Cocoa
 
-class WindowController: NSWindowController {
+class MainTileEditorWindow: NSWindowController {
+    
+    weak var editorViewController: EditorViewController?
+    
     override func windowDidLoad() {
         super.windowDidLoad()
     }

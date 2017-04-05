@@ -9,11 +9,11 @@
 import Foundation
 import Cocoa
 
-protocol BoxSelectorDelegate {
+protocol BoxSelectorDelegate: class {
     func selected(boxSelector: Selector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int))
 }
 
-protocol BoxSelectorProtocol {
+protocol BoxSelectorProtocol: class {
     var palettes: [PaletteProtocol] { get set }
     var boxHighlighter: Bool { get }
     var paletteHighlighter: Bool { get }
@@ -27,9 +27,9 @@ protocol BoxSelectorProtocol {
     var boxDimension: (width: CGFloat, height: CGFloat) { get }
     
     func redraw()
-    mutating func select(paletteNumber: Int) -> Bool
-    mutating func select(boxNumber: Int) -> Bool
-    mutating func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool
+    func select(paletteNumber: Int) -> Bool
+    func select(boxNumber: Int) -> Bool
+    func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool
 }
 extension BoxSelectorProtocol where Self: NSView {
     // If the array of palettes is empty, then nil will be returned
@@ -53,7 +53,7 @@ extension BoxSelectorProtocol where Self: NSView {
     func redraw() {
         self.needsDisplay = true
     }
-    mutating func select(paletteNumber: Int) -> Bool {
+    func select(paletteNumber: Int) -> Bool {
         guard paletteNumber < palettes.count else {
             NSLog("Could not select palette outside of selectable range")
             return false
@@ -61,7 +61,7 @@ extension BoxSelectorProtocol where Self: NSView {
         currentPaletteSelected = paletteNumber
         return true
     }
-    mutating func select(boxNumber: Int) -> Bool {
+    func select(boxNumber: Int) -> Bool {
         guard let palette = paletteSelected, boxNumber < palette.size else {
             NSLog("Could not select box outside of selectable range")
             return false
@@ -69,7 +69,7 @@ extension BoxSelectorProtocol where Self: NSView {
         currentBoxSelected = boxNumber
         return true
     }
-    mutating func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool {
+    func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool {
         guard paletteNumber < self.palettes.count else {
             NSLog("Could not select palette outside of selectable range")
             return false
