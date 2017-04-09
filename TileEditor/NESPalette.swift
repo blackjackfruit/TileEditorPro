@@ -8,36 +8,41 @@
 
 import Foundation
 
+fileprivate let kColor = "Color"
+fileprivate let kKey = "Key"
+fileprivate let kPalette = "Palette"
+
+private class PaletteBox: NSObject, NSCoding {
+    var key: UInt8
+    var color: CGColor
+    
+    init(key: UInt8, color: CGColor){
+        self.key = key
+        self.color = color
+    }
+    convenience required init?(coder aDecoder: NSCoder) {
+        guard
+            let color = aDecoder.decodeObject(forKey: kColor) as? [CGFloat],
+            let key = aDecoder.decodeObject(forKey: kKey) as? UInt8 else {
+                self.init(key: 0, color:CGColor(red: 0, green: 0, blue: 0, alpha: 1))
+                return
+        }
+        let r = color[0]
+        let g = color[1]
+        let b = color[2]
+        self.init(key: key, color:CGColor(red: r, green: g, blue: b, alpha: 1))
+    }
+    func encode(with aCoder: NSCoder) {
+        let components = self.color.components
+        let color = [components?[0], components?[1],components?[2], components?[3]]
+        aCoder.encode(color, forKey: kColor)
+        aCoder.encode(key, forKey: kKey)
+    }
+}
+
 // A NES palette consists of four colors of the available 64
 class NESPalette: NSObject, PaletteProtocol, NSCoding {
     var size = 4 // Number of colors in a NES tile
-    class PaletteBox: NSObject, NSCoding {
-        var key: UInt8
-        var color: CGColor
-        
-        init(key: UInt8, color: CGColor){
-            self.key = key
-            self.color = color
-        }
-        convenience required init?(coder aDecoder: NSCoder) {
-            guard
-                let color = aDecoder.decodeObject(forKey: "Color") as? [CGFloat],
-                let key = aDecoder.decodeObject(forKey: "Key") as? UInt8 else {
-                    self.init(key: 0, color:CGColor(red: 0, green: 0, blue: 0, alpha: 1))
-                    return
-            }
-            let r = color[0]
-            let g = color[1]
-            let b = color[2]
-            self.init(key: key, color:CGColor(red: r, green: g, blue: b, alpha: 1))
-        }
-        func encode(with aCoder: NSCoder) {
-            aCoder.encode(key, forKey: "Key")
-            let components = self.color.components
-            let color = [components?[0], components?[1],components?[2], components?[3],]
-            aCoder.encode(color, forKey: "Color")
-        }
-    }
     private var _palette: [(key: UInt8, color: CGColor)]? = nil
     var palette: [(key: UInt8, color: CGColor)]  {
         get {
@@ -77,19 +82,7 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
         self.palette = palette
     }
     
-    convenience required init?(coder aDecoder: NSCoder) {
-        self.init()
-        guard let paletteBoxArray = aDecoder.decodeObject(forKey: "Palette") as? [PaletteBox] else {
-            NSLog("Failed")
-            return
-        }
-        var palettes: [(key: UInt8, color: CGColor)] = []
-        paletteBoxArray.forEach { (pb: PaletteBox) in
-            palettes.append((pb.key, pb.color))
-        }
-        self._palette = palettes
-    }
-    
+   
     // Input must have data with bytes between 00-30 and 00-0f. The number of bytes must be a multiple of 4
     // return nil if the data is not a multiple of 4 or if byte value is not of the allowable bytes
     static func generateArrayOfPalettes(input: Data) -> [NESPalette]? {
@@ -119,12 +112,25 @@ class NESPalette: NSObject, PaletteProtocol, NSCoding {
         return (key, color)
     }
     
+    convenience required init?(coder aDecoder: NSCoder) {
+        self.init()
+        guard let paletteBoxArray = aDecoder.decodeObject(forKey: kPalette) as? [PaletteBox] else {
+            NSLog("Failed to decode the array of palettes for the NES")
+            return
+        }
+        var palettes: [(key: UInt8, color: CGColor)] = []
+        paletteBoxArray.forEach { (pb: PaletteBox) in
+            palettes.append((pb.key, pb.color))
+        }
+        self._palette = palettes
+    }
+    
     func encode(with aCoder: NSCoder) {
         var paletteBoxArray: [PaletteBox] = []
         self._palette?.forEach({ (tuple: (key: UInt8, color: CGColor)) in
             paletteBoxArray.append(PaletteBox(key: tuple.key, color: tuple.color))
         })
-        aCoder.encode(paletteBoxArray, forKey: "Palette")
+        aCoder.encode(paletteBoxArray, forKey: kPalette)
     }
 }
 

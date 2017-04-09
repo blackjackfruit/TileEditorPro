@@ -34,20 +34,22 @@ protocol Factory {
 
 class ConsoleDataFactory: Factory {
     static func generate(data: Data) -> (ConsoleType, TileData)? {
-        guard let type = checkType(data: data) else{
+        guard let dataTypeHeaderAndData = checkType(data: data) else{
             return nil
         }
+        let consoleRomType = dataTypeHeaderAndData.consoleType
+        let consoleType: ConsoleType
         let cdf = ConsoleDataFactory()
         var tiles:[Int]?
-        switch type {
-        case .nes:
-            tiles = cdf.nesTileArray(data: data)
-        case.nesROM:
-            tiles = cdf.nesTileArray(data: data)
+        switch consoleRomType {
+        case .nes, .nesROM:
+            tiles = cdf.nesTileArray(data: dataTypeHeaderAndData.data)
+            consoleType = .nes
         }
         if let tiles = tiles, tiles.count > 0 {
-            let tileData = TileData(tiles: tiles, type: type)
-            return (type, tileData)
+            let tileData = TileData(tiles: tiles, type: consoleType)
+            tileData.header = dataTypeHeaderAndData.header
+            return (consoleType, tileData)
         }
         
         return nil
@@ -55,7 +57,7 @@ class ConsoleDataFactory: Factory {
     static func generate(type: ConsoleType) -> TileData? {
         let cdf = ConsoleDataFactory()
         switch type {
-        case .nes, .nesROM:
+        case .nes:
             let emptyCHRData = Data(count: 8192)
             let tileArray = cdf.nesTileArray(data: emptyCHRData)
             if tileArray.count > 0 {
@@ -64,19 +66,42 @@ class ConsoleDataFactory: Factory {
         }
         return nil
     }
-    static func checkType(data: Data) -> ConsoleType? {
-        let numberOfBytes = data.count
-        if numberOfBytes >= 3 {
-            let subdata = data.subdata(in: 0..<3)
-            let dataFormat = "NES".data(using: String.Encoding.utf8)
-            
-            if subdata == dataFormat {
-                return .nesROM
-            }
+    static func checkType(data: Data) -> (consoleType: ConsoleRomType, header: Data?, data: Data)? {
+        var type: ConsoleRomType = .nes
+        var ret: (header: Data?, data: Data)? = nil
+        if let obj = isNesROMData(data: data) {
+            type = .nesROM
+            ret = obj
+        } else if let obj = isNesData(data: data) {
+            type = .nes
+            ret = obj
         }
-        // The number of bytes within a CHR
-        if numberOfBytes == 8192 {
-            return .nes
+        
+        if let ret = ret {
+            return (type, ret.header, ret.data)
+        }
+        
+        return nil
+    }
+    static func isNesROMData(data: Data) -> (header: Data?, data: Data)? {
+        if data.count < 16 {
+            return nil
+        }
+        let subdata = data.subdata(in: 0..<3)
+        let dataFormat = "NES".data(using: String.Encoding.utf8)
+        
+        if subdata != dataFormat {
+            return nil
+        }
+        
+        let romData = data.subdata(in: 16..<data.count)
+        
+        return (header: data.subdata(in: 0..<16), data: romData)
+    }
+    static func isNesData(data: Data) -> (header: Data?, data: Data)? {
+        // The number of bytes within a data segment for a CHR
+        if data.count == 8192 {
+            return (nil, data)
         }
         return nil
     }

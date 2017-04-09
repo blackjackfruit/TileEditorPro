@@ -34,6 +34,19 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         
     }
     
+    static func emptyConsoleObject(consoleType: ConsoleType) -> EditorViewControllerSettings {
+        let ret = EditorViewControllerSettings()
+        switch consoleType {
+        case .nes:
+            ret.tileData = ConsoleDataFactory.generate(type: .nes)
+            ret.isRomData = false
+            ret.isCHRData = true
+            ret.palettes = PaletteFactory.generate(type: .nes)
+        }
+        
+        return ret
+    }
+    
     required convenience init?(coder aDecoder: NSCoder) {
         self.init()
         let version = aDecoder.decodeInteger(forKey: "Version")

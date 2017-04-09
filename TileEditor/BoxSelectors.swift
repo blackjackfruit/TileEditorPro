@@ -9,7 +9,8 @@
 import Foundation
 import Cocoa
 
-class Selector: NSView {
+// MARK: BoxSelector
+class BoxSelector: NSView {
     weak var boxSelectorProtocol: BoxSelectorProtocol? = nil
     weak var boxSelectorDelegate: BoxSelectorDelegate? = nil
     
@@ -221,7 +222,8 @@ class Selector: NSView {
     }
 }
 
-class ColorSelector: Selector, BoxSelectorProtocol {
+// MARK: Available Selectors
+class ColorSelector: BoxSelector, BoxSelectorProtocol {
     var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = true
     var paletteHighlighter: Bool = false
@@ -238,7 +240,7 @@ class ColorSelector: Selector, BoxSelectorProtocol {
     }
 }
 
-class PaletteSelector: Selector, BoxSelectorProtocol {
+class PaletteSelector: BoxSelector, BoxSelectorProtocol {
     var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = false
     var paletteHighlighter: Bool = true
@@ -255,7 +257,7 @@ class PaletteSelector: Selector, BoxSelectorProtocol {
     }
 }
 
-class GeneralColorSelector: Selector, BoxSelectorProtocol {
+class GeneralColorSelector: BoxSelector, BoxSelectorProtocol {
     var palettes: [PaletteProtocol] = []
     var boxHighlighter: Bool = true
     var paletteHighlighter: Bool = false

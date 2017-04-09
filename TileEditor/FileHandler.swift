@@ -26,13 +26,15 @@ extension FileHandler {
                     completion(nil)
                     return
             }
-            let filePath = fileLocation.absoluteString.replacingOccurrences(of: "file://", with: "")
-            self?.path = filePath
-            if let dataOfFile = NSData(contentsOfFile: filePath) {
+            let filePath = fileLocation.absoluteURL
+            
+            if let dataOfFile = NSData(contentsOf: filePath) {
                 let d = Data(bytes: dataOfFile.bytes, count: dataOfFile.length)
+                self?.path = filePath.absoluteString.replacingOccurrences(of: "file://", with: "")
                 completion(d)
             } else {
                 completion(nil)
+                return
             }
         }
     }

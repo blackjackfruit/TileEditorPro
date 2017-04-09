@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 
 protocol BoxSelectorDelegate: class {
-    func selected(boxSelector: Selector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int))
+    func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int))
 }
 
 protocol BoxSelectorProtocol: class {

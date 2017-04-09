@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D100BF5D1E7B815400CB022B /* ROMMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5C1E7B815400CB022B /* ROMMenu.swift */; };
 		D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D100BF5E1E80972900CB022B /* TileEditorDocument.swift */; };
-		D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* Selectors.swift */; };
+		D10625501E25DC4B001CF9D8 /* BoxSelectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D106254F1E25DC4B001CF9D8 /* BoxSelectors.swift */; };
 		D11673591DCAAFC4009F52CB /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11673581DCAAFC4009F52CB /* TileData.swift */; };
 		D14E1D2D1E88B09900FE9F6A /* NESPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */; };
 		D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15751001DE21DAD001394F7 /* TileCollection.swift */; };
@@ -24,12 +24,13 @@
 		D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */; };
 		D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */; };
 		D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */; };
+		D19DD1FD1E99DB970097A404 /* ROMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19DD1FC1E99DB970097A404 /* ROMMenuItem.swift */; };
 		D1A2E6EB1DC41EBE00529519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
 		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
 		D1A2E6F21DC41EBE00529519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6F01DC41EBE00529519 /* Main.storyboard */; };
 		D1A2E6FA1DC4208B00529519 /* TileEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6F91DC4208B00529519 /* TileEditor.swift */; };
-		D1AC8EDC1E8DC81200904DB1 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AC8EDB1E8DC81200904DB1 /* Factory.swift */; };
+		D1AC8EDC1E8DC81200904DB1 /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AC8EDB1E8DC81200904DB1 /* Factories.swift */; };
 		D1AC8EDF1E8F0E5400904DB1 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1AC8EDE1E8F0E5400904DB1 /* String+Hex.swift */; };
 		D1BE7D171E80C49300A56600 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BE7D161E80C49300A56600 /* WindowController.swift */; };
 		D1ED7EB91E8815CF00DE2BFF /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */; };
@@ -39,7 +40,7 @@
 /* Begin PBXFileReference section */
 		D100BF5C1E7B815400CB022B /* ROMMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ROMMenu.swift; sourceTree = "<group>"; };
 		D100BF5E1E80972900CB022B /* TileEditorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditorDocument.swift; sourceTree = "<group>"; };
-		D106254F1E25DC4B001CF9D8 /* Selectors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selectors.swift; sourceTree = "<group>"; };
+		D106254F1E25DC4B001CF9D8 /* BoxSelectors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoxSelectors.swift; sourceTree = "<group>"; };
 		D11673581DCAAFC4009F52CB /* TileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileData.swift; sourceTree = "<group>"; };
 		D14E1D2C1E88B09900FE9F6A /* NESPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NESPalette.swift; sourceTree = "<group>"; };
 		D15751001DE21DAD001394F7 /* TileCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCollection.swift; sourceTree = "<group>"; };
@@ -54,6 +55,7 @@
 		D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_256.png; path = Images/TileEditorLogo_256.png; sourceTree = SOURCE_ROOT; };
 		D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_16.png; path = Images/TileEditorLogo_16.png; sourceTree = SOURCE_ROOT; };
 		D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_512.png; path = Images/TileEditorLogo_512.png; sourceTree = SOURCE_ROOT; };
+		D19DD1FC1E99DB970097A404 /* ROMMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ROMMenuItem.swift; sourceTree = "<group>"; };
 		D1A2E6E71DC41EBE00529519 /* TileEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
@@ -61,7 +63,7 @@
 		D1A2E6F11DC41EBE00529519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D1A2E6F31DC41EBE00529519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1A2E6F91DC4208B00529519 /* TileEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileEditor.swift; sourceTree = "<group>"; };
-		D1AC8EDB1E8DC81200904DB1 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		D1AC8EDB1E8DC81200904DB1 /* Factories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factories.swift; sourceTree = "<group>"; };
 		D1AC8EDE1E8F0E5400904DB1 /* String+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
@@ -108,7 +110,7 @@
 		D159C2241E6CE363000791F9 /* PaletteSelectors */ = {
 			isa = PBXGroup;
 			children = (
-				D106254F1E25DC4B001CF9D8 /* Selectors.swift */,
+				D106254F1E25DC4B001CF9D8 /* BoxSelectors.swift */,
 				D16913031E6E43F900510216 /* BoxSelectorProtocols.swift */,
 			);
 			name = PaletteSelectors;
@@ -122,7 +124,7 @@
 				D16D92081E848B56003DBEDF /* TileEditorSettings.swift */,
 				D1ED7EB81E8815CF00DE2BFF /* FileHandler.swift */,
 				D1ED7EBA1E8816AA00DE2BFF /* FileImportersAndExporters.swift */,
-				D1AC8EDB1E8DC81200904DB1 /* Factory.swift */,
+				D1AC8EDB1E8DC81200904DB1 /* Factories.swift */,
 			);
 			name = FileProcessing;
 			sourceTree = "<group>";
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				D100BF5C1E7B815400CB022B /* ROMMenu.swift */,
+				D19DD1FC1E99DB970097A404 /* ROMMenuItem.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -280,14 +283,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1AC8EDC1E8DC81200904DB1 /* Factory.swift in Sources */,
+				D1AC8EDC1E8DC81200904DB1 /* Factories.swift in Sources */,
 				D14E1D2D1E88B09900FE9F6A /* NESPalette.swift in Sources */,
 				D167997C1DCE6B6C001D259A /* TileDrawer.swift in Sources */,
 				D1A2E6ED1DC41EBE00529519 /* EditorViewController.swift in Sources */,
 				D16D92091E848B56003DBEDF /* TileEditorSettings.swift in Sources */,
 				D1AC8EDF1E8F0E5400904DB1 /* String+Hex.swift in Sources */,
+				D19DD1FD1E99DB970097A404 /* ROMMenuItem.swift in Sources */,
 				D100BF5F1E80972900CB022B /* TileEditorDocument.swift in Sources */,
-				D10625501E25DC4B001CF9D8 /* Selectors.swift in Sources */,
+				D10625501E25DC4B001CF9D8 /* BoxSelectors.swift in Sources */,
 				D15751011DE21DAD001394F7 /* TileCollection.swift in Sources */,
 				D100BF5D1E7B815400CB022B /* ROMMenu.swift in Sources */,
 				D16913041E6E43F900510216 /* BoxSelectorProtocols.swift in Sources */,

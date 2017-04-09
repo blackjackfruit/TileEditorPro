@@ -14,6 +14,21 @@ enum EditorType {
 
 class EditorViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
     
+    // Must set this variable externally so that the tileEditor, palettes, tileCollection, etc. can be set properly
+    var editorViewControllerSettings: EditorViewControllerSettings {
+        get {
+            guard let editorViewControllerSettings = self._editorViewControllerSettings else {
+                let editorViewControllerSettings = EditorViewControllerSettings()
+                self._editorViewControllerSettings = editorViewControllerSettings
+                return editorViewControllerSettings
+            }
+            return editorViewControllerSettings
+        } set {
+            self._editorViewControllerSettings = newValue
+        }
+    }
+    private var _editorViewControllerSettings: EditorViewControllerSettings? = nil
+    
     @IBOutlet weak var tileEditor: TileEditor?
     @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     
@@ -30,19 +45,6 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     
     @IBOutlet weak var tileCollection: TileCollection?
     
-    private var _editorViewControllerSettings: EditorViewControllerSettings? = nil
-    var editorViewControllerSettings: EditorViewControllerSettings {
-        get {
-            guard let editorViewControllerSettings = self._editorViewControllerSettings else {
-                let editorViewControllerSettings = EditorViewControllerSettings()
-                self._editorViewControllerSettings = editorViewControllerSettings
-                return editorViewControllerSettings
-            }
-            return editorViewControllerSettings
-        } set {
-            self._editorViewControllerSettings = newValue
-        }
-    }
     var pixelsPerTile = 0
     var tileNumbers: [Int] = []
     
@@ -115,15 +117,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         return true
     }
     func update() {
-        var tileData = self.editorViewControllerSettings.tileData
-        if let data = tileData?.data {
-            let tempTileData = ConsoleDataFactory.generate(data: data)
-            tileData = tempTileData?.1
-        } else {
-            tileData = ConsoleDataFactory.generate(type: .nes)
-            self.editorViewControllerSettings.tileData = tileData
-        }
-        
+        let tileData = self.editorViewControllerSettings.tileData
         self.tileEditor?.tileData = tileData
 
         NSLog("Request to update views")
@@ -141,7 +135,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         self.generalSelectableColorsOutlet?.redraw()
         
         switch consoleType {
-            case .nes, .nesROM:
+            case .nes:
                 pixelsPerTile = 8
         }
         self.editorViewControllerSettings.tileData = tileData
@@ -195,12 +189,12 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     //MARK: BoxSelector
     var previouslySetSelectablePalette = 0
     // This function will be called different times depending on which selector (selectablePalettes/generalSelectableColors) is called.
-    func selected(boxSelector: Selector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
+    func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
         
         guard let boxSelectorProtocol = boxSelector.boxSelectorProtocol,
               let generalSelectableColorsOutlet = generalSelectableColorsOutlet,
-              var selectableColorsOutlet = selectableColorsOutlet,
-              var selectablePalettesOutlet = selectablePalettesOutlet   else {
+              let selectableColorsOutlet = selectableColorsOutlet,
+              let selectablePalettesOutlet = selectablePalettesOutlet   else {
             NSLog("Box selector delegate was not set properly")
             return
         }

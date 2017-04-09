@@ -8,13 +8,16 @@
 
 import Foundation
 
+enum ConsoleRomType: Int {
+    case nesROM
+    case nes
+}
 enum ConsoleType: Int {
     case nes
-    case nesROM
     
     func numberOfPixels() -> Int {
         switch self {
-        case .nes, .nesROM:
+        case .nes:
             return 8
         }
     }
@@ -29,11 +32,9 @@ class TileData {
         switch consoleType {
         case .nes:
             return nesTileFormat()
-        case .nesROM:
-            return nesTileFormat()
         }
     }
-    var formatHeader: Data? = nil
+    var header: Data? = nil
     var tiles: [Int]? = nil
     
     init(tiles: [Int], type: ConsoleType) {
@@ -57,9 +58,9 @@ class TileData {
         }
         return num
     }
-    // adds nes header to tile array before returning data
+    // adds nes header to tile array before returning data if the file's data came from a ROM
     func nesTileFormat() -> Data? {
-        return formatTileDataAsNES(usingHeader: formatHeader)
+        return formatTileDataAsNES(usingHeader: header)
     }
     
     func formatTileDataAsNES(usingHeader: Data?) -> Data? {

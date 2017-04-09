@@ -114,7 +114,7 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="ROM" id="a6T-Lo-IOF" customClass="RomMenuItem" customModule="TileEditor" customModuleProvider="target">
+                            <menuItem title="ROM" id="a6T-Lo-IOF" customClass="ROMMenuItem" customModule="TileEditor" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="ROM" id="4fW-pP-TiN" userLabel="ROMMenu" customClass="ROMMenu" customModule="TileEditor" customModuleProvider="target">
                                     <items>
@@ -151,6 +151,9 @@
                                         <outlet property="importPalette" destination="jCr-oc-7db" id="L3q-f4-OmZ"/>
                                     </connections>
                                 </menu>
+                                <connections>
+                                    <outlet property="romMenu" destination="4fW-pP-TiN" id="g8o-dy-LQB"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Window" id="aUF-d1-5bR">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -197,7 +200,7 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TileEditor" customModuleProvider="target">
                     <connections>
-                        <outlet property="ROMMenu" destination="4fW-pP-TiN" id="IYe-Bl-KiV"/>
+                        <outlet property="romMenuItem" destination="a6T-Lo-IOF" id="T0k-xY-lKv"/>
                     </connections>
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

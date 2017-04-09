@@ -11,8 +11,12 @@ import AppKit
 
 class TileEditorDocument: NSDocument {
     
+    // This object is set when makeWindowControllers is called
     weak var editorViewController: EditorViewController? = nil
+    
+    // This variable is set when opening a project from a file
     weak var editorViewControllerSettings: EditorViewControllerSettings? = nil
+    
     weak var windowController: NSWindowController? = nil
     
     override init() {
@@ -32,8 +36,11 @@ class TileEditorDocument: NSDocument {
         
         if let editorViewControllerSettings = self.editorViewControllerSettings {
             createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
+            self.editorViewControllerSettings = editorViewControllerSettings
         } else {
-            self.editorViewControllerSettings = createdEditorViewController.editorViewControllerSettings
+            let editorViewControllerSettings = EditorViewControllerSettings.emptyConsoleObject(consoleType: .nes)
+            createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
+            self.editorViewControllerSettings = editorViewControllerSettings
         }
         
         if let palettes = self.editorViewControllerSettings?.palettes {
@@ -44,13 +51,13 @@ class TileEditorDocument: NSDocument {
         self.editorViewController = createdEditorViewController
         self.editorViewController?.update()
         
-        setupMenuItems()
-        
+//        setupMenuItems()
         self.addWindowController(windowController)
     }
+    
     func setupMenuItems() {
         let delegate = NSApplication.shared().delegate as? AppDelegate
-        let romMenu = delegate?.ROMMenu
+        let romMenu = delegate?.romMenuItem?.romMenu
         
         romMenu?.editorViewController = self.editorViewController
     }
@@ -58,19 +65,24 @@ class TileEditorDocument: NSDocument {
         guard let tileEditorSettings = self.editorViewControllerSettings else {
             throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
         }
-        return NSKeyedArchiver.archivedData(withRootObject: tileEditorSettings)
+        let data = NSKeyedArchiver.archivedData(withRootObject: tileEditorSettings)
+        return data
     }
     
     override func read(from data: Data, ofType typeName: String) throws {
-        guard let tileEditorSettings = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as NSData) as? EditorViewControllerSettings else {
-            throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+        do {
+            let unarchivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as NSData)
+            guard let tileEditorSettings = unarchivedData as? EditorViewControllerSettings else {
+                throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+            }
+            self.editorViewControllerSettings = tileEditorSettings
         }
-        self.editorViewControllerSettings = tileEditorSettings
+        catch {
+            NSLog("\(error)")
+        }
+        
     }
-    
-//    override func close() {
-//        self.windowController?.close()
-//        self.editorViewController = nil
-//        self.editorViewControllerSettings = nil
-//    }
+    override func close() {
+        super.close()
+    }
 }
