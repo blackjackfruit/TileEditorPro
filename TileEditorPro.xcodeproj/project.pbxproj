@@ -1,0 +1,448 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D1476D911EA11F9A00A19B50 /* FileImportersAndExporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1476D901EA11F9A00A19B50 /* FileImportersAndExporters.swift */; };
+		D1476D931EA11FAD00A19B50 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1476D921EA11FAD00A19B50 /* FileHandler.swift */; };
+		D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
+		D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
+		D1476D961EA120CF00A19B50 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BE7D161E80C49300A56600 /* WindowController.swift */; };
+		D1476D9B1EA1232B00A19B50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1476D981EA121B800A19B50 /* Main.storyboard */; };
+		D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */; };
+		D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */; };
+		D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */; };
+		D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */; };
+		D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */; };
+		D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */; };
+		D17BA7711EA100CA006047FC /* ROMMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA76F1EA100CA006047FC /* ROMMenu.swift */; };
+		D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7701EA100CA006047FC /* ROMMenuItem.swift */; };
+		D17BA7741EA1016B006047FC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D17BA7731EA1016B006047FC /* Info.plist */; };
+		D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77B1EA10202006047FC /* TileEditorDocument.swift */; };
+		D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77D1EA1024A006047FC /* TileEditorSettings.swift */; };
+		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
+		D1D71F0B1EA6FF8200B5C910 /* TileEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D71F0A1EA6FF7600B5C910 /* TileEditor.framework */; };
+		D1D71F0C1EA6FF8200B5C910 /* TileEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D1D71F0A1EA6FF7600B5C910 /* TileEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1D71F091EA6FF7600B5C910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1D71F051EA6FF7600B5C910 /* TileEditor.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D17BA6FA1E9DD450006047FC;
+			remoteInfo = TileEditor;
+		};
+		D1D71F0D1EA6FF8200B5C910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1D71F051EA6FF7600B5C910 /* TileEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D17BA6F91E9DD450006047FC;
+			remoteInfo = TileEditor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D17BA78C1EA11BE0006047FC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D1D71F0C1EA6FF8200B5C910 /* TileEditor.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D1476D901EA11F9A00A19B50 /* FileImportersAndExporters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileImportersAndExporters.swift; path = TileEditorPro/FileImportersAndExporters.swift; sourceTree = SOURCE_ROOT; };
+		D1476D921EA11FAD00A19B50 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileHandler.swift; path = TileEditorPro/FileHandler.swift; sourceTree = SOURCE_ROOT; };
+		D1476D991EA121B800A19B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TileEditorPro/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_32.png; path = Images/TileEditorLogo_32.png; sourceTree = SOURCE_ROOT; };
+		D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_64.png; path = Images/TileEditorLogo_64.png; sourceTree = SOURCE_ROOT; };
+		D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_128.png; path = Images/TileEditorLogo_128.png; sourceTree = SOURCE_ROOT; };
+		D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_256.png; path = Images/TileEditorLogo_256.png; sourceTree = SOURCE_ROOT; };
+		D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_16.png; path = Images/TileEditorLogo_16.png; sourceTree = SOURCE_ROOT; };
+		D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_512.png; path = Images/TileEditorLogo_512.png; sourceTree = SOURCE_ROOT; };
+		D17BA76F1EA100CA006047FC /* ROMMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ROMMenu.swift; path = TileEditorPro/ROMMenu.swift; sourceTree = SOURCE_ROOT; };
+		D17BA7701EA100CA006047FC /* ROMMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ROMMenuItem.swift; path = TileEditorPro/ROMMenuItem.swift; sourceTree = SOURCE_ROOT; };
+		D17BA7731EA1016B006047FC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TileEditorPro/Info.plist; sourceTree = SOURCE_ROOT; };
+		D17BA77B1EA10202006047FC /* TileEditorDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileEditorDocument.swift; path = TileEditorPro/TileEditorDocument.swift; sourceTree = SOURCE_ROOT; };
+		D17BA77D1EA1024A006047FC /* TileEditorSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileEditorSettings.swift; path = TileEditorPro/TileEditorSettings.swift; sourceTree = SOURCE_ROOT; };
+		D1A2E6E71DC41EBE00529519 /* TileEditorPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditorPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TileEditorPro/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorViewController.swift; path = TileEditorPro/EditorViewController.swift; sourceTree = SOURCE_ROOT; };
+		D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = TileEditorPro/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = TileEditorPro/WindowController.swift; sourceTree = SOURCE_ROOT; };
+		D1D71F051EA6FF7600B5C910 /* TileEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TileEditor.xcodeproj; path = TileEditor/TileEditor.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1A2E6E41DC41EBD00529519 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D71F0B1EA6FF8200B5C910 /* TileEditor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D159C2251E6CE419000791F9 /* FileProcessing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FileProcessing;
+			sourceTree = "<group>";
+		};
+		D16D920A1E849A7C003DBEDF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */,
+				D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */,
+				D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */,
+				D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */,
+				D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */,
+				D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		D1A2E6DE1DC41EBD00529519 = {
+			isa = PBXGroup;
+			children = (
+				D1D71F051EA6FF7600B5C910 /* TileEditor.xcodeproj */,
+				D1A2E6E91DC41EBE00529519 /* TileEditorPro */,
+				D1A2E6E81DC41EBE00529519 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1A2E6E81DC41EBE00529519 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2E6E71DC41EBE00529519 /* TileEditorPro.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1A2E6E91DC41EBE00529519 /* TileEditorPro */ = {
+			isa = PBXGroup;
+			children = (
+				D1476D921EA11FAD00A19B50 /* FileHandler.swift */,
+				D1476D901EA11F9A00A19B50 /* FileImportersAndExporters.swift */,
+				D17BA77D1EA1024A006047FC /* TileEditorSettings.swift */,
+				D17BA77B1EA10202006047FC /* TileEditorDocument.swift */,
+				D1ED7EB51E880D9100DE2BFF /* Menu */,
+				D16D920A1E849A7C003DBEDF /* Images */,
+				D159C2251E6CE419000791F9 /* FileProcessing */,
+				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
+				D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */,
+				D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */,
+				D1BE7D161E80C49300A56600 /* WindowController.swift */,
+				D1476D981EA121B800A19B50 /* Main.storyboard */,
+				D17BA7731EA1016B006047FC /* Info.plist */,
+			);
+			name = TileEditorPro;
+			path = TileEditor;
+			sourceTree = "<group>";
+		};
+		D1D71F061EA6FF7600B5C910 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1D71F0A1EA6FF7600B5C910 /* TileEditor.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1ED7EB51E880D9100DE2BFF /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				D17BA76F1EA100CA006047FC /* ROMMenu.swift */,
+				D17BA7701EA100CA006047FC /* ROMMenuItem.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D1A2E6E61DC41EBD00529519 /* TileEditorPro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1A2E6F61DC41EBE00529519 /* Build configuration list for PBXNativeTarget "TileEditorPro" */;
+			buildPhases = (
+				D1A2E6E31DC41EBD00529519 /* Sources */,
+				D1A2E6E41DC41EBD00529519 /* Frameworks */,
+				D1A2E6E51DC41EBD00529519 /* Resources */,
+				D17BA78C1EA11BE0006047FC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1D71F0E1EA6FF8200B5C910 /* PBXTargetDependency */,
+			);
+			name = TileEditorPro;
+			productName = TileEditor;
+			productReference = D1A2E6E71DC41EBE00529519 /* TileEditorPro.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D1A2E6DF1DC41EBD00529519 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = yellokrow;
+				TargetAttributes = {
+					D1A2E6E61DC41EBD00529519 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D1A2E6E21DC41EBD00529519 /* Build configuration list for PBXProject "TileEditorPro" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D1A2E6DE1DC41EBD00529519;
+			productRefGroup = D1A2E6E81DC41EBE00529519 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D1D71F061EA6FF7600B5C910 /* Products */;
+					ProjectRef = D1D71F051EA6FF7600B5C910 /* TileEditor.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D1A2E6E61DC41EBD00529519 /* TileEditorPro */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D1D71F0A1EA6FF7600B5C910 /* TileEditor.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TileEditor.framework;
+			remoteRef = D1D71F091EA6FF7600B5C910 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D1A2E6E51DC41EBD00529519 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D17BA7741EA1016B006047FC /* Info.plist in Resources */,
+				D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */,
+				D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */,
+				D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */,
+				D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */,
+				D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */,
+				D1476D9B1EA1232B00A19B50 /* Main.storyboard in Resources */,
+				D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */,
+				D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D1A2E6E31DC41EBD00529519 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */,
+				D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */,
+				D1476D961EA120CF00A19B50 /* WindowController.swift in Sources */,
+				D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */,
+				D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */,
+				D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */,
+				D1476D911EA11F9A00A19B50 /* FileImportersAndExporters.swift in Sources */,
+				D1476D931EA11FAD00A19B50 /* FileHandler.swift in Sources */,
+				D17BA7711EA100CA006047FC /* ROMMenu.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1D71F0E1EA6FF8200B5C910 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TileEditor;
+			targetProxy = D1D71F0D1EA6FF8200B5C910 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D1476D981EA121B800A19B50 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1476D991EA121B800A19B50 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D1A2E6F41DC41EBE00529519 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D1A2E6F51DC41EBE00529519 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		D1A2E6F71DC41EBE00529519 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TileEditorPro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditorPro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D1A2E6F81DC41EBE00529519 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				INFOPLIST_FILE = TileEditorPro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditorPro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D1A2E6E21DC41EBD00529519 /* Build configuration list for PBXProject "TileEditorPro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1A2E6F41DC41EBE00529519 /* Debug */,
+				D1A2E6F51DC41EBE00529519 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1A2E6F61DC41EBE00529519 /* Build configuration list for PBXNativeTarget "TileEditorPro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1A2E6F71DC41EBE00529519 /* Debug */,
+				D1A2E6F81DC41EBE00529519 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D1A2E6DF1DC41EBD00529519 /* Project object */;
+}
