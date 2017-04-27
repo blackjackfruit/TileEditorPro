@@ -51,7 +51,7 @@ class TileEditorDocument: NSDocument {
         self.editorViewController = createdEditorViewController
         self.editorViewController?.update()
         
-//        setupMenuItems()
+        setupMenuItems()
         self.addWindowController(windowController)
     }
     

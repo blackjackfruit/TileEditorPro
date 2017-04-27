@@ -18,10 +18,16 @@ public class BoxSelector: NSView {
     var boxSelected: (x: Int, y: Int) = (0,0)
     public override func draw(_ dirtyRect: NSRect) {
         guard
-            let boxSelectorProtocol = self.boxSelectorProtocol,
-            let boxSelectorDelegate = self.boxSelectorDelegate else {
-            NSLog("BoxSelectorProtocol not set")
+            let boxSelectorDelegate = self.boxSelectorDelegate
+        else {
+            NSLog("BoxSelectorDelegate not set")
             return
+        }
+        guard
+            let boxSelectorProtocol = self.boxSelectorProtocol
+        else {
+                NSLog("BoxSelectorProtocol not set")
+                return
         }
         
         if let ctx = NSGraphicsContext.current()?.cgContext {

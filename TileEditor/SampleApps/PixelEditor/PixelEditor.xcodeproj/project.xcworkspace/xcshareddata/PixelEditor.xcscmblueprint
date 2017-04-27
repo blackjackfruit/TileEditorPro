@@ -1,0 +1,36 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++34543B1" : 9223372036854775807,
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++E1C4FF7" : 9223372036854775807,
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++7920006" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "942C3971-3536-4EB8-8835-CF18AEEBF1F0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++34543B1" : "",
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++E1C4FF7" : "..\/..\/TileEditorPro",
+    "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++7920006" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "PixelEditor",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SampleApps\/PixelEditor\/PixelEditor.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:yellokrow\/TileEditor.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++34543B1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/yellokrow\/TileEditor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++7920006"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/yellokrow\/TileEditor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6A5BC63AF443C7BA8E62E772B4F5F5ED4E013358+++E1C4FF7"
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D103BA051EAD923F00EFB422 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103BA041EAD923F00EFB422 /* AppDelegate.swift */; };
+		D103BA071EAD923F00EFB422 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103BA061EAD923F00EFB422 /* ViewController.swift */; };
+		D103BA091EAD923F00EFB422 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D103BA081EAD923F00EFB422 /* Assets.xcassets */; };
+		D103BA0C1EAD923F00EFB422 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D103BA0A1EAD923F00EFB422 /* Main.storyboard */; };
+		D1ACC50A1EB049AD00AA3C40 /* TileEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D190FCCE1EB0467500B111BD /* TileEditor.framework */; };
+		D1ACC50B1EB049AD00AA3C40 /* TileEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D190FCCE1EB0467500B111BD /* TileEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D190FCCD1EB0467500B111BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D17BA6FA1E9DD450006047FC;
+			remoteInfo = TileEditor;
+		};
+		D1ACC50C1EB049AD00AA3C40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D17BA6F91E9DD450006047FC;
+			remoteInfo = TileEditor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D103BA1D1EAD937300EFB422 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D1ACC50B1EB049AD00AA3C40 /* TileEditor.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D103BA011EAD923F00EFB422 /* PixelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D103BA041EAD923F00EFB422 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D103BA061EAD923F00EFB422 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D103BA081EAD923F00EFB422 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D103BA0B1EAD923F00EFB422 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D103BA0D1EAD923F00EFB422 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TileEditor.xcodeproj; path = ../../TileEditor.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D103B9FE1EAD923F00EFB422 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1ACC50A1EB049AD00AA3C40 /* TileEditor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D103B9F81EAD923F00EFB422 = {
+			isa = PBXGroup;
+			children = (
+				D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */,
+				D103BA031EAD923F00EFB422 /* PixelEditor */,
+				D103BA021EAD923F00EFB422 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D103BA021EAD923F00EFB422 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D103BA011EAD923F00EFB422 /* PixelEditor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D103BA031EAD923F00EFB422 /* PixelEditor */ = {
+			isa = PBXGroup;
+			children = (
+				D103BA041EAD923F00EFB422 /* AppDelegate.swift */,
+				D103BA061EAD923F00EFB422 /* ViewController.swift */,
+				D103BA081EAD923F00EFB422 /* Assets.xcassets */,
+				D103BA0A1EAD923F00EFB422 /* Main.storyboard */,
+				D103BA0D1EAD923F00EFB422 /* Info.plist */,
+			);
+			path = PixelEditor;
+			sourceTree = "<group>";
+		};
+		D190FCCA1EB0467500B111BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D190FCCE1EB0467500B111BD /* TileEditor.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D103BA001EAD923F00EFB422 /* PixelEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D103BA101EAD923F00EFB422 /* Build configuration list for PBXNativeTarget "PixelEditor" */;
+			buildPhases = (
+				D103B9FD1EAD923F00EFB422 /* Sources */,
+				D103B9FE1EAD923F00EFB422 /* Frameworks */,
+				D103B9FF1EAD923F00EFB422 /* Resources */,
+				D103BA1D1EAD937300EFB422 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1ACC50D1EB049AD00AA3C40 /* PBXTargetDependency */,
+			);
+			name = PixelEditor;
+			productName = PixelEditor;
+			productReference = D103BA011EAD923F00EFB422 /* PixelEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D103B9F91EAD923F00EFB422 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = iury;
+				TargetAttributes = {
+					D103BA001EAD923F00EFB422 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D103B9FC1EAD923F00EFB422 /* Build configuration list for PBXProject "PixelEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D103B9F81EAD923F00EFB422;
+			productRefGroup = D103BA021EAD923F00EFB422 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D190FCCA1EB0467500B111BD /* Products */;
+					ProjectRef = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D103BA001EAD923F00EFB422 /* PixelEditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D190FCCE1EB0467500B111BD /* TileEditor.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TileEditor.framework;
+			remoteRef = D190FCCD1EB0467500B111BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D103B9FF1EAD923F00EFB422 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D103BA091EAD923F00EFB422 /* Assets.xcassets in Resources */,
+				D103BA0C1EAD923F00EFB422 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D103B9FD1EAD923F00EFB422 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D103BA071EAD923F00EFB422 /* ViewController.swift in Sources */,
+				D103BA051EAD923F00EFB422 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1ACC50D1EB049AD00AA3C40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TileEditor;
+			targetProxy = D1ACC50C1EB049AD00AA3C40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D103BA0A1EAD923F00EFB422 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D103BA0B1EAD923F00EFB422 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D103BA0E1EAD923F00EFB422 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D103BA0F1EAD923F00EFB422 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		D103BA111EAD923F00EFB422 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PixelEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.PixelEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D103BA121EAD923F00EFB422 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PixelEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.PixelEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D103B9FC1EAD923F00EFB422 /* Build configuration list for PBXProject "PixelEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D103BA0E1EAD923F00EFB422 /* Debug */,
+				D103BA0F1EAD923F00EFB422 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D103BA101EAD923F00EFB422 /* Build configuration list for PBXNativeTarget "PixelEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D103BA111EAD923F00EFB422 /* Debug */,
+				D103BA121EAD923F00EFB422 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D103B9F91EAD923F00EFB422 /* Project object */;
+}

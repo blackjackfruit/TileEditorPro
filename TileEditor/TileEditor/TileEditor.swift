@@ -24,20 +24,49 @@ struct TileViewerMapper {
 }
 
 public
+enum TilesPerView {
+    case x1
+    case x4
+    case x16
+}
+
+public
+enum ToolType {
+    case pencil
+    case line
+    case boxEmpty
+    case boxFilled
+    case circleEmpty
+    case circleFilled
+    case fillBucket
+}
+
+public
 class TileEditor: TileDrawer {
+    internal let toolType: ToolType = .pencil
+    internal let zoomSize: ZoomSize = .x4
     public weak var delegate: TileEditorProtocol? = nil
-    public weak var colorPalette: PaletteProtocol? = nil
-    public var zoomSize: ZoomSize = .x4
+    public var colorPalette: PaletteProtocol? = nil
     public var colorFromPalette: Int = 3
     public var cursorLocation: (x: Int, y: Int) = (x: 0, y: 0)
     public var startingPosition = 0
     // Should be an 8x8, 16x16, 32x32, etc. data set
     public var tileData: TileData? = nil
-    public var tilesSelected: [[Int]] = [[]]
-    public var tilesToDraw: [Int] = []
-    public var numberOfPixelsPerTile: Int = 0
-    // These are the number of pixels to display from left to right and top to down
-    public var numberOfPixelsPerView: Int = 0
+    public var visibleTiles: [Int] = []
+    public internal(set) var tilesToDraw: [Int] = []
+    public var numberOfPixelsPerTile: Int {
+        guard let numberOfPixels = tileData?.consoleType.numberOfPixels() else {
+            return 0
+        }
+        return numberOfPixels*numberOfPixels
+    }
+    public var dimensionInPixelsForView: Int {
+        guard let numberOfPixels = tileData?.consoleType.numberOfPixels() else {
+            NSLog("Number of pixels not set for the tileData type for pixel editor")
+            return 0
+        }
+        return (self.numberOfPixelsPerTile/numberOfPixels)*zoomSize.rawValue
+    }
     
     // Since the TileViewEditor is a square, we don't need to do anything different for computing x/y starting positions
     public var startingPositions: Array<CGFloat> {
@@ -49,96 +78,6 @@ class TileEditor: TileDrawer {
             startLocationOfPixel += CGFloat(widthPerPixel)
         }
         return ret
-    }
-    
-    public
-    override func mouseDown(with event: NSEvent) {
-        guard tileData != nil, tileData!.tiles != nil else {
-            NSLog("tileData is nil")
-            return
-        }
-        let p = event.locationInWindow
-        let s = convert(p, from: nil)
-        if let tileLocation = findBoxSelectionLocation(point: s,
-                                                       numberOfSelectableTilesVertically: Int(zoomSize.rawValue),
-                                                       numberOfSelectableTilesHorizontally: Int(zoomSize.rawValue)) {
-            let tileNumber = tileNumberFromLocation(x: tileLocation.x, y: tileLocation.y)
-            let widthAndHeightPerPixel = frame.size.width/CGFloat(8*zoomSize.rawValue)
-            let positionInTileSelected = positionInTile(point: s,
-                                                        tileStartingPositionX: tileLocation.x*60,
-                                                        tileStartingPositionY: tileLocation.y*60,
-                                                        tileSize: 8,
-                                                        pixelSize: widthAndHeightPerPixel)
-            
-            let firstPixelInTile = (tileLocation.x*64)+(tileLocation.y*64*Int(zoomSize.rawValue))
-            let pixelLocationInTile = positionInTileSelected.x+(positionInTileSelected.y*8)
-            let pixelLocationInData = firstPixelInTile+pixelLocationInTile
-            self.tilesToDraw[pixelLocationInData] = colorFromPalette
-            
-            let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
-            let location = tileNumber*64+pixelOffset
-            self.tileData!.tiles![location] = colorFromPalette
-            
-            delegate?.pixelDataChanged(tileNumbers: [tileNumber])
-            needsDisplay = true
-        }
-    }
-    
-    public
-    func tileNumberFromLocation(x: Int, y: Int) -> Int {
-//        if tilesSelected.count%Int(zoomSize.rawValue) != 0 {
-//            return nil
-//        }        
-        return tilesSelected[y][x]
-    }
-    
-    public
-    func positionInTile(point: NSPoint,
-                        tileStartingPositionX: Int,
-                        tileStartingPositionY: Int,
-                        tileSize: Int,
-                        pixelSize: CGFloat) -> (x: Int, y: Int) {
-        
-        func pixelPositionsWithinArea(point: NSPoint, pixelSize: CGFloat, startingPosition: Int) -> Array<CGFloat> {
-            var ret = Array<CGFloat>()
-            var startLocationOfPixel: CGFloat = pixelSize + CGFloat(startingPosition)
-            for _ in 0..<8 {
-                ret.append(CGFloat(startLocationOfPixel))
-                startLocationOfPixel += CGFloat(pixelSize)
-            }
-            return ret
-        }
-        
-        let positionsForX = pixelPositionsWithinArea(point: point,
-                                                     pixelSize: pixelSize,
-                                                     startingPosition: tileStartingPositionX)
-        let positionsForY = pixelPositionsWithinArea(point: point,
-                                                     pixelSize: pixelSize,
-                                                     startingPosition: tileStartingPositionY)
-        
-//        let xPosition = point.x - CGFloat(tileStartingPositionX)
-        
-        // To invert the coordinate system for Y we need to subtract the height of the view
-        let yPosition = CGFloat(frame.size.height) - point.y
-        //TODO: must move away from a linear search algorithm
-        var xTileNumber: Int = 0
-        var yTileNumber: Int = 0
-        for x in 0..<tileSize {
-            if point.x < positionsForX[x] {
-                break
-            } else {
-                xTileNumber += 1
-            }
-        }
-        for y in 0..<tileSize {
-            if yPosition < positionsForY[y] {
-                break
-            } else {
-                yTileNumber += 1
-            }
-        }
-
-        return (x: xTileNumber, y: yTileNumber)
     }
     
     public
@@ -171,18 +110,16 @@ class TileEditor: TileDrawer {
     public
     func update() {
         guard let tileData = tileData, let tiles = tileData.tiles,
-            self.tilesSelected.count > 0, self.tilesSelected[0].count > 0 else {
+            self.visibleTiles.count > 0 else {
             NSLog("ERROR: no tile data for editor")
             return
         }
         var tTiles: [Int] = []
-        let numberOfBytesPerTile = 64
-        let numberOfTiles = Int(zoomSize.rawValue)
-        for i in 0..<numberOfTiles {
-            let offset = tilesSelected[i][0]*Int(numberOfBytesPerTile)
-            let t = tiles[0+offset..<offset+(numberOfBytesPerTile*numberOfTiles)]
-            let ta = Array(t)
-            tTiles += ta
+        for i in 0..<visibleTiles.count {
+            let offset = visibleTiles[i]*Int(numberOfPixelsPerTile)
+            let singleTile = tiles[0+offset..<offset+(numberOfPixelsPerTile)]
+            let singleTileArrayAsPixels = Array(singleTile)
+            tTiles += singleTileArrayAsPixels
         }
         
         tilesToDraw = tTiles
@@ -197,12 +134,17 @@ class TileEditor: TileDrawer {
                 NSLog("Cannot draw view because tiles is nil")
                 return
             }
+            guard let numberOfPixels = tileData?.consoleType.numberOfPixels() else {
+                NSLog("Number of pixels not set for the tileData type for pixel editor")
+                return
+            }
+            ctx.setFillColor(CGColor.black)
             // swap coordinate so that 0,0 is top left corner
-            ctx.translateBy(x: 0, y: 240)
+            ctx.translateBy(x: 0, y: self.frame.size.height)
             ctx.scaleBy(x: 1, y: -1)
             
-            let widthPerPixel = frame.size.width/CGFloat(numberOfPixelsPerView)
-            let heightPerPixel = frame.size.height/CGFloat(numberOfPixelsPerView)
+            let widthPerPixel = frame.size.width/(CGFloat(zoomSize.rawValue*8))
+            let heightPerPixel = frame.size.height/CGFloat(zoomSize.rawValue*8 )
             
             if widthPerPixel != heightPerPixel {
                 NSLog("ERROR dimension (width and height) of the view are not the same.")
@@ -215,29 +157,30 @@ class TileEditor: TileDrawer {
             let numberOfBytesPerTile = 64
             var tileOffset = 0
             
+            let numberOfPixelsPerViewHorizontally = self.dimensionInPixelsForView
             // Draw tiles
             for _ in 0..<zoomSize.rawValue*zoomSize.rawValue {
-                if tNumberOfPixelsPerView >= numberOfPixelsPerView {
+                if tNumberOfPixelsPerView >= numberOfPixelsPerViewHorizontally {
                     yPosition += 1
                     tNumberOfPixelsPerView = 0
                     xPosition = 0
                 }
                 drawTile(ctx: ctx,
                          tileData: tilesToDraw,
-                         pixelsPerTile: 8,
+                         pixelsPerTile: numberOfPixels,
                          startingPosition: tileOffset,
                          pixelDimention: widthPerPixel,
                          x: xPosition,
                          y: yPosition)
-                tNumberOfPixelsPerView += numberOfPixelsPerTile
+                tNumberOfPixelsPerView += numberOfPixelsPerTile/numberOfPixels
                 xPosition += 1
                 tileOffset += numberOfBytesPerTile
             }
             
             // Draw grid
-            var gridCursorX = 0
-            var gridCursorY = 0
-            let dimensionOfTile = 60
+            var gridCursorX:CGFloat = 0
+            var gridCursorY:CGFloat = 0
+            let dimensionOfTile = widthPerPixel*CGFloat(numberOfPixels)
             for _ in 0..<Int(zoomSize.rawValue) {
                 for _ in 0..<Int(zoomSize.rawValue) {
                     ctx.setFillColor(NSColor.clear.cgColor)
@@ -250,10 +193,10 @@ class TileEditor: TileDrawer {
                     ctx.setStrokeColor(NSColor.black.cgColor)
                     ctx.drawPath(using: .fillStroke)
                     
-                    gridCursorX += 60
+                    gridCursorX += dimensionOfTile
                 }
                 gridCursorX = 0
-                gridCursorY += 60
+                gridCursorY += dimensionOfTile
             }
         }
     }
@@ -264,8 +207,13 @@ class TileEditor: TileDrawer {
                   startingPosition: Int,
                   pixelDimention: CGFloat,
                   x: Int, y: Int) {
-        guard let colorPalette = self.colorPalette, tileData.count > 0 else {
-            NSLog("Tile Editor pixel data is empty")
+        guard let colorPalette = self.colorPalette else {
+            NSLog("Color Palette not set for pixel editor")
+            return
+        }
+            
+        guard tileData.count > 0 else {
+            NSLog("Pixel Editor data is empty")
             return
         }
         
@@ -290,5 +238,169 @@ class TileEditor: TileDrawer {
             xIndex = CGFloat(x)*pixelDimention*CGFloat(pixelsPerTile)
             yIndex += pixelDimention
         }
+    }
+}
+
+// ToolType Drawing
+extension TileEditor {
+    public
+    override func mouseDown(with event: NSEvent) {
+        guard tileData != nil, tileData!.tiles != nil else {
+            NSLog("tileData is nil")
+            return
+        }
+        let p = event.locationInWindow
+        let point = convert(p, from: nil)
+        
+        if self.toolType == .pencil {
+            self.clickedViewUsingPencil(position: point)
+        } else {
+            NSLog("Other drawing options not available")
+        }
+    }
+    
+    public
+    override func mouseDragged(with event: NSEvent) {
+        guard tileData != nil, tileData!.tiles != nil else {
+            NSLog("tileData is nil")
+            return
+        }
+        let p = event.locationInWindow
+        let point = convert(p, from: nil)
+        
+        if self.toolType == .pencil {
+            self.clickedViewUsingPencil(position: point)
+        } else {
+            NSLog("Other drawing options not available")
+        }
+    }
+    
+    private
+    func positionInTile(point: NSPoint,
+                        tileStartingPositionX: CGFloat,
+                        tileStartingPositionY: CGFloat,
+                        tileSize: Int,
+                        pixelSize: CGFloat) -> (x: Int, y: Int) {
+        
+        func pixelPositionsWithinArea(point: NSPoint, pixelSize: CGFloat, startingPosition: CGFloat) -> Array<CGFloat> {
+            var ret = Array<CGFloat>()
+            var startLocationOfPixel: CGFloat = pixelSize + CGFloat(startingPosition)
+            for _ in 0..<8 {
+                ret.append(CGFloat(startLocationOfPixel))
+                startLocationOfPixel += CGFloat(pixelSize)
+            }
+            return ret
+        }
+        
+        let positionsForX = pixelPositionsWithinArea(point: point,
+                                                     pixelSize: pixelSize,
+                                                     startingPosition: tileStartingPositionX)
+        let positionsForY = pixelPositionsWithinArea(point: point,
+                                                     pixelSize: pixelSize,
+                                                     startingPosition: tileStartingPositionY)
+        
+        // To invert the coordinate system for Y we need to subtract the height of the view
+        let yPosition = CGFloat(frame.size.height) - point.y
+        //TODO: must move away from a linear search algorithm
+        var xTileNumber: Int = 0
+        var yTileNumber: Int = 0
+        for x in 0..<tileSize {
+            if point.x < positionsForX[x] {
+                break
+            } else {
+                xTileNumber += 1
+            }
+        }
+        for y in 0..<tileSize {
+            if yPosition < positionsForY[y] {
+                break
+            } else {
+                yTileNumber += 1
+            }
+        }
+        
+        return (x: xTileNumber, y: yTileNumber)
+    }
+    
+    private
+    func clickedViewUsingPencil(position point: NSPoint) {
+        if let tileSelectedInView = cursorSelectedTile(point: point,
+                                                       numberOfSelectableTilesVertically: Int(self.zoomSize.rawValue),
+                                                       numberOfSelectableTilesHorizontally: Int(self.zoomSize.rawValue)) {
+            // DO NOT allow the user to drag cursor off screen
+            if tileSelectedInView.x >= zoomSize.rawValue || tileSelectedInView.y >= zoomSize.rawValue {
+                return
+            }
+            
+            let tileNumber = adjustedTileSelected(x: tileSelectedInView.x, y: tileSelectedInView.y)
+            let widthAndHeightPerPixel = frame.size.width/CGFloat(8*self.zoomSize.rawValue)
+            let positionInTileSelected = positionInTile(point: point,
+                                                        tileStartingPositionX: widthAndHeightPerPixel*CGFloat(tileSelectedInView.x*8),
+                                                        tileStartingPositionY: widthAndHeightPerPixel*CGFloat(tileSelectedInView.y*8),
+                                                        tileSize: 8,
+                                                        pixelSize: widthAndHeightPerPixel)
+            
+            let firstPixelInTile = (tileSelectedInView.x*64)+(tileSelectedInView.y*64*Int(self.zoomSize.rawValue))
+            let pixelLocationInTile = positionInTileSelected.x+(positionInTileSelected.y*8)
+            let pixelLocationInData = firstPixelInTile+pixelLocationInTile
+            self.tilesToDraw[pixelLocationInData] = self.colorFromPalette
+            
+            let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
+            let location = tileNumber*64+pixelOffset
+            self.tileData!.tiles![location] = self.colorFromPalette
+            
+            self.delegate?.pixelDataChanged(tileNumbers: [tileNumber])
+            needsDisplay = true
+        }
+    }
+    
+    private
+    func cursorSelectedTile(point: NSPoint,
+                            numberOfSelectableTilesVertically: Int,
+                            numberOfSelectableTilesHorizontally: Int) -> (x: Int, y: Int, width: CGFloat, height: CGFloat)? {
+        guard let pixelPositions = startingPixelPositions(width: frame.size.width,
+                                                          height: frame.size.height,
+                                                          // the lowest number of boxes we can have horizontally is 4 (4 8x8 tiles)
+            numberOfSquaresVertically: numberOfSelectableTilesVertically,
+            numberOfSquaresHorizontally: numberOfSelectableTilesHorizontally) else {
+                return nil
+        }
+        let xPosition = CGFloat(point.x)
+        let yPosition = CGFloat(frame.size.height - point.y)
+        //TODO: must move away from a linear search algorithm
+        var xTileNumber: Int = 0
+        var yTileNumber: Int = 0
+        
+        for x in 0..<4 {
+            if xPosition < pixelPositions.x[x] {
+                break
+            } else {
+                xTileNumber += 1
+            }
+        }
+        for y in 0..<4 {
+            if yPosition < pixelPositions.y[y] {
+                break
+            } else {
+                yTileNumber += 1
+            }
+        }
+        
+        return (x: xTileNumber,
+                y: yTileNumber,
+                width: (frame.size.width/32.0)*CGFloat(8),
+                height: (frame.size.width/32.0)*CGFloat(8))
+    }
+    
+    private
+    func adjustedTileSelected(x: Int, y: Int) -> Int {
+        let offsetPerRow = self.zoomSize.rawValue
+        let adjustedtileSelected = (y*offsetPerRow)+x
+        if let numberOfTiles = tileData?.numberOfTiles(), visibleTiles.count < adjustedtileSelected || numberOfTiles < adjustedtileSelected {
+            NSLog("Adjusted value for tile cannot be calculated. Will update Tile 0")
+            return 0
+        }
+        NSLog("\(adjustedtileSelected)")
+        return visibleTiles[adjustedtileSelected]
     }
 }

@@ -83,11 +83,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         return true
     }
     private func setupTileEditor() {
-        switch self.tileDataType {
-        case .nes:
-            tileEditor?.numberOfPixelsPerTile = 8
-            tileEditor?.numberOfPixelsPerView = 8
-        }
+        
     }
     private func setupPaletteSelectors() -> Bool {
         let colors: PaletteProtocol
@@ -109,6 +105,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         
         return true
     }
+    
     func update() {
         let tileData = self.editorViewControllerSettings.tileData
         self.tileEditor?.tileData = tileData
@@ -134,8 +131,6 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         self.editorViewControllerSettings.tileData = tileData
         
         self.tileEditor?.tileData = tileData
-        self.tileEditor?.numberOfPixelsPerTile = pixelsPerTile
-        self.tileEditor?.numberOfPixelsPerView = Int(ZoomSize.x4.rawValue)*pixelsPerTile
 
         let numberOfColumns = 16
         let numberOfRows = (tiles.count/numberOfColumns)/(pixelsPerTile*pixelsPerTile)
@@ -146,19 +141,6 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         _ = self.tileCollection?.setHighlightedArea(startingIndex: IndexPath.init(item: 0, section: 0), dimension: 4)
         
         self.tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
-    }
-    
-    @IBAction func tileEditorSizeChanged(_ sender: NSPopUpButtonCell) {
-        switch sender.indexOfSelectedItem {
-        case 0:
-            editorViewControllerSettings.zoomSize = .x1
-        case 1:
-            editorViewControllerSettings.zoomSize = .x2
-        case 2:
-            editorViewControllerSettings.zoomSize = .x4
-        default:
-            editorViewControllerSettings.zoomSize = .x8
-        }
     }
     
     //MARK: TileEditor Protocols
@@ -173,9 +155,8 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     
     //MARK: FileCollection Protocols
     internal func tiles(selected: [[Int]], zoomSize: ZoomSize) {
-        tileEditor?.tilesSelected = selected
-        tileEditor?.numberOfPixelsPerView = Int(zoomSize.rawValue)*pixelsPerTile
-        tileEditor?.zoomSize = zoomSize
+        let flatArrayOfSelectedTiles = selected.flatMap { $0 }
+        tileEditor?.visibleTiles = flatArrayOfSelectedTiles
         tileEditor?.update()
     }
     

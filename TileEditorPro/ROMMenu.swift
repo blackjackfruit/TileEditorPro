@@ -104,6 +104,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
                 print("Could not export palette(s): \(error)")
                 return
             }
+            print("Exported Palette: \(palettes)")
         }
     }
     
