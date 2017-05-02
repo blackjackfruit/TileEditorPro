@@ -30,7 +30,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
     @IBAction func importData(sender: AnyObject) {
         guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
               let editorController = tileEditorDocument.editorViewController else {
-            NSLog("EditorViewController is nil")
+            log.e("EditorViewController is nil")
             return
         }
         
@@ -45,7 +45,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
                 editorController.editorViewControllerSettings.tileData = console.1
                 editorController.update()
             } else {
-                NSLog("ConsoleDataFactory could not generate data/palette from imported data")
+                log.e("ConsoleDataFactory could not generate data/palette from imported data")
             }
         }
     }
@@ -53,7 +53,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
     @IBAction func exportData(sender: AnyObject) {
         guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
             let editorSettings = tileEditorDocument.editorViewControllerSettings else {
-                NSLog("EditorViewController is nil")
+                log.e("EditorViewController is nil")
                 return
         }
         
@@ -66,24 +66,24 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         
         if let data = dataToExport {
             dataProcessor.exportObject(object: data, completion: { (error: Error?) in
-                print("ExportDataWithError: \(error)")
+                log.e("ExportDataWithError: \(error)")
             })
         } else {
-            print("ExportDataWithError: no data to export")
+            log.i("ExportDataWithError: no data to export")
         }
     }
     
     @IBAction func importPalette(sender: AnyObject) {
         guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
               let editorSettings = tileEditorDocument.editorViewControllerSettings else {
-                NSLog("EditorViewController is nil")
+                log.e("EditorViewController is nil")
                 return
         }
         
         paletteProcessor.paletteType = .nes
         paletteProcessor.importObject { [weak self] (palettes: [PaletteProtocol]?, error: Error?) in
             guard let palettes = palettes else {
-                print("Could not import palette(s): \(error)")
+                log.e("Could not import palette(s): \(error)")
                 return
             }
             editorSettings.palettes = palettes
@@ -101,10 +101,10 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         paletteProcessor.paletteType = .nes
         paletteProcessor.exportObject(object: palettes) { (error: Error?) in
             guard error == nil else {
-                print("Could not export palette(s): \(error)")
+                log.e("Could not export palette(s): \(error)")
                 return
             }
-            print("Exported Palette: \(palettes)")
+            log.i("Exported Palette: \(palettes)")
         }
     }
     

@@ -49,7 +49,7 @@ class PaletteProccessor: ImporterExporter, FileHandler {
     
     func importObject(completion: @escaping  ((_ object: [PaletteProtocol]?, _ error: Error?)->Void)) {
         guard let paletteType = paletteType else {
-            print("Palette Type is nil")
+            log.e("Palette Type is nil")
             completion(nil, NSError(domain: "", code: 0, userInfo:nil))
             return
         }
@@ -69,7 +69,7 @@ class PaletteProccessor: ImporterExporter, FileHandler {
     }
     func exportObject(object: [PaletteProtocol], completion: @escaping  ((_ error: Error?) -> Void)) {
         guard let paletteType = paletteType else {
-            print("Palette Type is nil")
+            log.e("Palette Type is nil")
             completion(NSError(domain: "", code: 0, userInfo: nil))
             return
         }
@@ -84,7 +84,7 @@ class PaletteProccessor: ImporterExporter, FileHandler {
                 completion(error)
             })
         } else {
-            NSLog("Could not convert Palette to Data")
+            log.e("Could not convert Palette to Data")
         }
     }
 }

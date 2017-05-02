@@ -1,0 +1,8 @@
+Pods/*
+Utilities/Pods/*
+TileEditor/TileEditor.xcodeproj/xcuserdata/*.xcuserdatad/*
+TileEditor/TileEditor.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/*
+TileEditorPro.xcworkspace/xcuserdata/*.xcuserdatad/*
+
+Utilities/Utilities.xcodeproj/xcuserdata/*.xcuserdatad/*
+Utilities/Utilities.xcworkspace/xcuserdata/*.xcuserdatad/*

@@ -62,7 +62,6 @@ class TileData {
         case .nes:
             num = tiles.count/64
             break
-        default: break
         }
         return num
     }

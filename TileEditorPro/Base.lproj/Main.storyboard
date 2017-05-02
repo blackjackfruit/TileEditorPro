@@ -205,7 +205,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="75" y="-88"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -223,7 +223,89 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="270"/>
+            <point key="canvasLocation" x="74" y="302"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="PVe-bS-6i1">
+            <objects>
+                <viewController id="jbw-4q-CAd" sceneMemberID="viewController">
+                    <view key="view" id="Ome-Av-kbl">
+                        <rect key="frame" x="0.0" y="0.0" width="923" height="385"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Pg-lh-FCs">
+                                <rect key="frame" x="0.0" y="0.0" width="923" height="385"/>
+                                <clipView key="contentView" id="eaF-YI-3TE">
+                                    <rect key="frame" x="1" y="0.0" width="921" height="384"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="NHY-Rd-Whi" id="Za7-bb-3uU">
+                                            <rect key="frame" x="0.0" y="0.0" width="921.5" height="361"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn identifier="Info" width="386" minWidth="40" maxWidth="1000" id="uka-fW-G2M" userLabel="LogDate">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Info">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Date" id="fjf-bE-j2Z">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
+                                                <tableColumn identifier="Message" width="529.5" minWidth="40" maxWidth="1000" id="YKd-nh-qoq" userLabel="LogMessages">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Message">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" identifier="LogMessages" title="Text Cell" id="fIb-2w-Qyo">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="Dyt-yK-4gZ" id="OLx-Je-6OR"/>
+                                                <outlet property="delegate" destination="Dyt-yK-4gZ" id="5p6-HO-zxn"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="sdL-6Q-JtU">
+                                    <rect key="frame" x="1" y="368" width="921" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="OyF-Tk-ZIA">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <tableHeaderView key="headerView" id="NHY-Rd-Whi">
+                                    <rect key="frame" x="0.0" y="0.0" width="921.5" height="23"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableHeaderView>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="0Pg-lh-FCs" firstAttribute="top" secondItem="Ome-Av-kbl" secondAttribute="top" id="An4-2U-Geh"/>
+                            <constraint firstItem="0Pg-lh-FCs" firstAttribute="leading" secondItem="Ome-Av-kbl" secondAttribute="leading" id="I5q-j7-5fa"/>
+                            <constraint firstAttribute="bottom" secondItem="0Pg-lh-FCs" secondAttribute="bottom" id="bwS-4t-3Hq"/>
+                            <constraint firstAttribute="trailing" secondItem="0Pg-lh-FCs" secondAttribute="trailing" id="wrd-Ty-UKP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="S4j-pQ-Bf0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="Dyt-yK-4gZ" customClass="LogMessages" customModule="TileEditorPro" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="919.5" y="297.5"/>
         </scene>
         <!--Editor View Controller-->
         <scene sceneID="hIz-AP-VOD">

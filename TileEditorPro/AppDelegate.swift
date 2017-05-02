@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import Utilities
+
+let log = Log(moduleName: "TileEditorPro")
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {
-        print("active")
+        
     }
     
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {

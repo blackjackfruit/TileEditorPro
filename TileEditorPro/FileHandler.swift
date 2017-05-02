@@ -22,7 +22,7 @@ extension FileHandler {
         panel.begin { [weak self] (result: Int) in
             guard result == NSFileHandlingPanelOKButton,
                 let fileLocation = panel.urls.first else {
-                    NSLog("Cannot open file")
+                    log.d("Cannot open file")
                     completion(nil)
                     return
             }

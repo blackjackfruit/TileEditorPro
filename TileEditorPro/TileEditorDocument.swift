@@ -30,7 +30,7 @@ class TileEditorDocument: NSDocument {
         guard let windowController = self.windowController,
               let createdEditorViewController = windowController.contentViewController as? EditorViewController 
         else {
-            NSLog("WindowController not found")
+            log.e("WindowController not found")
             return
         }
         
@@ -78,7 +78,7 @@ class TileEditorDocument: NSDocument {
             self.editorViewControllerSettings = tileEditorSettings
         }
         catch {
-            NSLog("\(error)")
+            log.e("\(error)")
         }
         
     }

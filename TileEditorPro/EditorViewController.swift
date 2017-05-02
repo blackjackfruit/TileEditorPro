@@ -110,12 +110,12 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         let tileData = self.editorViewControllerSettings.tileData
         self.tileEditor?.tileData = tileData
 
-        NSLog("Request to update views")
+        log.i("Request to update views")
         guard
             let consoleType = editorViewControllerSettings.consoleType,
             let tiles = tileData?.tiles else {
-            NSLog("Cannot call update without specifying needed parameters")
-            NSLog("tileDataType and tileData are needed before updating")
+            log.i("Cannot call update without specifying needed parameters")
+            log.i("tileDataType and tileData are needed before updating")
             return
         }
         
@@ -146,7 +146,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     //MARK: TileEditor Protocols
     func pixelDataChanged(tileNumbers: [Int]) {
         guard let tileCollection = tileCollection else {
-            NSLog("WARN: No tile viewer set")
+            log.w("WARN: No tile viewer set")
             return
         }
         
@@ -169,7 +169,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
               let generalSelectableColorsOutlet = generalSelectableColorsOutlet,
               let selectableColorsOutlet = selectableColorsOutlet,
               let selectablePalettesOutlet = selectablePalettesOutlet   else {
-            NSLog("Box selector delegate was not set properly")
+            log.w("Box selector delegate was not set properly")
             return
         }
         
@@ -204,7 +204,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
             guard
                 let availableColors = generalSelectableColorsOutlet.paletteSelected?.values.count,
                 availableColors > colorFromPalette else {
-                NSLog("Failed: selectedBoxSelectablePalette")
+                log.w("Failed: selectedBoxSelectablePalette")
                 return
             }
             
@@ -213,7 +213,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
                 let paletteForColorsSelector = selectableColorsOutlet.paletteSelected,
                 let palette = generalSelectableColorsOutlet.paletteSelected?.palette[colorFromPalette]
                 else {
-                NSLog("Failed: selectedBoxSelectablePalette")
+                log.w("Failed: selectedBoxSelectablePalette")
                 return
             }
             
