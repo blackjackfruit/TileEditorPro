@@ -48,6 +48,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     
     var pixelsPerTile = 0
     var tileNumbers: [Int] = []
+    var previouslySetSelectablePalette = 0
     
     // The colors currently selected from the selectable palettes
     
@@ -91,6 +92,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         let generalColors: PaletteProtocol
         switch self.tileDataType {
         case .nes:
+            // the value left of the question marks is the variable set externally such as when the TileEditorDocument configures EditorViewController and the right is a random color and palettes
             colors = self.selectedPalette ?? NESPalette()
             palettes = self.selectablePalettes ?? [colors, NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette(), NESPalette()]
             generalColors = GeneralNESColorPalette()
@@ -98,10 +100,18 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         
         self.selectableColorsOutlet?.palettes = [colors]
         self.selectablePalettesOutlet?.palettes = palettes
-        self.generalSelectableColorsOutlet?.palettes = [generalColors]
-        self.generalSelectableColorsOutlet?.boxHighlighter = false
         
+        if let keyColorTuple = palettes.first?.palette.first {
+            let key = Int(keyColorTuple.key)
+            self.generalSelectableColorsOutlet?.palettes = [generalColors]
+            self.generalSelectableColorsOutlet?.currentBoxSelected = key
+        } else {
+            self.generalSelectableColorsOutlet?.palettes = [generalColors]
+            self.generalSelectableColorsOutlet?.randomlySelectColor()
+        }
         self.selectablePalettes = palettes
+        
+        self.generalSelectableColorsOutlet?.redraw()
         
         return true
     }
@@ -112,8 +122,8 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
 
         log.i("Request to update views")
         guard
-            let consoleType = editorViewControllerSettings.consoleType,
-            let tiles = tileData?.tiles else {
+            let consoleType = editorViewControllerSettings.consoleType
+        else {
             log.i("Cannot call update without specifying needed parameters")
             log.i("tileDataType and tileData are needed before updating")
             return
@@ -122,8 +132,6 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         _ = setupEditorViewControllerSettings()
         _ = setupPaletteSelectors()
         
-        self.generalSelectableColorsOutlet?.redraw()
-        
         switch consoleType {
             case .nes:
                 pixelsPerTile = 8
@@ -131,14 +139,10 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         self.editorViewControllerSettings.tileData = tileData
         
         self.tileEditor?.tileData = tileData
-
-        let numberOfColumns = 16
-        let numberOfRows = (tiles.count/numberOfColumns)/(pixelsPerTile*pixelsPerTile)
         
         self.tileCollection?.tileData = tileData
-        self.tileCollection?.configure(numberOfTilesHorizontally: numberOfColumns,
-                                  numberOfTilesVertically: numberOfRows)
-        _ = self.tileCollection?.setHighlightedArea(startingIndex: IndexPath.init(item: 0, section: 0), dimension: 4)
+        self.tileCollection?.update()
+        _ = self.tileCollection?.setHighlightedArea(zoomSize: .x4)
         
         self.tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
     }
@@ -153,34 +157,50 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         tileCollection.update(tileNumbers: tileNumbers)
     }
     
+    @IBAction func changeZoomSize(_ sender: Any) {
+        if let popUpButton = sender as? NSPopUpButton {
+            var zoomSize: ZoomSize = .x4
+            if popUpButton.titleOfSelectedItem == "x1" {
+                zoomSize = .x1
+            } else if popUpButton.titleOfSelectedItem == "x2" {
+                zoomSize = .x2
+            }
+            self.tileEditor?.zoomSize = zoomSize
+            _ = self.tileCollection?.setHighlightedArea(zoomSize: zoomSize)
+            self.tileCollection?.update()
+        }
+    }
     //MARK: FileCollection Protocols
-    internal func tiles(selected: [[Int]], zoomSize: ZoomSize) {
+    internal func tiles(tileCollection: TileCollection, selected: [[Int]]) {
         let flatArrayOfSelectedTiles = selected.flatMap { $0 }
         tileEditor?.visibleTiles = flatArrayOfSelectedTiles
         tileEditor?.update()
     }
-    
-    //MARK: BoxSelector
-    var previouslySetSelectablePalette = 0
+}
+
+//MARK: BoxSelectors
+extension EditorViewController {
     // This function will be called different times depending on which selector (selectablePalettes/generalSelectableColors) is called.
     func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
         
         guard let boxSelectorProtocol = boxSelector.boxSelectorProtocol,
-              let generalSelectableColorsOutlet = generalSelectableColorsOutlet,
-              let selectableColorsOutlet = selectableColorsOutlet,
-              let selectablePalettesOutlet = selectablePalettesOutlet   else {
-            log.w("Box selector delegate was not set properly")
-            return
+            let generalSelectableColorsOutlet = generalSelectableColorsOutlet,
+            let selectableColorsOutlet = selectableColorsOutlet,
+            let selectablePalettesOutlet = selectablePalettesOutlet
+            else {
+                log.e("Box selector delegate was not set properly")
+                return
         }
         
         if boxSelector == selectableColorsOutlet {
+            log.i("Updated Color Selector")
             _ = selectablePalettesOutlet.select(boxNumber: palette.box)
             _ = selectableColorsOutlet.select(boxNumber: palette.box)
             
             tileEditor?.colorFromPalette = palette.box
         }
         else if boxSelector == selectablePalettesOutlet {
-            
+            log.i("Updated Selectable Palettes Selector")
             let newColorPalette = selectablePalettesOutlet.palettes[palette.number]
             
             if palette.number != previouslySetSelectablePalette {
@@ -195,35 +215,37 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
             
             selectableColorsOutlet.redraw()
         }
-        // If a different color is selected from generalSelectableColors, update the color for the selectableColors and the box selected from selectablePalettes
+            // If a different color is selected from generalSelectableColors, update the color for the selectableColors and the box selected from selectablePalettes
         else if boxSelector == generalSelectableColorsOutlet {
+            log.i("Updated General Color Selector")
+            
             
             // calculate which color was selected based off of the boxSelected
-            let numberOfBoxesHorizontally = boxSelectorProtocol.maximumBoxesPerRow
+            let numberOfBoxesHorizontally = boxSelectorProtocol.boxesPerRow
             let colorFromPalette = (numberOfBoxesHorizontally*boxSelected.y)+boxSelected.x
             guard
                 let availableColors = generalSelectableColorsOutlet.paletteSelected?.values.count,
                 availableColors > colorFromPalette else {
-                log.w("Failed: selectedBoxSelectablePalette")
-                return
+                    log.w("Failed: selectedBoxSelectablePalette")
+                    return
             }
             
-            guard 
+            guard
                 let paletteForSelectablePalettes = selectablePalettesOutlet.paletteSelected,
                 let paletteForColorsSelector = selectableColorsOutlet.paletteSelected,
-                let palette = generalSelectableColorsOutlet.paletteSelected?.palette[colorFromPalette]
+                let colorFromGeneralColorSelector = generalSelectableColorsOutlet.paletteSelected?.palette[colorFromPalette]
                 else {
-                log.w("Failed: selectedBoxSelectablePalette")
-                return
+                    log.w("Failed: selectedBoxSelectablePalette")
+                    return
             }
-            
-            paletteForSelectablePalettes.palette[selectableColorsOutlet.currentBoxSelected] = palette
+            let boxSelectedFromColorSelector = selectableColorsOutlet.currentBoxSelected
+            paletteForSelectablePalettes.palette[boxSelectedFromColorSelector] = colorFromGeneralColorSelector
             _ = selectablePalettesOutlet.update(paletteNumber: selectablePalettesOutlet.currentPaletteSelected,
-                                          withPalette: paletteForSelectablePalettes)
+                                                withPalette: paletteForSelectablePalettes)
             
-            paletteForColorsSelector.palette[selectableColorsOutlet.currentBoxSelected] = palette
+            paletteForColorsSelector.palette[boxSelectedFromColorSelector] = colorFromGeneralColorSelector
             _ = selectableColorsOutlet.update(paletteNumber: 0,
-                                        withPalette: paletteForColorsSelector)
+                                              withPalette: paletteForColorsSelector)
             
             selectablePalettesOutlet.redraw()
         }

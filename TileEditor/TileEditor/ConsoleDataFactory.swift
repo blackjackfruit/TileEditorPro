@@ -84,8 +84,8 @@ class ConsoleDataFactory: Factory {
         return (header: data.subdata(in: 0..<16), data: romData)
     }
     static func isNesData(data: Data) -> (header: Data?, data: Data)? {
-        // The number of bytes within a data segment for a CHR
-        if data.count == 8192 {
+        // The number of bytes within a data segment for a nes CHR is in multiples of 4096
+        if data.count%4096 == 0 {
             return (nil, data)
         }
         return nil

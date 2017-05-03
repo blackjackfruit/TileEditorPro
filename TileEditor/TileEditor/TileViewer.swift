@@ -20,7 +20,7 @@ enum ZoomSize: Int {
 
 public
 protocol TileCollectionProtocol: class {
-    func tiles(selected: [[Int]], zoomSize: ZoomSize)
+    func tiles(tileCollection: TileCollection, selected: [[Int]])
 }
 
 public
@@ -143,14 +143,18 @@ class TileItem: NSCollectionViewItem {
     }
 }
 
+//let numberOfColumns = 16
+//let numberOfRows = (tiles.count/numberOfColumns)/(pixelsPerTile*pixelsPerTile)
+
 public
 class TileCollection: NSObject {
     public weak var tileCollectionDelegate: TileCollectionProtocol? = nil
     private var numberOfColumns: Int = 0
     private var numberOfRows: Int = 0
+    internal var zoomSize: ZoomSize = .x4
     
     public weak var tileData: TileData? = nil
-    public var dimensionOfSelectableTiles = 4
+    public var indexPathForSelectedTile = IndexPath(item: 0, section: 0)
     
     // Currently selected tiles
     public var selectedTiles: [Int] = []
@@ -158,24 +162,23 @@ class TileCollection: NSObject {
     @IBOutlet public weak var tileCollectionViewer: NSCollectionView?
     
     public
-    func configure(numberOfTilesHorizontally h: Int, numberOfTilesVertically: Int) {
-        var numberOfTilesHorizontally = h
+    func update() {
         guard let viewer = tileCollectionViewer else {
             NSLog("ERROR: tileCollectionViewer not set")
             return
         }
-        if numberOfTilesHorizontally < 1 {
-            NSLog("ERROR: Cannot specify tiles vertically to be less than or equal to 0. Using default 16")
-            numberOfTilesHorizontally = 16
-        } else {
-            self.numberOfColumns = numberOfTilesHorizontally
+        guard let tileData = tileData, let tiles = tileData.tiles else {
+            
+            return
         }
-        
-        self.numberOfRows = numberOfTilesVertically
+        let numberOfColumns = 16
+        let pixelsPerTile = tileData.consoleType.numberOfPixels()
+        self.numberOfRows = (tiles.count/32)/(pixelsPerTile*pixelsPerTile)
+        self.numberOfColumns = numberOfColumns
         
         // Let's not set up the collectionViewLayout to flow layout if it's already a flow layout
         if (viewer.collectionViewLayout is NSCollectionViewFlowLayout) == false {
-            let dimensionPerTile = viewer.frame.size.width/CGFloat(numberOfTilesHorizontally)
+            let dimensionPerTile = viewer.frame.size.width/CGFloat(numberOfRows)
             let dimension = NSSize(width: dimensionPerTile, height: dimensionPerTile)
             let flowLayout = NSCollectionViewFlowLayout()
             flowLayout.itemSize = dimension
@@ -193,7 +196,7 @@ class TileCollection: NSObject {
     public
     func update(tileNumbers: [Int]) {
         for i in tileNumbers {
-            let item = tileCollectionViewer?.item(at: i) as? TileItem
+            let item = self.tileCollectionViewer?.item(at: i) as? TileItem
             item?.tileView?.data = Array(tileData!.tiles![i*64..<i*64+64])
             item?.tileView?.needsDisplay = true
         }
@@ -285,13 +288,13 @@ class TileCollection: NSObject {
     }
     
     public
-    func setHighlightedArea(startingIndex index: IndexPath, dimension: Int) -> Bool{
-        guard let tcv = tileCollectionViewer else {
+    func setHighlightedArea(zoomSize: ZoomSize) -> Bool{
+        guard let tcv = self.tileCollectionViewer else {
             NSLog("WARN: tileCollectionViewer is nil")
             return false
         }
-        
-        let set: Set = [index]
+        self.zoomSize = zoomSize
+        let set: Set = [indexPathForSelectedTile]
         self.collectionView(tcv, didSelectItemsAt: set)
         tcv.selectItems(at: set, scrollPosition: NSCollectionViewScrollPosition.top)
         return true
@@ -334,19 +337,22 @@ extension TileCollection: NSCollectionViewDelegate, NSCollectionViewDataSource {
             NSLog("WARN: didSelectItemsAt index path was zero")
             return
         }
-        let dimension = 4
+        for st in self.selectedTiles {
+            let item = collectionView.item(at: st) as? TileItem
+            item?.setHighlight(value: false)
+        }
+        
+        let dimension = self.zoomSize.rawValue
         let adjustedPosition = tileSelection(from: indexPath, dimension: dimension)
+        self.indexPathForSelectedTile = adjustedPosition
         let ret: [[Int]]  = setSelectableTiles(collectionView: collectionView, from: adjustedPosition, dimension: dimension)
         
-        tileCollectionDelegate?.tiles(selected: ret, zoomSize: .x4)
+        tileCollectionDelegate?.tiles(tileCollection: self, selected: ret)
     }
     
     public
     func collectionView(_ collectionView: NSCollectionView,
                         didDeselectItemsAt indexPaths: Set<IndexPath>) {
-        for st in selectedTiles {
-            let item = collectionView.item(at: st) as? TileItem
-            item?.setHighlight(value: false)
-        }
+        
     }
 }

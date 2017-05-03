@@ -10,6 +10,10 @@ import Foundation
 import Cocoa
 
 public protocol BoxSelectorDelegate: class {
+    /**
+     @param boxSelector is the object from which the delegate was assigned
+     @param palette number is the palette and box and is the number within the palette 
+     */
     func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int))
 }
 
@@ -18,7 +22,7 @@ public protocol BoxSelectorProtocol: class {
     var boxHighlighter: Bool { get }
     var paletteHighlighter: Bool { get }
     var palettesPerRow: Int { get }
-    var maximumBoxesPerRow: Int { get }
+    var boxesPerRow: Int { get }
     var currentPaletteSelected: Int { get set }
     var currentBoxSelected: Int { get set }
     var paletteSelected: PaletteProtocol? { get }
@@ -35,17 +39,17 @@ public extension BoxSelectorProtocol where Self: NSView {
     // If the array of palettes is empty, then nil will be returned
     var paletteSelected: PaletteProtocol? {
         get {
-            if palettes.isEmpty {
+            if self.palettes.isEmpty {
                 return nil
             }
-            return palettes[currentPaletteSelected]
+            return self.palettes[currentPaletteSelected]
         }
     }
     var boxDimension: (width: CGFloat, height: CGFloat) {
         get {
-            let width: CGFloat = self.frame.size.width/CGFloat(maximumBoxesPerRow)
+            let width: CGFloat = self.frame.size.width/CGFloat(self.boxesPerRow)
             var height: CGFloat = 0
-            height = self.frame.size.height/CGFloat(numberOfRows)
+            height = self.frame.size.height/CGFloat(self.numberOfRows)
             return (width,height)
         }
     }
@@ -54,19 +58,20 @@ public extension BoxSelectorProtocol where Self: NSView {
         self.needsDisplay = true
     }
     func select(paletteNumber: Int) -> Bool {
-        guard paletteNumber < palettes.count else {
+        guard paletteNumber < self.palettes.count else {
             NSLog("Could not select palette outside of selectable range")
             return false
         }
-        currentPaletteSelected = paletteNumber
+        self.currentPaletteSelected = paletteNumber
         return true
     }
     func select(boxNumber: Int) -> Bool {
-        guard let palette = paletteSelected, boxNumber < palette.size else {
+        NSLog("BoxNumber: \(boxNumber)")
+        guard let palette = self.paletteSelected, boxNumber < palette.size else {
             NSLog("Could not select box outside of selectable range")
             return false
         }
-        currentBoxSelected = boxNumber
+        self.currentBoxSelected = boxNumber
         return true
     }
     func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool {
@@ -74,7 +79,7 @@ public extension BoxSelectorProtocol where Self: NSView {
             NSLog("Could not select palette outside of selectable range")
             return false
         }
-        palettes[paletteNumber] = palette
+        self.palettes[paletteNumber] = palette
         return true
     }
 }

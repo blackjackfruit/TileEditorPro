@@ -71,14 +71,15 @@ public class BoxSelector: NSView {
             }
             
             
-            let selectedPalette = paletteSelected(boxSelected: boxSelected,
+            let selectedPalette = paletteSelected(boxSelected: self.boxSelected,
                                                   palettesPerRow: boxSelectorProtocol.palettesPerRow,
+                                                  minimumBoxesPerRow: boxSelectorProtocol.boxesPerRow,
                                                   paletteSize: numberOfBoxesPerPalette)
             
             if boxSelectorProtocol.paletteHighlighter {
                 drawPaletteHighlighter(ctx: ctx,
                                        palette: selectedPalette.number,
-                                       boxesHorizontally: boxSelectorProtocol.maximumBoxesPerRow,
+                                       boxesHorizontally: boxSelectorProtocol.boxesPerRow,
                                        paletteSize: numberOfBoxesPerPalette,
                                        width: dimensionForBox.width,
                                        height: dimensionForBox.height)
@@ -90,9 +91,20 @@ public class BoxSelector: NSView {
     }
     override public func mouseDown(with event: NSEvent) {
         guard
-            let boxSelectorProtocol = self.boxSelectorProtocol,
+            let boxSelectorDelegate = self.boxSelectorDelegate
+            else {
+                NSLog("BoxSelectorDelegate not set")
+                return
+        }
+        guard
+            let boxSelectorProtocol = self.boxSelectorProtocol
+            else {
+                NSLog("BoxSelectorProtocol not set")
+                return
+        }
+        guard
             let paletteCurrentlySelected = boxSelectorProtocol.paletteSelected else {
-            NSLog("BoxSelectorProtocol not set")
+            NSLog("palette selected not set for box selector protocol")
             return
         }
         let numberOfBoxesPerPalette = paletteCurrentlySelected.size
@@ -102,11 +114,12 @@ public class BoxSelector: NSView {
         
         let boxCoordinatePosition = boxPosition(cursorPosition: mouseCursor,
                                                 dimension: self.frame.size,
-                                                numberOfHorizontalBoxes: boxSelectorProtocol.maximumBoxesPerRow,
+                                                numberOfHorizontalBoxes: boxSelectorProtocol.boxesPerRow,
                                                 rows: boxSelectorProtocol.numberOfRows)
-        boxSelected = boxCoordinatePosition
-        let selectedPalette = paletteSelected(boxSelected: boxSelected,
+        self.boxSelected = boxCoordinatePosition
+        let selectedPalette = paletteSelected(boxSelected: self.boxSelected,
                                               palettesPerRow: boxSelectorProtocol.palettesPerRow,
+                                              minimumBoxesPerRow: boxSelectorProtocol.boxesPerRow,
                                               paletteSize: numberOfBoxesPerPalette)
         self.palette = selectedPalette
         
@@ -137,19 +150,27 @@ public class BoxSelector: NSView {
     }
     
     private func paletteSelected(boxSelected: (x: Int,y: Int),
-                         palettesPerRow: Int,
-                         paletteSize: Int) -> (number: Int, box: Int) {
+                                 palettesPerRow: Int,
+                                 minimumBoxesPerRow: Int,
+                                 paletteSize: Int) -> (number: Int, box: Int) {
         let numberOfPalettsAcross = palettesPerRow
-        // Get the palette in question
-        let numberOfPalettesBeforeRow = (boxSelected.y*numberOfPalettsAcross)
-        let currentPaletteSelected = (boxSelected.x/paletteSize)+numberOfPalettesBeforeRow
         
-        // Get the box selected of the palette
-        // This equation will get the number of palettes across and subtract from which palette that is currently selected.
-        // This value is the number of palettes left of the currently selected palette.
-        let palettesToTheLeftOfSelectedPalette = (currentPaletteSelected-(boxSelected.y*numberOfPalettsAcross))
-        // Then subtract palettesToTheLeftOfSelectedPalette*palette size to exclude the palette boxes left of the selected palette so to subtract from the boxSelected.x which is the selected box
-        let currentBoxSelected = boxSelected.x - palettesToTheLeftOfSelectedPalette*paletteSize
+        var currentPaletteSelected = 0
+        var currentBoxSelected = 0
+        if palettesPerRow == 1 {
+            currentBoxSelected = (boxSelected.y*minimumBoxesPerRow)+boxSelected.x
+        } else {
+            let numberOfPalettesBeforeRow = (boxSelected.y*numberOfPalettsAcross)
+            currentPaletteSelected = (boxSelected.x/paletteSize)+numberOfPalettesBeforeRow
+            
+            // Get the box selected of the palette
+            // This equation will get the number of palettes across and subtract from which palette that is currently selected.
+            // This value is the number of palettes left of the currently selected palette.
+            let palettesToTheLeftOfSelectedPalette = (currentPaletteSelected-(boxSelected.y*numberOfPalettsAcross))
+
+            // Then subtract palettesToTheLeftOfSelectedPalette*palette size to exclude the palette boxes left of the selected palette so to subtract from the boxSelected.x which is the selected box
+            currentBoxSelected = boxSelected.x - palettesToTheLeftOfSelectedPalette*paletteSize
+        }
         
         return (currentPaletteSelected, currentBoxSelected)
     }
@@ -217,7 +238,7 @@ public class ColorSelector: BoxSelector, BoxSelectorProtocol {
     public var boxHighlighter: Bool = true
     public var paletteHighlighter: Bool = false
     public var palettesPerRow: Int = 1
-    public var maximumBoxesPerRow = 4
+    public var boxesPerRow = 4
     
     public var currentPaletteSelected = 0
     public var currentBoxSelected: Int = 0
@@ -234,7 +255,7 @@ public class PaletteSelector: BoxSelector, BoxSelectorProtocol {
     public var boxHighlighter: Bool = false
     public var paletteHighlighter: Bool = true
     public var palettesPerRow: Int = 4
-    public var maximumBoxesPerRow = 16
+    public var boxesPerRow = 16
     
     public var currentPaletteSelected = 0
     public var currentBoxSelected: Int = 0
@@ -248,10 +269,10 @@ public class PaletteSelector: BoxSelector, BoxSelectorProtocol {
 
 public class GeneralColorSelector: BoxSelector, BoxSelectorProtocol {
     public var palettes: [PaletteProtocol] = []
-    public var boxHighlighter: Bool = true
+    public var boxHighlighter: Bool = false
     public var paletteHighlighter: Bool = false
     public var palettesPerRow: Int = 1
-    public var maximumBoxesPerRow = 4
+    public var boxesPerRow = 4
     public var numberOfRows: Int = 16
     public var currentPaletteSelected = 0
     public var currentBoxSelected: Int = 0
@@ -259,5 +280,11 @@ public class GeneralColorSelector: BoxSelector, BoxSelectorProtocol {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.boxSelectorProtocol = self
+    }
+    
+    public func randomlySelectColor() {
+        let randomX = Int(arc4random_uniform(UInt32(self.boxesPerRow)))
+        let randomY = Int(arc4random_uniform(UInt32(self.numberOfRows)))
+        self.boxSelected = (randomX, randomY)
     }
 }

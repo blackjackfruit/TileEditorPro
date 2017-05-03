@@ -240,7 +240,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="NHY-Rd-Whi" id="Za7-bb-3uU">
-                                            <rect key="frame" x="0.0" y="0.0" width="921.5" height="361"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="921" height="361"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -259,7 +259,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="Message" width="529.5" minWidth="40" maxWidth="1000" id="YKd-nh-qoq" userLabel="LogMessages">
+                                                <tableColumn identifier="Message" width="529" minWidth="40" maxWidth="1000" id="YKd-nh-qoq" userLabel="LogMessages">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Message">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -280,7 +280,7 @@
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="sdL-6Q-JtU">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="sdL-6Q-JtU">
                                     <rect key="frame" x="1" y="368" width="921" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -289,7 +289,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="NHY-Rd-Whi">
-                                    <rect key="frame" x="0.0" y="0.0" width="921.5" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="921" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
@@ -338,7 +338,7 @@
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
                                 <rect key="frame" x="530" y="43" width="99" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" altersStateOfSelectedItem="NO" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
+                                <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="dbf-Zg-GLr">
@@ -349,10 +349,13 @@
                                             <menuItem title="x2" id="R1o-wQ-taI">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="x4" id="wvg-kD-Xbz"/>
+                                            <menuItem title="x4" state="on" id="wvg-kD-Xbz"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="changeZoomSize:" target="XfG-lQ-9wD" id="jbh-Ah-Skc"/>
+                                </connections>
                             </popUpButton>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UYc-Kk-XNE" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="TileEditor">
                                 <rect key="frame" x="501" y="72" width="125" height="214"/>
@@ -435,7 +438,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="67" y="711.5"/>
+            <point key="canvasLocation" x="74" y="767"/>
         </scene>
     </scenes>
 </document>

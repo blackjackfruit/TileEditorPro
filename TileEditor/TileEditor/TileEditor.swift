@@ -44,7 +44,7 @@ enum ToolType {
 public
 class TileEditor: TileDrawer {
     internal let toolType: ToolType = .pencil
-    internal let zoomSize: ZoomSize = .x4
+    public var zoomSize: ZoomSize = .x4
     public weak var delegate: TileEditorProtocol? = nil
     public var colorPalette: PaletteProtocol? = nil
     public var colorFromPalette: Int = 3
@@ -371,14 +371,14 @@ extension TileEditor {
         var xTileNumber: Int = 0
         var yTileNumber: Int = 0
         
-        for x in 0..<4 {
+        for x in 0..<zoomSize.rawValue {
             if xPosition < pixelPositions.x[x] {
                 break
             } else {
                 xTileNumber += 1
             }
         }
-        for y in 0..<4 {
+        for y in 0..<zoomSize.rawValue {
             if yPosition < pixelPositions.y[y] {
                 break
             } else {
