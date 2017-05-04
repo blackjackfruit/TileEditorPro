@@ -34,6 +34,12 @@ class TileEditorDocument: NSDocument {
             return
         }
         
+        // TODO: cannot create another window at this moment because a bug exists with Rom->Import referencing the new window created and not the window currently selected
+        if NSApplication.shared().windows.count > 1 {
+            log.w("Cannot create another window")
+            return
+        }
+        
         if let editorViewControllerSettings = self.editorViewControllerSettings {
             createdEditorViewController.editorViewControllerSettings = editorViewControllerSettings
             self.editorViewControllerSettings = editorViewControllerSettings

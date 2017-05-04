@@ -138,8 +138,20 @@ public class GeneralNESColorPalette: PaletteProtocol {
     public var size: Int = 64 // All colors which the NES PPU understands
     public var palette: [(key: UInt8, color: CGColor)] = GeneralNESColorPalette.nesColors()
     public init() {  }
-    static func nesColors() ->  [(key: UInt8, color: CGColor)] {
+    public static func nesColors() ->  [(key: UInt8, color: CGColor)] {
         return sortedNesColors()
+    }
+    public static func colorNumber(hexValue: Int) -> Int {
+        let keys = nesKeyOrder
+        var index = 0
+        let hexValue8 = UInt8(hexValue)
+        for keysHexValue in keys {
+            if keysHexValue == hexValue8 {
+                break;
+            }
+            index += 1
+        }
+        return index
     }
 }
 
@@ -153,12 +165,14 @@ fileprivate var NESColors: [UInt8: CGColor] = [
     
     0x01: CGColor(red: 0.0, green: 0.117647058823529, blue: 0.454901960784314, alpha: 1.0),
     0x11: CGColor(red: 0.0313725490196078, green: 0.298039215686275, blue: 0.768627450980392, alpha: 1.0),
-    0x21: CGColor(red: 0.0, green: 0.298039215686275, blue: 0.603921568627451, alpha: 1.0),
+    0x21: CGColor(red: 0.298039215686275, green: 0.603921568627451, blue: 0.925490196078431, alpha: 1.0),
     0x31: CGColor(red: 0.658823529411765, green: 0.8, blue: 0.925490196078431, alpha: 1.0),
+    
     0x02: CGColor(red: 0.0313725490196078, green: 0.0627450980392157, blue: 0.564705882352941, alpha: 1.0),
     0x12: CGColor(red: 0.188235294117647, green: 0.196078431372549, blue: 0.925490196078431, alpha: 1.0),
     0x22: CGColor(red: 0.470588235294118, green: 0.486274509803922, blue: 0.925490196078431, alpha: 1.0),
     0x32: CGColor(red: 0.737254901960784, green: 0.737254901960784, blue: 0.925490196078431, alpha: 1.0),
+    
     0x03: CGColor(red: 0.188235294117647, green: 0.0, blue: 0.533333333333333, alpha: 1.0),
     0x13: CGColor(red: 0.36078431372549, green: 0.117647058823529, blue: 0.894117647058824, alpha: 1.0),
     0x23: CGColor(red: 0.690196078431373, green: 0.384313725490196, blue: 0.925490196078431, alpha: 1.0),

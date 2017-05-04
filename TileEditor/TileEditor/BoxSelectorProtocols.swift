@@ -34,6 +34,8 @@ public protocol BoxSelectorProtocol: class {
     func select(paletteNumber: Int) -> Bool
     func select(boxNumber: Int) -> Bool
     func update(paletteNumber: Int, withPalette palette: PaletteProtocol) -> Bool
+    
+    func reset()
 }
 public extension BoxSelectorProtocol where Self: NSView {
     // If the array of palettes is empty, then nil will be returned

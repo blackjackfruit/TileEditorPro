@@ -58,7 +58,8 @@ class PaletteProccessor: ImporterExporter, FileHandler {
                 return
             }
             let palette = PaletteFactory.generate(data: data)
-            if let generatedPaletteType = palette?.0, let paletteProtocol = palette?.1,
+            if let generatedPaletteType = palette?.0,
+                let paletteProtocol = palette?.1,
                 generatedPaletteType == paletteType {
                 completion(paletteProtocol, nil)
                 return

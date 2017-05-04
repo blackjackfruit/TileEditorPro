@@ -66,7 +66,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         
         if let data = dataToExport {
             dataProcessor.exportObject(object: data, completion: { (error: Error?) in
-                log.e("ExportDataWithError: \(error)")
+                log.e("ExportDataWithError: \(String(describing: error))")
             })
         } else {
             log.i("ExportDataWithError: no data to export")
@@ -83,7 +83,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         paletteProcessor.paletteType = .nes
         paletteProcessor.importObject { [weak self] (palettes: [PaletteProtocol]?, error: Error?) in
             guard let palettes = palettes else {
-                log.e("Could not import palette(s): \(error)")
+                log.e("Could not import palette(s): \(String(describing: error))")
                 return
             }
             editorSettings.palettes = palettes
@@ -101,7 +101,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         paletteProcessor.paletteType = .nes
         paletteProcessor.exportObject(object: palettes) { (error: Error?) in
             guard error == nil else {
-                log.e("Could not export palette(s): \(error)")
+                log.e("Could not export palette(s): \(String(describing: error))")
                 return
             }
             log.i("Exported Palette: \(palettes)")

@@ -248,6 +248,11 @@ public class ColorSelector: BoxSelector, BoxSelectorProtocol {
         super.init(coder: coder)
         self.boxSelectorProtocol = self
     }
+    public func reset() {
+        self.currentBoxSelected = 0
+        self.currentPaletteSelected = 0
+        self.boxSelected = (0,0)
+    }
 }
 
 public class PaletteSelector: BoxSelector, BoxSelectorProtocol {
@@ -265,6 +270,12 @@ public class PaletteSelector: BoxSelector, BoxSelectorProtocol {
         super.init(coder: coder)
         self.boxSelectorProtocol = self
     }
+    
+    public func reset() {
+        self.currentBoxSelected = 0
+        self.currentPaletteSelected = 0
+        self.boxSelected = (0,0)
+    }
 }
 
 public class GeneralColorSelector: BoxSelector, BoxSelectorProtocol {
@@ -281,10 +292,22 @@ public class GeneralColorSelector: BoxSelector, BoxSelectorProtocol {
         super.init(coder: coder)
         self.boxSelectorProtocol = self
     }
-    
+    // There is only one palette, therefore this will set the boxSelected to the value passed to this funciton
+    public func setSelectedColor(x: Int, y: Int) {
+        if x > numberOfRows || y > numberOfRows || x < 0 || y < 0 {
+            NSLog("Failed")
+            return
+        }
+        self.boxSelected = (x, y)
+    }
     public func randomlySelectColor() {
         let randomX = Int(arc4random_uniform(UInt32(self.boxesPerRow)))
         let randomY = Int(arc4random_uniform(UInt32(self.numberOfRows)))
         self.boxSelected = (randomX, randomY)
+    }
+    public func reset() {
+        self.currentBoxSelected = 0
+        self.currentPaletteSelected = 0
+        self.boxSelected = (0,0)
     }
 }

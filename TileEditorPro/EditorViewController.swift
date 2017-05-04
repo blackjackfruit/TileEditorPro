@@ -65,7 +65,17 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _ = setupPaletteSelectors()
+        guard
+            let colorSelector = self.selectableColorsOutlet,
+            let paletteSelector = self.selectablePalettesOutlet,
+            let generalColorsSelector = self.generalSelectableColorsOutlet
+            else {
+                log.i("Cannot call update without specifying needed parameters")
+                log.i("tileDataType and tileData are needed before updating")
+                return
+        }
+        
+        _ = setupPaletteSelectors(colorSelector: colorSelector, paletteSelector: paletteSelector, generalColorSelector: generalColorsSelector)
         _ = setupEditorViewControllerSettings()
         
         self.tileEditor?.delegate = self
@@ -86,7 +96,7 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     private func setupTileEditor() {
         
     }
-    private func setupPaletteSelectors() -> Bool {
+    private func setupPaletteSelectors(colorSelector: ColorSelector, paletteSelector: PaletteSelector, generalColorSelector: GeneralColorSelector) -> Bool {
         let colors: PaletteProtocol
         let palettes: [PaletteProtocol]
         let generalColors: PaletteProtocol
@@ -98,20 +108,27 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
             generalColors = GeneralNESColorPalette()
         }
         
-        self.selectableColorsOutlet?.palettes = [colors]
-        self.selectablePalettesOutlet?.palettes = palettes
+        colorSelector.reset()
+        paletteSelector.reset()
+        paletteSelector.redraw()
+        
+        colorSelector.palettes = [colors]
+        paletteSelector.palettes = palettes
         
         if let keyColorTuple = palettes.first?.palette.first {
-            let key = Int(keyColorTuple.key)
-            self.generalSelectableColorsOutlet?.palettes = [generalColors]
-            self.generalSelectableColorsOutlet?.currentBoxSelected = key
+            let tupleKey = Int(keyColorTuple.key)
+            generalColorSelector.palettes = [generalColors]
+            let colorNumberPositionFromGeneralColors = GeneralNESColorPalette.colorNumber(hexValue: tupleKey)
+            let y = colorNumberPositionFromGeneralColors/generalColorSelector.boxesPerRow
+            let x = colorNumberPositionFromGeneralColors-(y*generalColorSelector.boxesPerRow)
+            generalColorSelector.setSelectedColor(x: x, y: y)
         } else {
-            self.generalSelectableColorsOutlet?.palettes = [generalColors]
-            self.generalSelectableColorsOutlet?.randomlySelectColor()
+            generalColorSelector.palettes = [generalColors]
+            generalColorSelector.randomlySelectColor()
         }
         self.selectablePalettes = palettes
         
-        self.generalSelectableColorsOutlet?.redraw()
+        generalColorSelector.redraw()
         
         return true
     }
@@ -122,15 +139,19 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
 
         log.i("Request to update views")
         guard
-            let consoleType = editorViewControllerSettings.consoleType
+            let consoleType = editorViewControllerSettings.consoleType,
+            let colorSelector = self.selectableColorsOutlet,
+            let paletteSelector = self.selectablePalettesOutlet,
+            let generalColorsSelector = self.generalSelectableColorsOutlet
         else {
             log.i("Cannot call update without specifying needed parameters")
             log.i("tileDataType and tileData are needed before updating")
             return
         }
         
+        
         _ = setupEditorViewControllerSettings()
-        _ = setupPaletteSelectors()
+        _ = setupPaletteSelectors(colorSelector: colorSelector, paletteSelector: paletteSelector, generalColorSelector: generalColorsSelector)
         
         switch consoleType {
             case .nes:
