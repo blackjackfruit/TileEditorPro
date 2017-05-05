@@ -36,7 +36,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         
         dataProcessor.importObject { (data: Data?, error: Error?) in
             guard let data = data else {
-                
+                log.e("Data imported was nil with error \(error)")
                 return
             }
             

@@ -17,26 +17,31 @@ class TileEditorDocument: NSDocument {
     // This variable is set when opening a project from a file
     weak var editorViewControllerSettings: EditorViewControllerSettings? = nil
     
-    weak var windowController: NSWindowController? = nil
+    static var windows: [NSWindowController] = []
+    
+    // TODO: Must move this to a proper error class
+    let dictionary:Dictionary = [NSLocalizedRecoverySuggestionErrorKey:"Please close previous window"]
+    var error: NSError
     
     override init() {
+        self.error = NSError(domain: "Domain", code: 0, userInfo: dictionary)
         super.init()
     }
     
     override func makeWindowControllers() {
-        // Returns the Storyboard that contains your Document window.
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        self.windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController
-        guard let windowController = self.windowController,
-              let createdEditorViewController = windowController.contentViewController as? EditorViewController 
-        else {
-            log.e("WindowController not found")
+        // TODO: cannot create another window at this moment because a bug exists with Rom->Import referencing the new window created and not the window currently selected
+        if TileEditorDocument.windows.count > 0 {
+            log.w("Cannot create another window")
+            NSAlert(error: self.error).runModal()
             return
         }
         
-        // TODO: cannot create another window at this moment because a bug exists with Rom->Import referencing the new window created and not the window currently selected
-        if NSApplication.shared().windows.count > 1 {
-            log.w("Cannot create another window")
+        // Returns the Storyboard that contains your Document window.
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        guard let windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController,
+              let createdEditorViewController = windowController.contentViewController as? EditorViewController
+        else {
+            log.e("WindowController not found")
             return
         }
         
@@ -58,6 +63,7 @@ class TileEditorDocument: NSDocument {
         self.editorViewController?.update()
         
         setupMenuItems()
+        TileEditorDocument.windows.append(windowController)
         self.addWindowController(windowController)
     }
     
@@ -76,12 +82,19 @@ class TileEditorDocument: NSDocument {
     }
     
     override func read(from data: Data, ofType typeName: String) throws {
+        
+        if TileEditorDocument.windows.count > 0 {
+            throw self.error
+        }
+        
         do {
             let unarchivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as NSData)
             guard let tileEditorSettings = unarchivedData as? EditorViewControllerSettings else {
                 throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
             }
+            
             self.editorViewControllerSettings = tileEditorSettings
+            
         }
         catch {
             log.e("\(error)")
@@ -90,5 +103,7 @@ class TileEditorDocument: NSDocument {
     }
     override func close() {
         super.close()
+        TileEditorDocument.windows.removeFirst()
     }
+    
 }
