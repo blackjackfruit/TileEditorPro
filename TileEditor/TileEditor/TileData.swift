@@ -40,27 +40,27 @@ class TileData {
         }
     }
     public var header: Data? = nil
-    public var tiles: [Int]? = nil
+    public var pixels: [Int]? = nil
     
     public
-    init(tiles: [Int], type: ConsoleType) {
+    init(pixels: [Int], type: ConsoleType) {
         NSLog("Creating new TileData object")
         self.consoleType = type
-        self.tiles = tiles
+        self.pixels = pixels
     }
     
     public
     func numberOfTiles() -> Int {
-        guard let tiles = tiles else {
+        guard let pixels = self.pixels else {
             return 0
         }
         var num = 0
-        if tiles.count == 0 {
+        if pixels.count == 0 {
             return 0
         }
         switch consoleType {
         case .nes:
-            num = tiles.count/64
+            num = pixels.count/64
             break
         }
         return num
@@ -74,12 +74,12 @@ class TileData {
     
     public
     func formatTileDataAsNES(usingHeader: Data?) -> Data? {
-        guard let tiles = tiles else {
-            NSLog("Tiles is nil")
+        guard let pixels = self.pixels else {
+            NSLog("Pixels is nil")
             return nil
         }
         //TODO: check if data is the right size to save
-        let dataSize = tiles.count/4
+        let dataSize = pixels.count/4
         let headerSize = usingHeader?.count
         
         let v = UnsafeMutablePointer<UInt8>.allocate(capacity: dataSize)
@@ -120,7 +120,7 @@ class TileData {
         }
         
         repeat {
-            let rowOfBytes = tiles[startingIndexOfTile..<endingIndexOfTile]
+            let rowOfBytes = pixels[startingIndexOfTile..<endingIndexOfTile]
             
             let (byte1, byte2) = rowToBytes(row: rowOfBytes)
             
@@ -139,7 +139,7 @@ class TileData {
             startingIndexOfTile += stride
             endingIndexOfTile += stride
             
-        }while(endingIndexOfTile <= tiles.count)
+        }while(endingIndexOfTile <= pixels.count)
         
         let tileData = Data(bytes: UnsafeRawPointer(v), count: dataSize)
         if usingHeader != nil {

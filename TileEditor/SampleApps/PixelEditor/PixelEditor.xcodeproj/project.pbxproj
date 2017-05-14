@@ -7,39 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D103BA051EAD923F00EFB422 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103BA041EAD923F00EFB422 /* AppDelegate.swift */; };
-		D103BA071EAD923F00EFB422 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103BA061EAD923F00EFB422 /* ViewController.swift */; };
-		D103BA091EAD923F00EFB422 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D103BA081EAD923F00EFB422 /* Assets.xcassets */; };
-		D103BA0C1EAD923F00EFB422 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D103BA0A1EAD923F00EFB422 /* Main.storyboard */; };
-		D1ACC50A1EB049AD00AA3C40 /* TileEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D190FCCE1EB0467500B111BD /* TileEditor.framework */; };
-		D1ACC50B1EB049AD00AA3C40 /* TileEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D190FCCE1EB0467500B111BD /* TileEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0CD931B023C16FB996C23393 /* Pods_PixelEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D413B498A8D14B2604C226 /* Pods_PixelEditor.framework */; };
+		D15A1DBD1EC90017004DE60D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A1DBC1EC90017004DE60D /* AppDelegate.swift */; };
+		D15A1DBF1EC90017004DE60D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15A1DBE1EC90017004DE60D /* ViewController.swift */; };
+		D15A1DC11EC90017004DE60D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D15A1DC01EC90017004DE60D /* Assets.xcassets */; };
+		D15A1DC41EC90017004DE60D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D15A1DC21EC90017004DE60D /* Main.storyboard */; };
+		D15A1DCC1EC9006C004DE60D /* Pods_PixelEditor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 12D413B498A8D14B2604C226 /* Pods_PixelEditor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D190FCCD1EB0467500B111BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D17BA6FA1E9DD450006047FC;
-			remoteInfo = TileEditor;
-		};
-		D1ACC50C1EB049AD00AA3C40 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D17BA6F91E9DD450006047FC;
-			remoteInfo = TileEditor;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		D103BA1D1EAD937300EFB422 /* Embed Frameworks */ = {
+		D15A1DCD1EC9006D004DE60D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D1ACC50B1EB049AD00AA3C40 /* TileEditor.framework in Embed Frameworks */,
+				D15A1DCC1EC9006C004DE60D /* Pods_PixelEditor.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,103 +30,117 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D103BA011EAD923F00EFB422 /* PixelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D103BA041EAD923F00EFB422 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D103BA061EAD923F00EFB422 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D103BA081EAD923F00EFB422 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D103BA0B1EAD923F00EFB422 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D103BA0D1EAD923F00EFB422 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TileEditor.xcodeproj; path = ../../TileEditor.xcodeproj; sourceTree = "<group>"; };
+		12D413B498A8D14B2604C226 /* Pods_PixelEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PixelEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8AC044C759C2AF397426599 /* Pods-PixelEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelEditor.release.xcconfig"; path = "Pods/Target Support Files/Pods-PixelEditor/Pods-PixelEditor.release.xcconfig"; sourceTree = "<group>"; };
+		BCA2BE2B5213F00CE895ACB6 /* Pods-PixelEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PixelEditor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PixelEditor/Pods-PixelEditor.debug.xcconfig"; sourceTree = "<group>"; };
+		D15A1DB91EC90017004DE60D /* PixelEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D15A1DBC1EC90017004DE60D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D15A1DBE1EC90017004DE60D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D15A1DC01EC90017004DE60D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D15A1DC31EC90017004DE60D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D15A1DC51EC90017004DE60D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D103B9FE1EAD923F00EFB422 /* Frameworks */ = {
+		D15A1DB61EC90017004DE60D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1ACC50A1EB049AD00AA3C40 /* TileEditor.framework in Frameworks */,
+				0CD931B023C16FB996C23393 /* Pods_PixelEditor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D103B9F81EAD923F00EFB422 = {
+		1AB637D9C5B5DB239DF84AE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */,
-				D103BA031EAD923F00EFB422 /* PixelEditor */,
-				D103BA021EAD923F00EFB422 /* Products */,
+				12D413B498A8D14B2604C226 /* Pods_PixelEditor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D15A1DB01EC90017004DE60D = {
+			isa = PBXGroup;
+			children = (
+				D15A1DBB1EC90017004DE60D /* PixelEditor */,
+				D15A1DBA1EC90017004DE60D /* Products */,
+				D4D1C495975D5DBA8A997AD6 /* Pods */,
+				1AB637D9C5B5DB239DF84AE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		D103BA021EAD923F00EFB422 /* Products */ = {
+		D15A1DBA1EC90017004DE60D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D103BA011EAD923F00EFB422 /* PixelEditor.app */,
+				D15A1DB91EC90017004DE60D /* PixelEditor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D103BA031EAD923F00EFB422 /* PixelEditor */ = {
+		D15A1DBB1EC90017004DE60D /* PixelEditor */ = {
 			isa = PBXGroup;
 			children = (
-				D103BA041EAD923F00EFB422 /* AppDelegate.swift */,
-				D103BA061EAD923F00EFB422 /* ViewController.swift */,
-				D103BA081EAD923F00EFB422 /* Assets.xcassets */,
-				D103BA0A1EAD923F00EFB422 /* Main.storyboard */,
-				D103BA0D1EAD923F00EFB422 /* Info.plist */,
+				D15A1DBC1EC90017004DE60D /* AppDelegate.swift */,
+				D15A1DBE1EC90017004DE60D /* ViewController.swift */,
+				D15A1DC01EC90017004DE60D /* Assets.xcassets */,
+				D15A1DC21EC90017004DE60D /* Main.storyboard */,
+				D15A1DC51EC90017004DE60D /* Info.plist */,
 			);
 			path = PixelEditor;
 			sourceTree = "<group>";
 		};
-		D190FCCA1EB0467500B111BD /* Products */ = {
+		D4D1C495975D5DBA8A997AD6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D190FCCE1EB0467500B111BD /* TileEditor.framework */,
+				BCA2BE2B5213F00CE895ACB6 /* Pods-PixelEditor.debug.xcconfig */,
+				A8AC044C759C2AF397426599 /* Pods-PixelEditor.release.xcconfig */,
 			);
-			name = Products;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D103BA001EAD923F00EFB422 /* PixelEditor */ = {
+		D15A1DB81EC90017004DE60D /* PixelEditor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D103BA101EAD923F00EFB422 /* Build configuration list for PBXNativeTarget "PixelEditor" */;
+			buildConfigurationList = D15A1DC81EC90017004DE60D /* Build configuration list for PBXNativeTarget "PixelEditor" */;
 			buildPhases = (
-				D103B9FD1EAD923F00EFB422 /* Sources */,
-				D103B9FE1EAD923F00EFB422 /* Frameworks */,
-				D103B9FF1EAD923F00EFB422 /* Resources */,
-				D103BA1D1EAD937300EFB422 /* Embed Frameworks */,
+				A900AEBBE24F82C477183F90 /* [CP] Check Pods Manifest.lock */,
+				D15A1DB51EC90017004DE60D /* Sources */,
+				D15A1DB61EC90017004DE60D /* Frameworks */,
+				D15A1DB71EC90017004DE60D /* Resources */,
+				9EF8BF85C8BC508E9AD35422 /* [CP] Embed Pods Frameworks */,
+				98A12F1203D9A800B28C1933 /* [CP] Copy Pods Resources */,
+				D15A1DCD1EC9006D004DE60D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D1ACC50D1EB049AD00AA3C40 /* PBXTargetDependency */,
 			);
 			name = PixelEditor;
 			productName = PixelEditor;
-			productReference = D103BA011EAD923F00EFB422 /* PixelEditor.app */;
+			productReference = D15A1DB91EC90017004DE60D /* PixelEditor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D103B9F91EAD923F00EFB422 /* Project object */ = {
+		D15A1DB11EC90017004DE60D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = iury;
+				ORGANIZATIONNAME = yellokrow;
 				TargetAttributes = {
-					D103BA001EAD923F00EFB422 = {
+					D15A1DB81EC90017004DE60D = {
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = D103B9FC1EAD923F00EFB422 /* Build configuration list for PBXProject "PixelEditor" */;
+			buildConfigurationList = D15A1DB41EC90017004DE60D /* Build configuration list for PBXProject "PixelEditor" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -151,69 +148,93 @@
 				en,
 				Base,
 			);
-			mainGroup = D103B9F81EAD923F00EFB422;
-			productRefGroup = D103BA021EAD923F00EFB422 /* Products */;
+			mainGroup = D15A1DB01EC90017004DE60D;
+			productRefGroup = D15A1DBA1EC90017004DE60D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D190FCCA1EB0467500B111BD /* Products */;
-					ProjectRef = D190FCC91EB0467500B111BD /* TileEditor.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				D103BA001EAD923F00EFB422 /* PixelEditor */,
+				D15A1DB81EC90017004DE60D /* PixelEditor */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		D190FCCE1EB0467500B111BD /* TileEditor.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TileEditor.framework;
-			remoteRef = D190FCCD1EB0467500B111BD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
-		D103B9FF1EAD923F00EFB422 /* Resources */ = {
+		D15A1DB71EC90017004DE60D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D103BA091EAD923F00EFB422 /* Assets.xcassets in Resources */,
-				D103BA0C1EAD923F00EFB422 /* Main.storyboard in Resources */,
+				D15A1DC11EC90017004DE60D /* Assets.xcassets in Resources */,
+				D15A1DC41EC90017004DE60D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		98A12F1203D9A800B28C1933 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PixelEditor/Pods-PixelEditor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EF8BF85C8BC508E9AD35422 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PixelEditor/Pods-PixelEditor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A900AEBBE24F82C477183F90 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		D103B9FD1EAD923F00EFB422 /* Sources */ = {
+		D15A1DB51EC90017004DE60D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D103BA071EAD923F00EFB422 /* ViewController.swift in Sources */,
-				D103BA051EAD923F00EFB422 /* AppDelegate.swift in Sources */,
+				D15A1DBF1EC90017004DE60D /* ViewController.swift in Sources */,
+				D15A1DBD1EC90017004DE60D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		D1ACC50D1EB049AD00AA3C40 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TileEditor;
-			targetProxy = D1ACC50C1EB049AD00AA3C40 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		D103BA0A1EAD923F00EFB422 /* Main.storyboard */ = {
+		D15A1DC21EC90017004DE60D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D103BA0B1EAD923F00EFB422 /* Base */,
+				D15A1DC31EC90017004DE60D /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -221,7 +242,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D103BA0E1EAD923F00EFB422 /* Debug */ = {
+		D15A1DC61EC90017004DE60D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -271,7 +292,7 @@
 			};
 			name = Debug;
 		};
-		D103BA0F1EAD923F00EFB422 /* Release */ = {
+		D15A1DC71EC90017004DE60D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -313,10 +334,10 @@
 			};
 			name = Release;
 		};
-		D103BA111EAD923F00EFB422 /* Debug */ = {
+		D15A1DC91EC90017004DE60D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCA2BE2B5213F00CE895ACB6 /* Pods-PixelEditor.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PixelEditor/Info.plist;
@@ -327,10 +348,10 @@
 			};
 			name = Debug;
 		};
-		D103BA121EAD923F00EFB422 /* Release */ = {
+		D15A1DCA1EC90017004DE60D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8AC044C759C2AF397426599 /* Pods-PixelEditor.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PixelEditor/Info.plist;
@@ -344,25 +365,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D103B9FC1EAD923F00EFB422 /* Build configuration list for PBXProject "PixelEditor" */ = {
+		D15A1DB41EC90017004DE60D /* Build configuration list for PBXProject "PixelEditor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D103BA0E1EAD923F00EFB422 /* Debug */,
-				D103BA0F1EAD923F00EFB422 /* Release */,
+				D15A1DC61EC90017004DE60D /* Debug */,
+				D15A1DC71EC90017004DE60D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D103BA101EAD923F00EFB422 /* Build configuration list for PBXNativeTarget "PixelEditor" */ = {
+		D15A1DC81EC90017004DE60D /* Build configuration list for PBXNativeTarget "PixelEditor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D103BA111EAD923F00EFB422 /* Debug */,
-				D103BA121EAD923F00EFB422 /* Release */,
+				D15A1DC91EC90017004DE60D /* Debug */,
+				D15A1DCA1EC90017004DE60D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D103B9F91EAD923F00EFB422 /* Project object */;
+	rootObject = D15A1DB11EC90017004DE60D /* Project object */;
 }

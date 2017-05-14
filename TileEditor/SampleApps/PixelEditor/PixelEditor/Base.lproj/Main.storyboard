@@ -683,26 +683,27 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="PixelEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="413" height="541"/>
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="541"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="YQx-S0-hjz" customClass="TileEditor" customModule="TileEditor">
-                                <rect key="frame" x="-17" y="111" width="400" height="400"/>
+                                <rect key="frame" x="5" y="111" width="400" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="b3P-fR-Xc2"/>
                                     <constraint firstAttribute="width" constant="400" id="voO-Tm-4hF"/>
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="eyj-vf-adS" customClass="ColorSelector" customModule="TileEditor">
-                                <rect key="frame" x="-17" y="20" width="400" height="61"/>
+                                <rect key="frame" x="5" y="20" width="400" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="OD7-rt-iaL"/>
                                 </constraints>
                             </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YQx-S0-hjz" secondAttribute="trailing" constant="30" id="Cgf-2f-Lqt"/>
+                            <constraint firstAttribute="trailing" secondItem="YQx-S0-hjz" secondAttribute="trailing" constant="5" id="Cgf-2f-Lqt"/>
                             <constraint firstItem="YQx-S0-hjz" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="30" id="Lte-m0-fV0"/>
+                            <constraint firstItem="eyj-vf-adS" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="5" id="VZl-nw-YGg"/>
                             <constraint firstItem="YQx-S0-hjz" firstAttribute="trailing" secondItem="eyj-vf-adS" secondAttribute="trailing" id="gN9-Jr-PX6"/>
                             <constraint firstAttribute="bottom" secondItem="eyj-vf-adS" secondAttribute="bottom" constant="20" id="lJ3-u8-TQJ"/>
                             <constraint firstItem="eyj-vf-adS" firstAttribute="leading" secondItem="YQx-S0-hjz" secondAttribute="leading" id="mUP-Bo-Srk"/>

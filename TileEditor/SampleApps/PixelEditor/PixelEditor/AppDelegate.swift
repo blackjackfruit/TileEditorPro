@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  PixelEditor
 //
-//  Created by iury on 4/23/17.
-//  Copyright © 2017 iury. All rights reserved.
+//  Created by iury on 5/14/17.
+//  Copyright © 2017 yellokrow. All rights reserved.
 //
 
 import Cocoa

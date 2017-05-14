@@ -26,7 +26,7 @@ class ConsoleDataFactory: Factory {
             consoleType = .nes
         }
         if let tiles = tiles, tiles.count > 0 {
-            let tileData = TileData(tiles: tiles, type: consoleType)
+            let tileData = TileData(pixels: tiles, type: consoleType)
             tileData.header = dataTypeHeaderAndData.header
             return (consoleType, tileData)
         }
@@ -40,9 +40,9 @@ class ConsoleDataFactory: Factory {
         switch type {
         case .nes:
             let emptyCHRData = Data(count: 8192)
-            let tileArray = cdf.nesTileArray(data: emptyCHRData)
-            if tileArray.count > 0 {
-                return TileData(tiles: tileArray, type: .nes)
+            let pixelArray = cdf.nesTileArray(data: emptyCHRData)
+            if pixelArray.count > 0 {
+                return TileData(pixels: pixelArray, type: .nes)
             }
         }
         return nil

@@ -41,6 +41,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
             }
             
             if let console = ConsoleDataFactory.generate(data: data) {
+                
                 editorController.tileEditor?.tileData = console.1
                 editorController.editorViewControllerSettings.tileData = console.1
                 editorController.update()

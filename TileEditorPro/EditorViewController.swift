@@ -13,7 +13,7 @@ enum EditorType {
     case NES
 }
 
-class EditorViewController: NSViewController, TileEditorProtocol, TileCollectionProtocol, BoxSelectorDelegate {
+class EditorViewController: NSViewController, TileEditorProtocol, TileCollectionDelegate, BoxSelectorDelegate {
     
     // Must set this variable externally so that the tileEditor, palettes, tileCollection, etc. can be set properly
     var editorViewControllerSettings: EditorViewControllerSettings {
@@ -31,7 +31,6 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     private var _editorViewControllerSettings: EditorViewControllerSettings? = nil
     
     @IBOutlet weak var tileEditor: TileEditor?
-    @IBOutlet weak var tileEditorSize: NSPopUpButtonCell?
     
     @IBOutlet weak var tileViewerScrollView: NSScrollView?
     
@@ -65,38 +64,20 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard
-            let colorSelector = self.selectableColorsOutlet,
-            let paletteSelector = self.selectablePalettesOutlet,
-            let generalColorsSelector = self.generalSelectableColorsOutlet
-            else {
-                log.i("Cannot call update without specifying needed parameters")
-                log.i("tileDataType and tileData are needed before updating")
-                return
-        }
-        
-        _ = setupPaletteSelectors(colorSelector: colorSelector, paletteSelector: paletteSelector, generalColorSelector: generalColorsSelector)
-        _ = setupEditorViewControllerSettings()
-        
         self.tileEditor?.delegate = self
         self.tileCollection?.tileCollectionDelegate = self
         self.selectableColorsOutlet?.boxSelectorDelegate = self
         self.selectablePalettesOutlet?.boxSelectorDelegate = self
         self.generalSelectableColorsOutlet?.boxSelectorDelegate = self
-        
-        _ = setupTileEditor()
     }
     
-    private func setupEditorViewControllerSettings() -> Bool {
-        
+    private func setupEditorViewControllerSettings() {
         self.editorViewControllerSettings.palettes = self.selectablePalettes
-        
-        return true
     }
     private func setupTileEditor() {
-        
+        self.tileEditor?.tileData = self.editorViewControllerSettings.tileData
     }
-    private func setupPaletteSelectors(colorSelector: ColorSelector, paletteSelector: PaletteSelector, generalColorSelector: GeneralColorSelector) -> Bool {
+    private func setupPaletteSelectors(colorSelector: ColorSelector, paletteSelector: PaletteSelector, generalColorSelector: GeneralColorSelector) {
         let colors: PaletteProtocol
         let palettes: [PaletteProtocol]
         let generalColors: PaletteProtocol
@@ -129,16 +110,12 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
         self.selectablePalettes = palettes
         
         generalColorSelector.redraw()
-        
-        return true
     }
     
     func update() {
-        let tileData = self.editorViewControllerSettings.tileData
-        self.tileEditor?.tileData = tileData
-
         log.i("Request to update views")
         guard
+            let tileData = self.editorViewControllerSettings.tileData,
             let consoleType = editorViewControllerSettings.consoleType,
             let colorSelector = self.selectableColorsOutlet,
             let paletteSelector = self.selectablePalettesOutlet,
@@ -149,32 +126,28 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
             return
         }
         
-        
-        _ = setupEditorViewControllerSettings()
-        _ = setupPaletteSelectors(colorSelector: colorSelector, paletteSelector: paletteSelector, generalColorSelector: generalColorsSelector)
+        self.setupTileEditor()
+        self.setupEditorViewControllerSettings()
+        self.setupPaletteSelectors(colorSelector: colorSelector, paletteSelector: paletteSelector, generalColorSelector: generalColorsSelector)
         
         switch consoleType {
             case .nes:
                 pixelsPerTile = 8
         }
-        self.editorViewControllerSettings.tileData = tileData
         
-        self.tileEditor?.tileData = tileData
-        
-        self.tileCollection?.tileData = tileData
+        self.tileCollection?.configure(tileData: tileData)
         self.tileCollection?.update()
-        _ = self.tileCollection?.setHighlightedArea(zoomSize: .x4)
-        
         self.tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
     }
     
     //MARK: TileEditor Protocols
     func pixelDataChanged(tileNumbers: [Int]) {
-        guard let tileCollection = tileCollection else {
+        guard
+            let tileCollection = self.tileCollection
+        else {
             log.w("WARN: No tile viewer set")
             return
         }
-        
         tileCollection.update(tileNumbers: tileNumbers)
     }
     
@@ -187,12 +160,12 @@ class EditorViewController: NSViewController, TileEditorProtocol, TileCollection
                 zoomSize = .x2
             }
             self.tileEditor?.zoomSize = zoomSize
-            _ = self.tileCollection?.setHighlightedArea(zoomSize: zoomSize)
+            self.tileCollection?.zoomSize = zoomSize
             self.tileCollection?.update()
         }
     }
     //MARK: FileCollection Protocols
-    internal func tiles(tileCollection: TileCollection, selected: [[Int]]) {
+    internal func tiles(selected: [[Int]]) {
         let flatArrayOfSelectedTiles = selected.flatMap { $0 }
         tileEditor?.visibleTiles = flatArrayOfSelectedTiles
         tileEditor?.update()

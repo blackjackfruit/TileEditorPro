@@ -116,7 +116,7 @@
                             </menuItem>
                             <menuItem title="ROM" id="a6T-Lo-IOF" customClass="ROMMenuItem" customModule="TileEditorPro" customModuleProvider="target">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="ROM" id="4fW-pP-TiN" userLabel="ROMMenu" customClass="ROMMenu" customModule="TileEditorPro" customModuleProvider="target">
+                                <menu key="submenu" title="ROM" autoenablesItems="NO" id="4fW-pP-TiN" userLabel="ROMMenu" customClass="ROMMenu" customModule="TileEditorPro" customModuleProvider="target">
                                     <items>
                                         <menuItem title="Import Data" enabled="NO" id="Qzi-Bq-ebT">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -205,7 +205,7 @@
                 </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="-88"/>
+            <point key="canvasLocation" x="75" y="20"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -372,15 +372,13 @@
                                     <rect key="frame" x="1" y="1" width="238" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS">
+                                        <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS" customClass="TileCollection" customModule="TileEditor">
                                             <rect key="frame" x="0.0" y="0.0" width="238" height="238"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <collectionViewGridLayout key="collectionViewLayout" id="lLQ-3l-boh"/>
+                                            <collectionViewGridLayout key="collectionViewLayout" id="FCP-hK-lIM">
+                                                <size key="minimumItemSize" width="14.5" height="14.5"/>
+                                            </collectionViewGridLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <connections>
-                                                <outlet property="dataSource" destination="sOO-N1-WHX" id="U43-al-WrC"/>
-                                                <outlet property="delegate" destination="sOO-N1-WHX" id="aPf-0a-ypQ"/>
-                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -427,18 +425,14 @@
                         <outlet property="generalSelectableColorsOutlet" destination="UYc-Kk-XNE" id="8KF-Wq-L1t"/>
                         <outlet property="selectableColorsOutlet" destination="Dwl-Ls-nzb" id="5MU-Wz-o1M"/>
                         <outlet property="selectablePalettesOutlet" destination="XSG-tK-hpz" id="gwC-Qk-WIw"/>
-                        <outlet property="tileCollection" destination="sOO-N1-WHX" id="671-f6-HcF"/>
-                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="szB-yF-pzu"/>
+                        <outlet property="tileCollection" destination="8ru-Qx-bpS" id="eoY-fM-s04"/>
+                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="j1v-Ql-H2y"/>
+                        <outlet property="tileViewerScrollView" destination="9as-sB-BI5" id="BTR-Qx-i4R"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="sOO-N1-WHX" customClass="TileCollection" customModule="TileEditor">
-                    <connections>
-                        <outlet property="tileCollectionViewer" destination="8ru-Qx-bpS" id="oKy-Vo-4Sa"/>
-                    </connections>
-                </customObject>
             </objects>
-            <point key="canvasLocation" x="74" y="767"/>
+            <point key="canvasLocation" x="68" y="911"/>
         </scene>
     </scenes>
 </document>

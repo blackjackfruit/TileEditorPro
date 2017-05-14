@@ -109,7 +109,7 @@ class TileEditor: TileDrawer {
     
     public
     func update() {
-        guard let tileData = tileData, let tiles = tileData.tiles,
+        guard let tileData = tileData, let pixels = tileData.pixels,
             self.visibleTiles.count > 0 else {
             NSLog("ERROR: no tile data for editor")
             return
@@ -117,13 +117,12 @@ class TileEditor: TileDrawer {
         var tTiles: [Int] = []
         for i in 0..<visibleTiles.count {
             let offset = visibleTiles[i]*Int(numberOfPixelsPerTile)
-            let singleTile = tiles[0+offset..<offset+(numberOfPixelsPerTile)]
+            let singleTile = pixels[0+offset..<offset+(numberOfPixelsPerTile)]
             let singleTileArrayAsPixels = Array(singleTile)
             tTiles += singleTileArrayAsPixels
         }
         
         tilesToDraw = tTiles
-        
         needsDisplay = true
     }
     
@@ -245,7 +244,7 @@ class TileEditor: TileDrawer {
 extension TileEditor {
     public
     override func mouseDown(with event: NSEvent) {
-        guard tileData != nil, tileData!.tiles != nil else {
+        guard let tileData = self.tileData, tileData.pixels != nil else {
             NSLog("tileData is nil")
             return
         }
@@ -261,7 +260,7 @@ extension TileEditor {
     
     public
     override func mouseDragged(with event: NSEvent) {
-        guard tileData != nil, tileData!.tiles != nil else {
+        guard let tileData = tileData, tileData.pixels != nil else {
             NSLog("tileData is nil")
             return
         }
@@ -347,7 +346,7 @@ extension TileEditor {
             
             let pixelOffset = (positionInTileSelected.x)+(positionInTileSelected.y*8)
             let location = tileNumber*64+pixelOffset
-            self.tileData!.tiles![location] = self.colorFromPalette
+            self.tileData!.pixels![location] = self.colorFromPalette
             
             self.delegate?.pixelDataChanged(tileNumbers: [tileNumber])
             needsDisplay = true
@@ -400,7 +399,6 @@ extension TileEditor {
             NSLog("Adjusted value for tile cannot be calculated. Will update Tile 0")
             return 0
         }
-        NSLog("\(adjustedtileSelected)")
         return visibleTiles[adjustedtileSelected]
     }
 }

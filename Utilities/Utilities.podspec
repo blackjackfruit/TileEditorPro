@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.summary = 'Utitlies framework that are common to all yellokrow frameworks'
     s.source  = { :path => 'Utilities/*.swift' }
     s.source_files = 'Utilities/*.swift'
-    s.osx.deployment_target = '10.12'
+    s.osx.deployment_target = '10.11'
 
     s.dependency 'XCGLogger'
 end
