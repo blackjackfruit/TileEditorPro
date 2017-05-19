@@ -1,5 +1,5 @@
 
 use_frameworks!
 target 'PixelEditor' do
-  pod 'TileEditor', :path =>  '../../'
+  pod 'TileEditor', :path =>  '../../../'
 end

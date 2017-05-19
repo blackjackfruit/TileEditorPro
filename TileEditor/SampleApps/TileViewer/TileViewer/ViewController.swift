@@ -19,7 +19,7 @@ class ImportFile {
 class ViewController: NSViewController, TileCollectionDelegate {
 
     @IBOutlet weak var tileCollection: TileCollection?
-    var data: TileData? = nil
+    var tileData: TileData? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +27,21 @@ class ViewController: NSViewController, TileCollectionDelegate {
         if  let pathForDataFileForNes = Bundle.main.path(forResource: "DataFileForNes", ofType: nil),
             let dataFromFile = ImportFile.file(path: pathForDataFileForNes),
             let tuple = ConsoleDataFactory.generate(data: dataFromFile) {
-            data = tuple.1
+            self.tileData = tuple.1
         } else {
-            data = ConsoleDataFactory.generate(type: .nes)
+            self.tileData = ConsoleDataFactory.generate(type: .nes)
         }
+        
+        guard let tileData = self.tileData else {
+            return
+        }
+        
         tileCollection?.tileCollectionDelegate = self
-        tileCollection?.configure(tileData: data!)
+        tileCollection?.configure(tileData: tileData)
     }
     
-    func tiles(selected: [[Int]]) {
-        
+    func selected(tileNumbers: [[Int]]) {
+        NSLog("Tiles selected \(tileNumbers)")
     }
 }
 

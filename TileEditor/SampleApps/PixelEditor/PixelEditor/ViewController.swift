@@ -9,8 +9,7 @@
 import Cocoa
 import TileEditor
 
-class ViewController: NSViewController, BoxSelectorDelegate, TileEditorProtocol {
-
+class ViewController: NSViewController, BoxSelectorDelegate, TileEditorDataSource {
     @IBOutlet weak var pixelEditor: TileEditor?
     @IBOutlet weak var colorSelector: ColorSelector?
     
@@ -22,19 +21,23 @@ class ViewController: NSViewController, BoxSelectorDelegate, TileEditorProtocol 
         
         colorSelector?.palettes = [palette]
         colorSelector?.boxSelectorDelegate = self
-        pixelEditor?.delegate = self
+        pixelEditor?.datasource = self
         pixelEditor?.colorPalette = palette
         pixelEditor?.tileData = tileData
-        pixelEditor?.visibleTiles = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-        pixelEditor?.update()
+        pixelEditor?.tileIDs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+        try? pixelEditor?.update()
     }
     
     func pixelDataChanged(tileNumbers: [Int]) {
         NSLog("\(tileNumbers)")
     }
     
+    func updated(tileEditor: TileEditor, tileData: TileData, tileNumbers: [Int]) {
+        
+    }
+    
     func selected(boxSelector: BoxSelector, palette: (number: Int, box: Int), boxSelected: (x: Int, y: Int)) {
-        pixelEditor?.colorFromPalette = palette.box
+        try? pixelEditor?.setColorFromPalette(value: palette.box)
     }
 }
 

@@ -1,0 +1,7 @@
+
+use_frameworks!
+target 'TileEditor' do
+	project 'TileEditor'
+	pod 'XCGLogger'
+	pod 'Utilities', :path => 'Utilities/'
+end

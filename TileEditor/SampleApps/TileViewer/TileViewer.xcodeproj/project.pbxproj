@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49D83348D2D5D50BD8D31454 /* Pods_TileViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C8B0ECF8F65C5CF0A3EFC0 /* Pods_TileViewer.framework */; };
+		06B2324D5FE61779C27BAB67 /* Pods_TileViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */; };
 		D10B930E1EC5DE2000CFDB7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B930D1EC5DE2000CFDB7B /* AppDelegate.swift */; };
 		D10B93101EC5DE2000CFDB7B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B930F1EC5DE2000CFDB7B /* ViewController.swift */; };
 		D10B93121EC5DE2000CFDB7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D10B93111EC5DE2000CFDB7B /* Assets.xcassets */; };
@@ -16,8 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0331CE2A8BBB904DFE0FD738 /* Pods-TileViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.release.xcconfig"; sourceTree = "<group>"; };
-		35C8B0ECF8F65C5CF0A3EFC0 /* Pods_TileViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.release.xcconfig"; sourceTree = "<group>"; };
 		D10B930A1EC5DE2000CFDB7B /* TileViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10B930D1EC5DE2000CFDB7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D10B930F1EC5DE2000CFDB7B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		D10B93141EC5DE2000CFDB7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D10B93161EC5DE2000CFDB7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1556B071EC77DC7003AB176 /* DataFileForNes */ = {isa = PBXFileReference; lastKnownFileType = file; path = DataFileForNes; sourceTree = SOURCE_ROOT; };
-		FE37E5F881AA23C6F8B41E09 /* Pods-TileViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,26 +33,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D83348D2D5D50BD8D31454 /* Pods_TileViewer.framework in Frameworks */,
+				06B2324D5FE61779C27BAB67 /* Pods_TileViewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		17BF85BFACBC6757F35D4C19 /* Frameworks */ = {
+		14EAB46CAE7C00751B15261A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				35C8B0ECF8F65C5CF0A3EFC0 /* Pods_TileViewer.framework */,
+				358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B16A62A07310E92B7AD6583D /* Pods */ = {
+		807C4E9FAA99BEB38E623B49 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FE37E5F881AA23C6F8B41E09 /* Pods-TileViewer.debug.xcconfig */,
-				0331CE2A8BBB904DFE0FD738 /* Pods-TileViewer.release.xcconfig */,
+				BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */,
+				C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -62,8 +62,8 @@
 			children = (
 				D10B930C1EC5DE2000CFDB7B /* TileViewer */,
 				D10B930B1EC5DE2000CFDB7B /* Products */,
-				B16A62A07310E92B7AD6583D /* Pods */,
-				17BF85BFACBC6757F35D4C19 /* Frameworks */,
+				807C4E9FAA99BEB38E623B49 /* Pods */,
+				14EAB46CAE7C00751B15261A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,12 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D10B93191EC5DE2000CFDB7B /* Build configuration list for PBXNativeTarget "TileViewer" */;
 			buildPhases = (
-				4BF35387887C6135ACBDDD8D /* [CP] Check Pods Manifest.lock */,
+				FF36E9AC52C93A9D3F031F9F /* [CP] Check Pods Manifest.lock */,
 				D10B93061EC5DE2000CFDB7B /* Sources */,
 				D10B93071EC5DE2000CFDB7B /* Frameworks */,
 				D10B93081EC5DE2000CFDB7B /* Resources */,
-				77456CC735BC8E714579655C /* [CP] Embed Pods Frameworks */,
-				8847F43786C834A781F9D74F /* [CP] Copy Pods Resources */,
+				A5188944E8787D470C2C2095 /* [CP] Embed Pods Frameworks */,
+				0489073446A8FA412FB22533 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -159,37 +159,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4BF35387887C6135ACBDDD8D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		77456CC735BC8E714579655C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8847F43786C834A781F9D74F /* [CP] Copy Pods Resources */ = {
+		0489073446A8FA412FB22533 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -202,6 +172,46 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5188944E8787D470C2C2095 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
+				"${BUILT_PRODUCTS_DIR}/TileEditor/TileEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TileEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF36E9AC52C93A9D3F031F9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TileViewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -324,7 +334,7 @@
 		};
 		D10B931A1EC5DE2000CFDB7B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE37E5F881AA23C6F8B41E09 /* Pods-TileViewer.debug.xcconfig */;
+			baseConfigurationReference = BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -338,7 +348,7 @@
 		};
 		D10B931B1EC5DE2000CFDB7B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0331CE2A8BBB904DFE0FD738 /* Pods-TileViewer.release.xcconfig */;
+			baseConfigurationReference = C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
