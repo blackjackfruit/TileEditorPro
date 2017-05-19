@@ -19,13 +19,14 @@ protocol FileHandler: class {
 extension FileHandler {
     func importRaw(completion: @escaping ((_ data: Data?)->Void)) {
         let panel = NSOpenPanel()
-        panel.begin { [weak self] (result: Int) in
-            guard result == NSFileHandlingPanelOKButton,
+        panel.begin { [weak self] (NSModaleResponse) in
+            guard NSModaleResponse.rawValue == NSFileHandlingPanelOKButton,
                 let fileLocation = panel.urls.first else {
                     log.d("Cannot open file")
                     completion(nil)
                     return
             }
+            
             let filePath = fileLocation.absoluteURL
             
             if let dataOfFile = NSData(contentsOf: filePath) {
@@ -41,10 +42,14 @@ extension FileHandler {
     
     func exportRaw(data: Data, completion: @escaping ((_ error: Error?) -> Void)) {
         let panel = NSSavePanel()
-        panel.begin { (result: Int) in
-            guard result == NSFileHandlingPanelOKButton, let fileLocation = panel.url else {
+        panel.begin { (NSModaleResponse) in
+            guard
+                NSModaleResponse.rawValue == NSFileHandlingPanelOKButton,
+                let fileLocation = panel.url
+            else {
                 return
             }
+            
             do {
                 try data.write(to: fileLocation)
                 completion(nil)

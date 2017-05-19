@@ -33,7 +33,7 @@ enum TileEditorDocumentErrors {
 class TileEditorDocument: NSDocument {
     
     static var isDocumentCurrentlyOpen: Bool {
-        return TileEditorProDocumentController.shared().documents.count > 0
+        return TileEditorProDocumentController.shared.documents.count > 0
     }
     
     // This object is set when makeWindowControllers is called
@@ -57,9 +57,9 @@ class TileEditorDocument: NSDocument {
         // TODO: cannot create another window at this moment because a bug exists with Rom->Import referencing the new window created and not the window currently selected
         
         // Returns the Storyboard that contains your Document window.
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
         guard
-            let windowController = storyboard.instantiateController(withIdentifier: "MainTileEditor") as? NSWindowController,
+            let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "MainTileEditor")) as? NSWindowController,
             let createdEditorViewController = windowController.contentViewController as? EditorViewController
         else {
             log.e("WindowController not found")
@@ -77,22 +77,22 @@ class TileEditorDocument: NSDocument {
         
         if let palettes = self.editorViewControllerSettings?.palettes {
             createdEditorViewController.selectablePalettes = palettes
-            // No need to setup the GeneralColorPalette because that is not saved in the file and the editor will load up the correct one based off of tileDataType
         }
         
         self.editorViewController = createdEditorViewController
-        self.editorViewController?.update()
+        self.editorViewController?.setup()
         
-        setupMenuItems()
+        self.setupMenuItems()
         self.addWindowController(windowController)
     }
     
     func setupMenuItems() {
-        let delegate = NSApplication.shared().delegate as? AppDelegate
+        let delegate = NSApplication.shared.delegate as? AppDelegate
         let romMenu = delegate?.romMenuItem?.romMenu
         
         romMenu?.editorViewController = self.editorViewController
     }
+    
     override func data(ofType typeName: String) throws -> Data {
         guard let tileEditorSettings = self.editorViewControllerSettings else {
             throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
@@ -101,18 +101,13 @@ class TileEditorDocument: NSDocument {
         return data
     }
     
-    
-    
     override func read(from data: Data, ofType typeName: String) throws {
-        
         do {
-            let unarchivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as NSData)
+            let unarchivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
             guard let tileEditorSettings = unarchivedData as? EditorViewControllerSettings else {
                 throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
             }
-            
             self.editorViewControllerSettings = tileEditorSettings
-            
         }
         catch {
             log.e("\(error)")

@@ -9,8 +9,7 @@
 import Foundation
 import TileEditor
 
-public
-protocol EditorViewControllerSettingsProtocol {
+public protocol EditorViewControllerSettingsProtocol {
     var version: Int { get set }
     var zoomSize: ZoomSize { get set }
     var tileData: TileData? { get set }
@@ -20,8 +19,7 @@ protocol EditorViewControllerSettingsProtocol {
     var palettes: [PaletteProtocol]? { get set }
 }
 
-public
-class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSettingsProtocol {
+public class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSettingsProtocol {
     public var version: Int = 0
     public var zoomSize: ZoomSize = .x4
     public var tileData: TileData? = nil
@@ -33,13 +31,11 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
     public var palettes: [PaletteProtocol]? = nil
     public var selectedPalette: Int = 0
     
-    public
-    override init() {
+    public override init() {
         
     }
     
-    public
-    static func emptyConsoleObject(consoleType: ConsoleType) -> EditorViewControllerSettings {
+    public static func emptyConsoleObject(consoleType: ConsoleType) -> EditorViewControllerSettings {
         let ret = EditorViewControllerSettings()
         switch consoleType {
         case .nes:
@@ -52,8 +48,7 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         return ret
     }
     
-    public
-    required convenience init?(coder aDecoder: NSCoder) {
+    public required convenience init?(coder aDecoder: NSCoder) {
         self.init()
         let version = aDecoder.decodeInteger(forKey: "Version")
         let decodedZoomSize = aDecoder.decodeInteger(forKey: "ZoomSize")
@@ -67,20 +62,17 @@ class EditorViewControllerSettings: NSObject, NSCoding, EditorViewControllerSett
         
         self.version = version
         self.zoomSize = zoomsize
-        self.tileData = tileData.1
+        self.tileData = tileData
         self.palettes = palettes
     }
     
-    public
-    func encode(with aCoder: NSCoder) {
-        let zoomSize = Int(self.zoomSize.rawValue)
-        
-        guard let tileData = self.tileData,
-              let data = tileData.data
-               else {
+    public func encode(with aCoder: NSCoder) {
+        guard let tileData = self.tileData else {
             return
         }
         
+        let zoomSize = Int(self.zoomSize.rawValue)
+        let data = tileData.consoleFormattedPixelData
         aCoder.encode(version, forKey: "Version")
         aCoder.encode(zoomSize, forKey: "ZoomSize")
         aCoder.encode(data, forKey: "TileData")

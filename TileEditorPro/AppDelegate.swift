@@ -9,8 +9,6 @@
 import Cocoa
 import Utilities
 
-
-
 let log = Log(moduleName: "TileEditorPro")
 
 @NSApplicationMain
@@ -18,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var romMenuItem: ROMMenuItem? = nil
     
-    let documentController = TileEditorProDocumentController.shared()
+    let documentController = TileEditorProDocumentController.shared
     
     func applicationWillBecomeActive(_ notification: Notification) {
         
@@ -43,15 +41,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         if TileEditorDocument.isDocumentCurrentlyOpen {
             guard
-                let window = NSApplication.shared().keyWindow
+                let window = NSApplication.shared.keyWindow
             else {
                 return true
             }
             
-            NSAlert(error: TileEditorDocumentErrors.openFile.errorObject()).beginSheetModal(for: window, completionHandler: { (modalResponse: NSModalResponse) in
-                if modalResponse == 1000, let url = URL(string: "file://"+filename) {
+            NSAlert(error: TileEditorDocumentErrors.openFile.errorObject()).beginSheetModal(for: window, completionHandler: { (modalResponse: NSApplication.ModalResponse) in
+                if modalResponse.rawValue == 1000, let url = URL(string: "file://"+filename) {
                     TileEditorProDocumentController.closeDocuments()
-                    TileEditorProDocumentController.shared().openDocument(withContentsOf: url, display: true, completionHandler: { (docuemt: NSDocument?, status: Bool, error: Error?) in
+                    TileEditorProDocumentController.shared.openDocument(withContentsOf: url, display: true, completionHandler: { (docuemt: NSDocument?, status: Bool, error: Error?) in
                         
                     })
                 }

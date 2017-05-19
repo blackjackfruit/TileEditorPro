@@ -57,29 +57,32 @@ class PaletteProccessor: ImporterExporter, FileHandler {
             guard let data = data else {
                 return
             }
-            let palette = PaletteFactory.generate(data: data)
-            if let generatedPaletteType = palette?.0,
-                let paletteProtocol = palette?.1,
+            
+            if let palette = PaletteFactory.generate(data: data),
+                let generatedPaletteType = palette.first?.type,
                 generatedPaletteType == paletteType {
-                completion(paletteProtocol, nil)
+                completion(palette, nil)
                 return
             }
             
             completion(nil, NSError(domain: "", code: 0, userInfo: nil))
         })
     }
+    
     func exportObject(object: [PaletteProtocol], completion: @escaping  ((_ error: Error?) -> Void)) {
         guard let paletteType = paletteType else {
             log.e("Palette Type is nil")
             completion(NSError(domain: "", code: 0, userInfo: nil))
             return
         }
-        var keys: [UInt8] = []
+        
+        var keys: [Int] = []
         object.forEach({ (palette: PaletteProtocol) in
-            palette.palette.forEach({ (tuple: (key: UInt8, color: CGColor)) in
+            palette.palette.forEach({ (tuple: (key: Int, color: CGColor)) in
                 keys.append( tuple.key )
             })
         })
+        
         if let paletteData = PaletteFactory.convert(array: keys, type: paletteType) {
             self.exportRaw(data: paletteData, completion: { (error: Error?) in
                 completion(error)

@@ -24,10 +24,11 @@
 		D170095E1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170095D1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift */; };
 		D17BA7711EA100CA006047FC /* ROMMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA76F1EA100CA006047FC /* ROMMenu.swift */; };
 		D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7701EA100CA006047FC /* ROMMenuItem.swift */; };
-		D17BA7741EA1016B006047FC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D17BA7731EA1016B006047FC /* Info.plist */; };
 		D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77B1EA10202006047FC /* TileEditorDocument.swift */; };
 		D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77D1EA1024A006047FC /* TileEditorSettings.swift */; };
 		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
+		D1E188111F71C1B700E63BE3 /* EditorViewController-IBActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E188101F71C1B700E63BE3 /* EditorViewController-IBActions.swift */; };
+		D1E188151F71C20D00E63BE3 /* EditorViewController-Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E188141F71C20D00E63BE3 /* EditorViewController-Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,8 @@
 		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorViewController.swift; path = TileEditorPro/EditorViewController.swift; sourceTree = SOURCE_ROOT; };
 		D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = TileEditorPro/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = TileEditorPro/WindowController.swift; sourceTree = SOURCE_ROOT; };
+		D1E188101F71C1B700E63BE3 /* EditorViewController-IBActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EditorViewController-IBActions.swift"; path = "TileEditorPro/EditorViewController-IBActions.swift"; sourceTree = SOURCE_ROOT; };
+		D1E188141F71C20D00E63BE3 /* EditorViewController-Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EditorViewController-Protocols.swift"; path = "TileEditorPro/EditorViewController-Protocols.swift"; sourceTree = SOURCE_ROOT; };
 		D6BB5842C3C58A204F33789D /* Pods-TileEditorPro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditorPro.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro.release.xcconfig"; sourceTree = "<group>"; };
 		E797BAA0FDD1A4316D1B2038 /* Pods_TileEditorPro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileEditorPro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED54BDDBE324564F0524AAF8 /* Pods-TileEditorPro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditorPro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,7 +151,7 @@
 				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,
 				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
-				D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */,
+				D1E1880F1F71C17300E63BE3 /* ViewControllers */,
 				D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */,
 				D1BE7D161E80C49300A56600 /* WindowController.swift */,
 				D1476D981EA121B800A19B50 /* Main.storyboard */,
@@ -156,6 +159,16 @@
 			);
 			name = TileEditorPro;
 			path = TileEditor;
+			sourceTree = "<group>";
+		};
+		D1E1880F1F71C17300E63BE3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */,
+				D1E188141F71C20D00E63BE3 /* EditorViewController-Protocols.swift */,
+				D1E188101F71C1B700E63BE3 /* EditorViewController-IBActions.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		D1ED7EB51E880D9100DE2BFF /* Menu */ = {
@@ -207,11 +220,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = yellokrow;
 				TargetAttributes = {
 					D1A2E6E61DC41EBD00529519 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -239,7 +253,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D17BA7741EA1016B006047FC /* Info.plist in Resources */,
 				D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */,
 				D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */,
 				D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */,
@@ -275,9 +288,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
+				"${BUILT_PRODUCTS_DIR}/TileEditor/TileEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/Utilities/Utilities.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TileEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Utilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -290,13 +312,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TileEditorPro-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -309,12 +334,14 @@
 				D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */,
 				D170095E1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift in Sources */,
 				D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */,
+				D1E188151F71C20D00E63BE3 /* EditorViewController-Protocols.swift in Sources */,
 				D1476D961EA120CF00A19B50 /* WindowController.swift in Sources */,
 				D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */,
 				D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */,
 				D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */,
 				D1476D911EA11F9A00A19B50 /* FileImportersAndExporters.swift in Sources */,
 				D1476D931EA11FAD00A19B50 /* FileHandler.swift in Sources */,
+				D1E188111F71C1B700E63BE3 /* EditorViewController-IBActions.swift in Sources */,
 				D17BA7711EA100CA006047FC /* ROMMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,7 +464,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditorPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -454,7 +482,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileEditorPro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

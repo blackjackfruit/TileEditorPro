@@ -28,7 +28,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
     }
     
     @IBAction func importData(sender: AnyObject) {
-        guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
+        guard let tileEditorDocument = NSDocumentController.shared.currentDocument as? TileEditorDocument,
               let editorController = tileEditorDocument.editorViewController else {
             log.e("EditorViewController is nil")
             return
@@ -36,15 +36,14 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         
         dataProcessor.importObject { (data: Data?, error: Error?) in
             guard let data = data else {
-                log.e("Data imported was nil with error \(error)")
+                log.e("Data imported was nil with error \(String(describing: error))")
                 return
             }
             
-            if let console = ConsoleDataFactory.generate(data: data) {
-                
-                editorController.tileEditor?.tileData = console.1
-                editorController.editorViewControllerSettings.tileData = console.1
-                editorController.update()
+            if let tileData = ConsoleDataFactory.generate(data: data) {
+                editorController.tileEditor?.tileData = tileData
+                editorController.editorViewControllerSettings.tileData = tileData
+                editorController.setup()
             } else {
                 log.e("ConsoleDataFactory could not generate data/palette from imported data")
             }
@@ -52,7 +51,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
     }
     
     @IBAction func exportData(sender: AnyObject) {
-        guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
+        guard let tileEditorDocument = NSDocumentController.shared.currentDocument as? TileEditorDocument,
             let editorSettings = tileEditorDocument.editorViewControllerSettings else {
                 log.e("EditorViewController is nil")
                 return
@@ -60,9 +59,9 @@ class ROMMenu: NSMenu, NSMenuDelegate {
         
         var dataToExport: Data? = nil
         if editorSettings.isCHRData {
-            dataToExport = editorSettings.tileData?.data
+            dataToExport = editorSettings.tileData?.consoleFormattedPixelData
         } else {
-            dataToExport = editorSettings.tileData?.data
+            dataToExport = editorSettings.tileData?.consoleFormattedPixelData
         }
         
         if let data = dataToExport {
@@ -75,7 +74,7 @@ class ROMMenu: NSMenu, NSMenuDelegate {
     }
     
     @IBAction func importPalette(sender: AnyObject) {
-        guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
+        guard let tileEditorDocument = NSDocumentController.shared.currentDocument as? TileEditorDocument,
               let editorSettings = tileEditorDocument.editorViewControllerSettings else {
                 log.e("EditorViewController is nil")
                 return
@@ -89,12 +88,12 @@ class ROMMenu: NSMenu, NSMenuDelegate {
             }
             editorSettings.palettes = palettes
             self?.editorViewController?.selectablePalettes = palettes
-            self?.editorViewController?.update()
+            self?.editorViewController?.setup()
         }
     }
     
     @IBAction func exportPalette(sender: AnyObject) {
-        guard let tileEditorDocument = NSDocumentController.shared().currentDocument as? TileEditorDocument,
+        guard let tileEditorDocument = NSDocumentController.shared.currentDocument as? TileEditorDocument,
               let editorSettings = tileEditorDocument.editorViewControllerSettings,
               let palettes = editorSettings.palettes else {
             return

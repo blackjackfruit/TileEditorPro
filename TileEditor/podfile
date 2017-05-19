@@ -1,4 +1,0 @@
-
-target 'TileEditor' do
-	pod 'CocoaLumberjack'
-end
