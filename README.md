@@ -1,8 +1,8 @@
 # TileEditorPro
 
-[![Langues swift3](https://img.shields.io/badge/language-swift3-red.svg)]
-[![IDE Xcode8](https://img.shields.io/badge/IDE-Xcode8-blue.svg)]
-[![OS macOS](https://img.shields.io/badge/OS-macOS-brightgreen.svg)]
+[![Langues swift3](https://img.shields.io/badge/language-swift3-red.svg)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
+[![IDE Xcode8](https://img.shields.io/badge/IDE-Xcode8-blue.svg)](https://developer.apple.com/xcode/)
+[![OS macOS](https://img.shields.io/badge/OS-macOS-brightgreen.svg)](https://www.apple.com)
 
 NES TileEditorPro for editing CHR and roms on macOS. Also bundled with TileEditorPro is a framework called TileEditor which was written to isolate the application code from graphics editing and viewing. The TileEditor.framework has three apps which demonstrate the different facets of TileEditorPro.  
 
