@@ -18,16 +18,21 @@ public enum ZoomSize: Int {
     case x16 = 16
 }
 
-private let IMAGE_TO_VIEW_RATIO: CGFloat = 0.128
-
 public protocol TileCollectionDelegate: class {
     func selected(tileCollection: TileCollection, tileNumbers: [[Int]])
 }
 
-public class TileCollection: NSCollectionView {
+public protocol TileCollectionProtocol {
+    var selectedTiles: Set<Int> { get }
+    var zoomSize: ZoomSize { get set }
+    
+    func configure(using tileData: TileData)
+}
+
+public class TileCollection: NSCollectionView, TileCollectionProtocol {
+    public weak var tileCollectionDelegate: TileCollectionDelegate? = nil
     // Used for knowing which tiles are currently selected or when a new tile is selected will be used to deselect
     public var selectedTiles: Set<Int> = []
-    public weak var tileCollectionDelegate: TileCollectionDelegate? = nil
     public var zoomSize: ZoomSize = .x4 {
         willSet {
             self.collectionDelegate.zoomSize = newValue
@@ -36,17 +41,20 @@ public class TileCollection: NSCollectionView {
             self.update()
         }
     }
-    public var selectedTileIDs: [[Int]] = []
-    public var currentlySelectedTile: Int = 0
     
+    var selectedTileIDs: [[Int]] = []
+    var currentlySelectedTile: Int = 0
     var collectionViewSet = false
     let collectionDelegate = CollectionDelegate()
     let collectionDataSource = CollectionDataSource()
     
-    public func configure(using tileData: TileData){
+    public required init?(coder decoder: NSCoder) {
+        super.init(coder: decoder)
         let nib = NSNib(nibNamed: NSNib.Name(rawValue: "TileItem"), bundle: Bundle(for: TileCollection.self))
         self.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TileItem"))
-        
+    }
+    
+    public func configure(using tileData: TileData) {
         self.collectionDataSource.tileData = tileData
         
         // Must set the delegate and datasource as nil so that the call to collectionViewLayout doesn't throw an exception
@@ -63,7 +71,10 @@ public class TileCollection: NSCollectionView {
         self.dataSource = collectionDataSource
         self.delegate = collectionDelegate
         
-        self.update()
+        let indexPathForSelectedTile = IndexPath(item: self.currentlySelectedTile, section: 0)
+        self.collectionDelegate.collectionView(self, didSelectItemsAt: [indexPathForSelectedTile])
+        
+        self.updateTileDimensionRelativeToResizedView()
     }
     
     /**
@@ -80,11 +91,6 @@ public class TileCollection: NSCollectionView {
             item?.tileView?.matrix = tileData.matrices[i]
             item?.tileView?.needsDisplay = true
         }
-    }
-    
-    override public func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        self.updateTileDimensionRelativeToResizedView()
     }
     
     internal func setupColumnsAndRowsForViewer() {
@@ -107,15 +113,15 @@ public class TileCollection: NSCollectionView {
     }
     
     internal func updateTileDimensionRelativeToResizedView() {
-        let dimesnionForTile = self.frame.size.width/CGFloat(self.collectionDelegate.numberOfColumns)
+        let lineSpacing:CGFloat = 0.5
+        let dimesnionForTile = (self.frame.size.width/CGFloat(self.collectionDelegate.numberOfColumns))-(lineSpacing*2)
         let dimensions = NSSize(width: dimesnionForTile, height: dimesnionForTile)
         let gridLayout = NSCollectionViewGridLayout()
         gridLayout.minimumItemSize = dimensions
         gridLayout.maximumItemSize = dimensions
         
-        gridLayout.minimumLineSpacing = 0
-        gridLayout.minimumInteritemSpacing = 0.0
-        gridLayout.minimumLineSpacing = 0.0
+        gridLayout.minimumLineSpacing = lineSpacing
+        gridLayout.minimumInteritemSpacing = lineSpacing
         
         gridLayout.maximumNumberOfColumns = self.collectionDelegate.numberOfColumns
         gridLayout.maximumNumberOfRows = self.collectionDelegate.numberOfRows
@@ -422,7 +428,7 @@ class BitmapCanvas {
         for row in 0..<internalColorIDMatrix.rows {
             for column in 0..<internalColorIDMatrix.columns {
                 let color = colors[internalColorIDMatrix.entry(row: row, column: column)]
-                bitmapImageRep.setColor(color, atX: row, y: column)
+                bitmapImageRep.setColor(color, atX: column, y: row)
             }
         }
         
@@ -474,7 +480,7 @@ extension BitmapCanvas: GraphicEditor {
     
     func setColorID(value: Int, x: Int, y: Int) throws {
         do {
-            try internalColorIDMatrix.setPosition(value: value, row: x, column: y)
+            try internalColorIDMatrix.setPosition(value: value, row: y, column: x)
         } catch {
             // TODO: Must handle
         }

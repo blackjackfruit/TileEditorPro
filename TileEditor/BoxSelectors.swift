@@ -182,6 +182,7 @@ public class BoxSelector: NSView {
                            height: height))
         ctx.drawPath(using: .stroke)
     }
+    
     private func drawPaletteHighlighter(ctx: CGContext,
                                 palette: Int,
                                 boxesHorizontally: Int,
@@ -202,10 +203,11 @@ public class BoxSelector: NSView {
                            height: height))
         ctx.drawPath(using: .stroke)
     }
+    
     private func draw(paletteProtocol: PaletteProtocol,
-              ctx: CGContext,
-              dimension: (width: CGFloat, height: CGFloat),
-              startingPosition: (x: CGFloat, y: CGFloat)) -> (x: CGFloat, y: CGFloat) {
+                      ctx: CGContext,
+                      dimension: (width: CGFloat, height: CGFloat),
+                      startingPosition: (x: CGFloat, y: CGFloat)) -> (x: CGFloat, y: CGFloat) {
         ctx.setStrokeColor(NSColor.black.cgColor)
         ctx.setLineWidth(CGFloat(1))
         

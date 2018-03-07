@@ -256,8 +256,7 @@ extension TileEditor {
     func clearBitmapCanvas() {
         guard
             let colorPalette = self.colorPalette,
-            let tileData = self.tileData,
-            let tileDataVisible = NESTileDataCollection(matrices: tileData.matrices)
+            let tileData = self.tileData
         else {
             NSLog("ColorPalette: \(String(describing: self.colorPalette))")
             NSLog("TileData: \(String(describing: self.tileData))")
@@ -367,8 +366,9 @@ extension TileEditor {
         }
         
         // TODO: Must compare matrices to check which tiles were updated
-        let matrices: [Matrix]? = MatrixBuilder.createMatrices(fromBitmapCanvas: bitmapCanvas,
-                                                               matrixConfiguration: Matrix(rows: firstMatrixRowCount, columns: firstMatrixColumnCount))
+        let matrices: [Matrix]? = MatrixBuilder.convertToMatrices(fromBitmapCanvas: bitmapCanvas,
+                                                                  matrixConfiguration: Matrix(rows: firstMatrixRowCount,
+                                                                                              columns:firstMatrixColumnCount))
         // convert the bitmap canvas matrix into [Matrix]
         if let matrices = matrices, let tileData = NESTileDataCollection(matrices: matrices) {
             self.bitmapCanvasOriginal = try? BitmapCanvas(matrix: bitmapMatrix, paletteProtocol: colorPalette)

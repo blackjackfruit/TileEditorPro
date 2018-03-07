@@ -56,22 +56,23 @@ class MatrixBuilder {
         var xPositionForMatrix = 0
         var yPositionForMatrix = 0
         
-        for rowsMatrix in self.matrices {
-            for matrixItem in rowsMatrix {
+        for matricesInRow in self.matrices {
+            for matrix in matricesInRow {
                 // TODO: BEGIN Thread Block
                 let startingXPosition = xPositionForMatrix
                 let startingYPosition = yPositionForMatrix
                 var xPosition = startingXPosition*self.matrixConfiguration.columns
                 var yPosition = startingYPosition*self.matrixConfiguration.rows
                 do {
-                    for matrixRow in matrixItem.values {
+                    // Copy the values from matrix to returnMatrix
+                    for matrixRow in matrix.values {
                         for columnValue in matrixRow {
                             try returnMatrix.setPosition(value: columnValue, row: yPosition, column: xPosition)
                             xPosition += 1
                         }
                         
                         xPosition = startingXPosition*self.matrixConfiguration.columns
-                        yPosition = startingYPosition*self.matrixConfiguration.rows + 1
+                        yPosition += 1
                     }
                 } catch {
                     return nil
@@ -88,7 +89,7 @@ class MatrixBuilder {
         return returnMatrix
     }
     
-    static func createMatrices(fromBitmapCanvas bitmapCanvas: BitmapCanvas, matrixConfiguration: Matrix) -> [Matrix]? {
+    static func convertToMatrices(fromBitmapCanvas bitmapCanvas: BitmapCanvas, matrixConfiguration: Matrix) -> [Matrix]? {
         guard
             let bitmapMatrix = bitmapCanvas.matrix,
             bitmapMatrix.columns != 0,
@@ -119,6 +120,7 @@ class MatrixBuilder {
             var matrixValues: [Int] = Array(repeating: 0, count: matrixConfiguration.rows*matrixConfiguration.columns)
             let originalYPosition = yPosition
             var matrixValueStatingPosition = 0
+            // loop through the rows and extract the specific matrix data and save in matrixValues
             for _ in 0..<matrixConfiguration.rows {
                 let rowDataForBitmapCanvas = bitmapCanvasValues[yPosition]
                 let matrixRowData = rowDataForBitmapCanvas[xPosition..<xPosition+matrixConfiguration.columns]
@@ -197,6 +199,20 @@ public class Matrix {
         
         self.values[row][column] = value
         return true
+    }
+}
+
+extension Matrix: CustomStringConvertible {
+    public var description: String {
+        var output = ""
+        for row in 0..<self.values.count {
+            for column in 0..<self.values.first!.count {
+                output += "\(values[row][column]) "
+            }
+            output += "\n"
+        }
+        
+        return output
     }
 }
 

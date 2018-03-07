@@ -27,7 +27,7 @@ class ViewController: NSViewController, TileCollectionDelegate {
         if  let pathForDataFileForNes = Bundle.main.path(forResource: "DataFileForNes", ofType: nil),
             let dataFromFile = ImportFile.file(path: pathForDataFileForNes),
             let tuple = ConsoleDataFactory.generate(data: dataFromFile) {
-            self.tileData = tuple.1
+            self.tileData = tuple
         } else {
             self.tileData = ConsoleDataFactory.generate(type: .nes)
         }
@@ -37,10 +37,10 @@ class ViewController: NSViewController, TileCollectionDelegate {
         }
         
         tileCollection?.tileCollectionDelegate = self
-        tileCollection?.configure(tileData: tileData)
+        tileCollection?.configure(using: tileData)
     }
     
-    func selected(tileNumbers: [[Int]]) {
+    func selected(tileCollection: TileCollection, tileNumbers: [[Int]]) {
         NSLog("Tiles selected \(tileNumbers)")
     }
 }
