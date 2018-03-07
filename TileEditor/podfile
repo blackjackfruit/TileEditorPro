@@ -1,4 +1,0 @@
-use_frameworks!
-target 'TileEditor' do
-	pod 'CocoaLumberjack'
-end
