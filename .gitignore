@@ -6,5 +6,5 @@ Pods/*
 /**/*.xcworkspace/xcuserdata/*.xcuserdatad/*
 /**/*.xcodeproj/xcuserdata/*.xcuserdatad/*
 /**/*/xcuserdata/
-
+TileEditor/
 /**/*/.DS_Store
