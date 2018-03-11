@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46BDE0EF1F4B9350E642FCF6 /* Pods_TileEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5895EA9E03DDBB302FE4E98 /* Pods_TileEditor.framework */; };
+		B3FEA00F85CDD1AAB565D53A /* Pods_TileEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB15C98C629EFDC1CC48954 /* Pods_TileEditor.framework */; };
 		D17BA6FF1E9DD450006047FC /* TileEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = D17BA6FD1E9DD450006047FC /* TileEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D17BA7061E9DD4A3006047FC /* TileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7051E9DD4A3006047FC /* TileData.swift */; };
 		D17BA7081E9DD500006047FC /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7071E9DD500006047FC /* Factories.swift */; };
@@ -23,9 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		19F8DDF4629BD0D38E9CDB8D /* Pods-TileEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditor.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor.release.xcconfig"; sourceTree = "<group>"; };
-		77B6408CD697736B19736440 /* Pods-TileEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor.debug.xcconfig"; sourceTree = "<group>"; };
-		B5895EA9E03DDBB302FE4E98 /* Pods_TileEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2724544FE85F0BAEE9E396F7 /* Pods-TileEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditor.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor.release.xcconfig"; sourceTree = "<group>"; };
+		CD447F729259248F948E4C66 /* Pods-TileEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor.debug.xcconfig"; sourceTree = "<group>"; };
 		D17BA6FA1E9DD450006047FC /* TileEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TileEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D17BA6FD1E9DD450006047FC /* TileEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TileEditor.h; sourceTree = "<group>"; };
 		D17BA6FE1E9DD450006047FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,6 +39,7 @@
 		D17BA7101E9DD5E8006047FC /* TileItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TileItem.xib; sourceTree = "<group>"; };
 		D17BA71C1E9DD6B2006047FC /* PaletteFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteFactory.swift; sourceTree = "<group>"; };
 		D17BA71E1E9DD6D9006047FC /* ConsoleDataFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleDataFactory.swift; sourceTree = "<group>"; };
+		FBB15C98C629EFDC1CC48954 /* Pods_TileEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +47,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46BDE0EF1F4B9350E642FCF6 /* Pods_TileEditor.framework in Frameworks */,
+				B3FEA00F85CDD1AAB565D53A /* Pods_TileEditor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8B64CB58D0EB77A6C7162270 /* Frameworks */ = {
+		9B26E2B2B974D677EBDA0247 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B5895EA9E03DDBB302FE4E98 /* Pods_TileEditor.framework */,
+				CD447F729259248F948E4C66 /* Pods-TileEditor.debug.xcconfig */,
+				2724544FE85F0BAEE9E396F7 /* Pods-TileEditor.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C99B5EB93917E09C1F547934 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FBB15C98C629EFDC1CC48954 /* Pods_TileEditor.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -67,8 +76,8 @@
 			children = (
 				D17BA6FC1E9DD450006047FC /* TileEditor */,
 				D17BA6FB1E9DD450006047FC /* Products */,
-				D75276BD6E617CFEE3F9370D /* Pods */,
-				8B64CB58D0EB77A6C7162270 /* Frameworks */,
+				9B26E2B2B974D677EBDA0247 /* Pods */,
+				C99B5EB93917E09C1F547934 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,15 +157,6 @@
 			name = Processor;
 			sourceTree = "<group>";
 		};
-		D75276BD6E617CFEE3F9370D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				77B6408CD697736B19736440 /* Pods-TileEditor.debug.xcconfig */,
-				19F8DDF4629BD0D38E9CDB8D /* Pods-TileEditor.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -175,12 +175,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D17BA7021E9DD450006047FC /* Build configuration list for PBXNativeTarget "TileEditor" */;
 			buildPhases = (
-				3FBE71EE11677DE0F5074CC3 /* [CP] Check Pods Manifest.lock */,
+				66CEB9DA9473C8B8845CBBAE /* [CP] Check Pods Manifest.lock */,
 				D17BA6F51E9DD450006047FC /* Sources */,
 				D17BA6F61E9DD450006047FC /* Frameworks */,
 				D17BA6F71E9DD450006047FC /* Headers */,
 				D17BA6F81E9DD450006047FC /* Resources */,
-				C38009E5AD0B1BEA643C9DE7 /* [CP] Copy Pods Resources */,
+				12F8A62287AE1A88322D082C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,7 +236,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3FBE71EE11677DE0F5074CC3 /* [CP] Check Pods Manifest.lock */ = {
+		12F8A62287AE1A88322D082C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		66CEB9DA9473C8B8845CBBAE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,21 +267,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C38009E5AD0B1BEA643C9DE7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileEditor/Pods-TileEditor-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -390,7 +390,7 @@
 		};
 		D17BA7031E9DD450006047FC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77B6408CD697736B19736440 /* Pods-TileEditor.debug.xcconfig */;
+			baseConfigurationReference = CD447F729259248F948E4C66 /* Pods-TileEditor.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -414,7 +414,7 @@
 		};
 		D17BA7041E9DD450006047FC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19F8DDF4629BD0D38E9CDB8D /* Pods-TileEditor.release.xcconfig */;
+			baseConfigurationReference = 2724544FE85F0BAEE9E396F7 /* Pods-TileEditor.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
