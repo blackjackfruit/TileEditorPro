@@ -13,8 +13,9 @@
 		D1476D931EA11FAD00A19B50 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1476D921EA11FAD00A19B50 /* FileHandler.swift */; };
 		D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
-		D1476D961EA120CF00A19B50 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1BE7D161E80C49300A56600 /* WindowController.swift */; };
-		D1476D9B1EA1232B00A19B50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1476D981EA121B800A19B50 /* Main.storyboard */; };
+		D15187C4205640A60082E992 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15187C3205640A60082E992 /* WindowController.swift */; };
+		D15187C7205643130082E992 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D15187C6205643130082E992 /* Images.xcassets */; };
+		D15187C8205643A00082E992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1476D981EA121B800A19B50 /* Main.storyboard */; };
 		D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */; };
 		D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */; };
 		D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */; };
@@ -26,7 +27,6 @@
 		D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7701EA100CA006047FC /* ROMMenuItem.swift */; };
 		D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77B1EA10202006047FC /* TileEditorDocument.swift */; };
 		D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA77D1EA1024A006047FC /* TileEditorSettings.swift */; };
-		D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */; };
 		D1E188111F71C1B700E63BE3 /* EditorViewController-IBActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E188101F71C1B700E63BE3 /* EditorViewController-IBActions.swift */; };
 		D1E188151F71C20D00E63BE3 /* EditorViewController-Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E188141F71C20D00E63BE3 /* EditorViewController-Protocols.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +49,8 @@
 		D1476D901EA11F9A00A19B50 /* FileImportersAndExporters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileImportersAndExporters.swift; path = TileEditorPro/FileImportersAndExporters.swift; sourceTree = SOURCE_ROOT; };
 		D1476D921EA11FAD00A19B50 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileHandler.swift; path = TileEditorPro/FileHandler.swift; sourceTree = SOURCE_ROOT; };
 		D1476D991EA121B800A19B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TileEditorPro/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		D15187C3205640A60082E992 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = TileEditorPro/WindowController.swift; sourceTree = SOURCE_ROOT; };
+		D15187C6205643130082E992 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_32.png; path = Images/TileEditorLogo_32.png; sourceTree = SOURCE_ROOT; };
 		D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_64.png; path = Images/TileEditorLogo_64.png; sourceTree = SOURCE_ROOT; };
 		D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_128.png; path = Images/TileEditorLogo_128.png; sourceTree = SOURCE_ROOT; };
@@ -64,8 +66,6 @@
 		D1A2E6E71DC41EBE00529519 /* TileEditorPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileEditorPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TileEditorPro/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorViewController.swift; path = TileEditorPro/EditorViewController.swift; sourceTree = SOURCE_ROOT; };
-		D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = TileEditorPro/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		D1BE7D161E80C49300A56600 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = TileEditorPro/WindowController.swift; sourceTree = SOURCE_ROOT; };
 		D1E188101F71C1B700E63BE3 /* EditorViewController-IBActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EditorViewController-IBActions.swift"; path = "TileEditorPro/EditorViewController-IBActions.swift"; sourceTree = SOURCE_ROOT; };
 		D1E188141F71C20D00E63BE3 /* EditorViewController-Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EditorViewController-Protocols.swift"; path = "TileEditorPro/EditorViewController-Protocols.swift"; sourceTree = SOURCE_ROOT; };
 		D6BB5842C3C58A204F33789D /* Pods-TileEditorPro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileEditorPro.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,21 +144,20 @@
 		D1A2E6E91DC41EBE00529519 /* TileEditorPro */ = {
 			isa = PBXGroup;
 			children = (
+				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
 				D170095D1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift */,
 				D17BA77B1EA10202006047FC /* TileEditorDocument.swift */,
 				D128E56E1EB80FF700A9EBB3 /* Controllers */,
 				D1ED7EB51E880D9100DE2BFF /* Menu */,
 				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,
-				D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */,
 				D1E1880F1F71C17300E63BE3 /* ViewControllers */,
-				D1A2E6EE1DC41EBE00529519 /* Assets.xcassets */,
-				D1BE7D161E80C49300A56600 /* WindowController.swift */,
 				D1476D981EA121B800A19B50 /* Main.storyboard */,
+				D15187C3205640A60082E992 /* WindowController.swift */,
 				D17BA7731EA1016B006047FC /* Info.plist */,
+				D15187C6205643130082E992 /* Images.xcassets */,
 			);
-			name = TileEditorPro;
-			path = TileEditor;
+			path = TileEditorPro;
 			sourceTree = "<group>";
 		};
 		D1E1880F1F71C17300E63BE3 /* ViewControllers */ = {
@@ -253,12 +252,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D15187C8205643A00082E992 /* Main.storyboard in Resources */,
 				D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */,
+				D15187C7205643130082E992 /* Images.xcassets in Resources */,
 				D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */,
 				D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */,
 				D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */,
-				D1A2E6EF1DC41EBE00529519 /* Assets.xcassets in Resources */,
-				D1476D9B1EA1232B00A19B50 /* Main.storyboard in Resources */,
 				D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */,
 				D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */,
 			);
@@ -331,11 +330,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D15187C4205640A60082E992 /* WindowController.swift in Sources */,
 				D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */,
 				D170095E1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift in Sources */,
 				D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */,
 				D1E188151F71C20D00E63BE3 /* EditorViewController-Protocols.swift in Sources */,
-				D1476D961EA120CF00A19B50 /* WindowController.swift in Sources */,
 				D17BA77E1EA1024A006047FC /* TileEditorSettings.swift in Sources */,
 				D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */,
 				D17BA77C1EA10202006047FC /* TileEditorDocument.swift in Sources */,
