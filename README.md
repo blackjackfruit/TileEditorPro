@@ -1,12 +1,12 @@
 # TileEditorPro
 
-[![Langues swift3](https://img.shields.io/badge/language-swift3-red.svg)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
-[![IDE Xcode8](https://img.shields.io/badge/IDE-Xcode8-blue.svg)](https://developer.apple.com/xcode/)
+[![Langues swift4](https://img.shields.io/badge/language-swift4-red.svg)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/)
+[![IDE Xcode9](https://img.shields.io/badge/IDE-Xcode9-blue.svg)](https://developer.apple.com/xcode/)
 [![OS macOS](https://img.shields.io/badge/OS-macOS-brightgreen.svg)](https://www.apple.com)
 
-NES TileEditorPro for editing CHR and roms on macOS. Also bundled with TileEditorPro is a framework called TileEditor which was written to isolate the application code from graphics editing and viewing. The TileEditor.framework has three apps which demonstrate the different facets of TileEditorPro.  
+NES TileEditorPro for editing CHR and roms on macOS. This project depends on the TileEditor framework which was written to isolate the application code from the data, graphics editing and viewing.
 
-Project is written using Swift3.
+Project is written using Swift4.
 
 # Setup
 To get this project to compile, cocoapods will be needed.
