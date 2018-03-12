@@ -1,0 +1,26 @@
+PODS:
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - TileEditor (0.3.0):
+    - XCGLogger
+  - XCGLogger (6.0.2):
+    - XCGLogger/Core (= 6.0.2)
+  - XCGLogger/Core (6.0.2):
+    - ObjcExceptionBridging
+
+DEPENDENCIES:
+  - TileEditor (from `../../`)
+
+EXTERNAL SOURCES:
+  TileEditor:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  TileEditor: ff0a7fd916a0675cfd95b2f146c57d31fdd174fc
+  XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
+
+PODFILE CHECKSUM: 81a06e5c38043b0443a34707d2f80a4f2ae9dc15
+
+COCOAPODS: 1.4.0

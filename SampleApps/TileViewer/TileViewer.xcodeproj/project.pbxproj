@@ -1,0 +1,383 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06B2324D5FE61779C27BAB67 /* Pods_TileViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */; };
+		D10B930E1EC5DE2000CFDB7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B930D1EC5DE2000CFDB7B /* AppDelegate.swift */; };
+		D10B93101EC5DE2000CFDB7B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B930F1EC5DE2000CFDB7B /* ViewController.swift */; };
+		D10B93151EC5DE2000CFDB7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D10B93131EC5DE2000CFDB7B /* Main.storyboard */; };
+		D1556B081EC77E0A003AB176 /* DataFileForNes in Resources */ = {isa = PBXBuildFile; fileRef = D1556B071EC77DC7003AB176 /* DataFileForNes */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TileViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TileViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer.release.xcconfig"; sourceTree = "<group>"; };
+		D10B930A1EC5DE2000CFDB7B /* TileViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TileViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D10B930D1EC5DE2000CFDB7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D10B930F1EC5DE2000CFDB7B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D10B93141EC5DE2000CFDB7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D10B93161EC5DE2000CFDB7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1556B071EC77DC7003AB176 /* DataFileForNes */ = {isa = PBXFileReference; lastKnownFileType = text; path = DataFileForNes; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D10B93071EC5DE2000CFDB7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06B2324D5FE61779C27BAB67 /* Pods_TileViewer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14EAB46CAE7C00751B15261A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				358FC7BCB8EDEA26C5F5B578 /* Pods_TileViewer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		807C4E9FAA99BEB38E623B49 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */,
+				C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D10B93011EC5DE2000CFDB7B = {
+			isa = PBXGroup;
+			children = (
+				D10B930C1EC5DE2000CFDB7B /* TileViewer */,
+				D10B930B1EC5DE2000CFDB7B /* Products */,
+				807C4E9FAA99BEB38E623B49 /* Pods */,
+				14EAB46CAE7C00751B15261A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D10B930B1EC5DE2000CFDB7B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D10B930A1EC5DE2000CFDB7B /* TileViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D10B930C1EC5DE2000CFDB7B /* TileViewer */ = {
+			isa = PBXGroup;
+			children = (
+				D1556B071EC77DC7003AB176 /* DataFileForNes */,
+				D10B930D1EC5DE2000CFDB7B /* AppDelegate.swift */,
+				D10B930F1EC5DE2000CFDB7B /* ViewController.swift */,
+				D10B93131EC5DE2000CFDB7B /* Main.storyboard */,
+				D10B93161EC5DE2000CFDB7B /* Info.plist */,
+			);
+			path = TileViewer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D10B93091EC5DE2000CFDB7B /* TileViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D10B93191EC5DE2000CFDB7B /* Build configuration list for PBXNativeTarget "TileViewer" */;
+			buildPhases = (
+				FF36E9AC52C93A9D3F031F9F /* [CP] Check Pods Manifest.lock */,
+				D10B93061EC5DE2000CFDB7B /* Sources */,
+				D10B93071EC5DE2000CFDB7B /* Frameworks */,
+				D10B93081EC5DE2000CFDB7B /* Resources */,
+				A5188944E8787D470C2C2095 /* [CP] Embed Pods Frameworks */,
+				0489073446A8FA412FB22533 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TileViewer;
+			productName = TileViewer;
+			productReference = D10B930A1EC5DE2000CFDB7B /* TileViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D10B93021EC5DE2000CFDB7B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = yellokrow;
+				TargetAttributes = {
+					D10B93091EC5DE2000CFDB7B = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D10B93051EC5DE2000CFDB7B /* Build configuration list for PBXProject "TileViewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D10B93011EC5DE2000CFDB7B;
+			productRefGroup = D10B930B1EC5DE2000CFDB7B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D10B93091EC5DE2000CFDB7B /* TileViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D10B93081EC5DE2000CFDB7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10B93151EC5DE2000CFDB7B /* Main.storyboard in Resources */,
+				D1556B081EC77E0A003AB176 /* DataFileForNes in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0489073446A8FA412FB22533 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5188944E8787D470C2C2095 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
+				"${BUILT_PRODUCTS_DIR}/TileEditor/TileEditor.framework",
+				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TileEditor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileViewer/Pods-TileViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF36E9AC52C93A9D3F031F9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TileViewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D10B93061EC5DE2000CFDB7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D10B93101EC5DE2000CFDB7B /* ViewController.swift in Sources */,
+				D10B930E1EC5DE2000CFDB7B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D10B93131EC5DE2000CFDB7B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D10B93141EC5DE2000CFDB7B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D10B93171EC5DE2000CFDB7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D10B93181EC5DE2000CFDB7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		D10B931A1EC5DE2000CFDB7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEAE2D05132317EAD3C487B8 /* Pods-TileViewer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TileViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D10B931B1EC5DE2000CFDB7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4BDD88691FB0B3C8FAFD0F5 /* Pods-TileViewer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TileViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yellokrow.TileViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D10B93051EC5DE2000CFDB7B /* Build configuration list for PBXProject "TileViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D10B93171EC5DE2000CFDB7B /* Debug */,
+				D10B93181EC5DE2000CFDB7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D10B93191EC5DE2000CFDB7B /* Build configuration list for PBXNativeTarget "TileViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D10B931A1EC5DE2000CFDB7B /* Debug */,
+				D10B931B1EC5DE2000CFDB7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D10B93021EC5DE2000CFDB7B /* Project object */;
+}
