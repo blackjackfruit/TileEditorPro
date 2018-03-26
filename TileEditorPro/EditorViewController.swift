@@ -119,9 +119,16 @@ class EditorViewController: NSViewController {
             // Scroll to top
 //            self.tileViewerScrollView?.contentView.scroll(to: NSMakePoint(0,0))
         }
-        
-        
-        
+    }
+    
+    @IBAction func updateLineColor(_ sender: NSButton) {
+        if sender.title.lowercased() == "gray" {
+            tileEditor?.lineColorBetweenTiles = NSColor.gray
+        } else if sender.title.lowercased() == "white" {
+            tileEditor?.lineColorBetweenTiles = NSColor.white
+        } else {
+            tileEditor?.lineColorBetweenTiles = NSColor.black
+        }
     }
 }
 
