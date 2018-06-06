@@ -16,6 +16,8 @@ protocol FileHandler: class {
     func importRaw(completion: @escaping ((_ data: Data?)->Void))
     func exportRaw(data: Data, completion: @escaping ((_ error: Error?) -> Void))
 }
+
+@available(macOS 10.11, *)
 extension FileHandler {
     func importRaw(completion: @escaping ((_ data: Data?)->Void)) {
         let panel = NSOpenPanel()

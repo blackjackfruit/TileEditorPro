@@ -12,11 +12,13 @@ PODS:
     - ObjcExceptionBridging
 
 DEPENDENCIES:
-  - TileEditor
+  - TileEditor (from `../TileEditor`)
   - Utilities (from `Utilities/`)
   - XCGLogger
 
 EXTERNAL SOURCES:
+  TileEditor:
+    :path: ../TileEditor
   Utilities:
     :path: Utilities/
 
@@ -26,6 +28,6 @@ SPEC CHECKSUMS:
   Utilities: b567f4b247387a0deb9e0a251a5099afa7576575
   XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
 
-PODFILE CHECKSUM: 1419808b0cf9d45222877b9115518825324609c7
+PODFILE CHECKSUM: ff79fa1617554d1e4da9de39d3daeb8d20bc0146
 
 COCOAPODS: 1.4.0
