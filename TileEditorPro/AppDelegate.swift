@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Utilities
+import YKUtilities
 
 let log = Log(moduleName: "TileEditorPro")
 

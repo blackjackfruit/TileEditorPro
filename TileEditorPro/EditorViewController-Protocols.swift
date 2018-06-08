@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import TileEditor
+import YKTileEditor
 
 //MARK: Protocols Implementations
 extension EditorViewController: TileCollectionDelegate {

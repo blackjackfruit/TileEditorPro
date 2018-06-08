@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import TileEditor
+import YKTileEditor
 
 enum EditorType {
     case NES

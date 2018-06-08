@@ -8,7 +8,7 @@
 
 import Foundation
 import Cocoa
-import TileEditor
+import YKTileEditor
 
 class ROMMenu: NSMenu, NSMenuDelegate {
     

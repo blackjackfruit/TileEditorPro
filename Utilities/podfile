@@ -1,4 +1,0 @@
-use_frameworks!
-target 'Utilities' do
-	pod 'XCGLogger'
-end

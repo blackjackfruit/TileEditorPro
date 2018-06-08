@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import TileEditor
+import YKTileEditor
 
 protocol ImportObject {
     associatedtype T

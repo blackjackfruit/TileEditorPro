@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import TileEditor
+import YKTileEditor
 
 public protocol EditorViewControllerSettingsProtocol {
     var version: Int { get set }

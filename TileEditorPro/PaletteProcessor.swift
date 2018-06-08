@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import TileEditor
+import YKTileEditor
 
 enum PaletteProccessorType {
     case Nes

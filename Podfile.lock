@@ -2,32 +2,26 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - TileEditor (0.4.0):
-    - XCGLogger
-  - Utilities (0.1.0):
-    - XCGLogger
   - XCGLogger (6.0.2):
     - XCGLogger/Core (= 6.0.2)
   - XCGLogger/Core (6.0.2):
     - ObjcExceptionBridging
+  - YKTileEditor (0.4.0):
+    - XCGLogger (~> 6.0.2)
+  - YKUtilities (0.1.0):
+    - XCGLogger (~> 6.0.2)
 
 DEPENDENCIES:
-  - TileEditor (from `../TileEditor`)
-  - Utilities (from `Utilities/`)
   - XCGLogger
-
-EXTERNAL SOURCES:
-  TileEditor:
-    :path: ../TileEditor
-  Utilities:
-    :path: Utilities/
+  - YKTileEditor
+  - YKUtilities
 
 SPEC CHECKSUMS:
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  TileEditor: f292df9b0c33f9c3029b7d0258c427562aa0a59f
-  Utilities: b567f4b247387a0deb9e0a251a5099afa7576575
   XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
+  YKTileEditor: 22a47d9f6a4a359d98aee94d71463243b0acf433
+  YKUtilities: 0409f80e62d7e54ae1eb97f5ce8cd83770598417
 
-PODFILE CHECKSUM: ff79fa1617554d1e4da9de39d3daeb8d20bc0146
+PODFILE CHECKSUM: ee1c7638925d3a73a4cbfa7a58a1fedae07b4800
 
 COCOAPODS: 1.4.0
