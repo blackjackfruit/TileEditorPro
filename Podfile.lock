@@ -2,11 +2,11 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - XCGLogger (6.0.2):
-    - XCGLogger/Core (= 6.0.2)
-  - XCGLogger/Core (6.0.2):
+  - XCGLogger (6.0.4):
+    - XCGLogger/Core (= 6.0.4)
+  - XCGLogger/Core (6.0.4):
     - ObjcExceptionBridging
-  - YKTileEditor (0.4.0):
+  - YKTileEditor (0.4.1):
     - XCGLogger (~> 6.0.2)
   - YKUtilities (0.1.0):
     - XCGLogger (~> 6.0.2)
@@ -18,8 +18,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
-  YKTileEditor: 22a47d9f6a4a359d98aee94d71463243b0acf433
+  XCGLogger: 4fc1bc0bdd5828cb8dc8da7a843536cda1bea8f3
+  YKTileEditor: 5de540a31541e4f4e0503f44d4323b760a5e502a
   YKUtilities: 0409f80e62d7e54ae1eb97f5ce8cd83770598417
 
 PODFILE CHECKSUM: ee1c7638925d3a73a4cbfa7a58a1fedae07b4800

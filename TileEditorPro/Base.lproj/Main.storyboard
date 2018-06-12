@@ -316,18 +316,18 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="EditorViewController" customModule="TileEditorPro" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" autoresizesSubviews="NO" wantsLayer="YES" misplaced="YES" id="m2S-Jp-Qdl">
+                    <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="661" height="310"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileEditor" customClass="TileEditor" customModule="TileEditor">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Lgf-zE-XzT" userLabel="TileEditor" customClass="TileEditor" customModule="YKTileEditor">
                                 <rect key="frame" x="5" y="55" width="250" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="1mZ-jo-2tV"/>
                                     <constraint firstAttribute="width" constant="250" id="Nhf-it-9mI"/>
                                 </constraints>
                             </customView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="ColorSelector" customModule="TileEditor">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwl-Ls-nzb" userLabel="PaletteSelectorView" customClass="ColorSelector" customModule="YKTileEditor">
                                 <rect key="frame" x="5" y="5" width="250" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="4dJ-MW-rxD"/>
@@ -343,9 +343,6 @@
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="akM-x2-sYL">
                                 <rect key="frame" x="583" y="29" width="75" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="oVg-Lv-zde"/>
-                                </constraints>
                                 <popUpButtonCell key="cell" type="push" title="x4" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wvg-kD-Xbz" id="Xqv-DY-OWJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
@@ -388,7 +385,7 @@
                                     <action selector="updateLineColor:" target="XfG-lQ-9wD" id="kw0-PO-A3k"/>
                                 </connections>
                             </popUpButton>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="PaletteSelector" customModule="TileEditor">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="XSG-tK-hpz" userLabel="SelectablePalettes" customClass="PaletteSelector" customModule="YKTileEditor">
                                 <rect key="frame" x="260" y="5" width="250" height="45"/>
                             </customView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QvG-ae-rLn">
@@ -400,7 +397,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS" customClass="TileCollection" customModule="TileEditor">
+                                                <collectionView canDrawConcurrently="YES" selectable="YES" allowsEmptySelection="NO" id="8ru-Qx-bpS" customClass="TileCollection" customModule="YKTileEditor">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <collectionViewGridLayout key="collectionViewLayout" id="FCP-hK-lIM">
@@ -428,7 +425,7 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="fco-Hs-Hyr" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="TileEditor">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="fco-Hs-Hyr" userLabel="SelectableColors" customClass="GeneralColorSelector" customModule="YKTileEditor">
                                 <rect key="frame" x="515" y="55" width="140" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="PUh-zF-6hH"/>
@@ -481,12 +478,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="generalSelectableColorsOutlet" destination="fco-Hs-Hyr" id="QHk-fA-g4n"/>
-                        <outlet property="selectableColorsOutlet" destination="Dwl-Ls-nzb" id="5MU-Wz-o1M"/>
-                        <outlet property="selectablePalettesOutlet" destination="XSG-tK-hpz" id="gwC-Qk-WIw"/>
-                        <outlet property="tileCollection" destination="8ru-Qx-bpS" id="eoY-fM-s04"/>
-                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="IkI-2u-9z0"/>
-                        <outlet property="tileViewerScrollView" destination="9as-sB-BI5" id="BTR-Qx-i4R"/>
+                        <outlet property="generalSelectableColorsOutlet" destination="fco-Hs-Hyr" id="Dh4-oP-Mis"/>
+                        <outlet property="selectableColorsOutlet" destination="Dwl-Ls-nzb" id="7T9-MQ-0OP"/>
+                        <outlet property="selectablePalettesOutlet" destination="XSG-tK-hpz" id="cr2-YX-93p"/>
+                        <outlet property="sourceItemView" destination="8ru-Qx-bpS" id="C5E-Yk-9ZV"/>
+                        <outlet property="tileCollection" destination="8ru-Qx-bpS" id="Vy0-EH-QLh"/>
+                        <outlet property="tileEditor" destination="Lgf-zE-XzT" id="O6T-2D-Bra"/>
+                        <outlet property="tileViewerScrollView" destination="9as-sB-BI5" id="TFW-gM-X2M"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
