@@ -8,20 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0866D8E5FAEAE07D2ED21670 /* Pods_TileEditorPro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E797BAA0FDD1A4316D1B2038 /* Pods_TileEditorPro.framework */; };
-		D128E5671EB80AB300A9EBB3 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2037755A2425C46E0040A5B1 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 203775592425C46E0040A5B1 /* Media.xcassets */; };
+		D128E5671EB80AB300A9EBB3 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D1476D911EA11F9A00A19B50 /* ObjectHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1476D901EA11F9A00A19B50 /* ObjectHandling.swift */; };
 		D1476D931EA11FAD00A19B50 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1476D921EA11FAD00A19B50 /* FileHandler.swift */; };
 		D1476D941EA120CF00A19B50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EA1DC41EBE00529519 /* AppDelegate.swift */; };
 		D1476D951EA120CF00A19B50 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2E6EC1DC41EBE00529519 /* EditorViewController.swift */; };
 		D15187C4205640A60082E992 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15187C3205640A60082E992 /* WindowController.swift */; };
-		D15187C7205643130082E992 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D15187C6205643130082E992 /* Images.xcassets */; };
 		D15187C8205643A00082E992 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1476D981EA121B800A19B50 /* Main.storyboard */; };
-		D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */; };
-		D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */; };
-		D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */; };
-		D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */; };
-		D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */; };
-		D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */ = {isa = PBXBuildFile; fileRef = D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */; };
 		D170095E1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D170095D1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift */; };
 		D17BA7711EA100CA006047FC /* ROMMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA76F1EA100CA006047FC /* ROMMenu.swift */; };
 		D17BA7721EA100CA006047FC /* ROMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17BA7701EA100CA006047FC /* ROMMenuItem.swift */; };
@@ -41,7 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D128E5671EB80AB300A9EBB3 /* BuildFile in Embed Frameworks */,
+				D128E5671EB80AB300A9EBB3 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,17 +43,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		203775592425C46E0040A5B1 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = TileEditorPro/Media.xcassets; sourceTree = "<group>"; };
 		D1476D901EA11F9A00A19B50 /* ObjectHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectHandling.swift; path = TileEditorPro/ObjectHandling.swift; sourceTree = SOURCE_ROOT; };
 		D1476D921EA11FAD00A19B50 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileHandler.swift; path = TileEditorPro/FileHandler.swift; sourceTree = SOURCE_ROOT; };
 		D1476D991EA121B800A19B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TileEditorPro/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		D15187C3205640A60082E992 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = TileEditorPro/WindowController.swift; sourceTree = SOURCE_ROOT; };
-		D15187C6205643130082E992 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_32.png; path = Images/TileEditorLogo_32.png; sourceTree = SOURCE_ROOT; };
-		D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_64.png; path = Images/TileEditorLogo_64.png; sourceTree = SOURCE_ROOT; };
-		D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_128.png; path = Images/TileEditorLogo_128.png; sourceTree = SOURCE_ROOT; };
-		D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_256.png; path = Images/TileEditorLogo_256.png; sourceTree = SOURCE_ROOT; };
-		D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_16.png; path = Images/TileEditorLogo_16.png; sourceTree = SOURCE_ROOT; };
-		D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TileEditorLogo_512.png; path = Images/TileEditorLogo_512.png; sourceTree = SOURCE_ROOT; };
 		D170095D1EC3D82D00D4AA55 /* TileEditorProDocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileEditorProDocumentController.swift; path = TileEditorPro/TileEditorProDocumentController.swift; sourceTree = SOURCE_ROOT; };
 		D17BA76F1EA100CA006047FC /* ROMMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ROMMenu.swift; path = TileEditorPro/ROMMenu.swift; sourceTree = SOURCE_ROOT; };
 		D17BA7701EA100CA006047FC /* ROMMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ROMMenuItem.swift; path = TileEditorPro/ROMMenuItem.swift; sourceTree = SOURCE_ROOT; };
@@ -118,22 +106,10 @@
 			name = FileProcessing;
 			sourceTree = "<group>";
 		};
-		D16D920A1E849A7C003DBEDF /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				D16D92151E849C92003DBEDF /* TileEditorLogo_16.png */,
-				D16D920D1E849C2E003DBEDF /* TileEditorLogo_32.png */,
-				D16D920E1E849C2E003DBEDF /* TileEditorLogo_64.png */,
-				D16D920F1E849C2E003DBEDF /* TileEditorLogo_128.png */,
-				D16D92101E849C2E003DBEDF /* TileEditorLogo_256.png */,
-				D16D92171E849FA3003DBEDF /* TileEditorLogo_512.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		D1A2E6DE1DC41EBD00529519 = {
 			isa = PBXGroup;
 			children = (
+				203775592425C46E0040A5B1 /* Media.xcassets */,
 				D1B981BE20C79190008F0D79 /* README */,
 				D1A2E6E91DC41EBE00529519 /* TileEditorPro */,
 				D1A2E6E81DC41EBE00529519 /* Products */,
@@ -158,13 +134,11 @@
 				D17BA77B1EA10202006047FC /* TileEditorDocument.swift */,
 				D128E56E1EB80FF700A9EBB3 /* Controllers */,
 				D1ED7EB51E880D9100DE2BFF /* Menu */,
-				D16D920A1E849A7C003DBEDF /* Images */,
 				D159C2251E6CE419000791F9 /* FileProcessing */,
 				D1E1880F1F71C17300E63BE3 /* ViewControllers */,
 				D1476D981EA121B800A19B50 /* Main.storyboard */,
 				D15187C3205640A60082E992 /* WindowController.swift */,
 				D17BA7731EA1016B006047FC /* Info.plist */,
-				D15187C6205643130082E992 /* Images.xcassets */,
 			);
 			path = TileEditorPro;
 			sourceTree = "<group>";
@@ -210,7 +184,6 @@
 				D1A2E6E51DC41EBD00529519 /* Resources */,
 				D17BA78C1EA11BE0006047FC /* Embed Frameworks */,
 				A4C3F693491C2FF69399C1E0 /* [CP] Embed Pods Frameworks */,
-				0B0C44BD2A55DE716B4015E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -243,6 +216,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -263,41 +237,20 @@
 			files = (
 				D1B981BF20C79190008F0D79 /* README in Resources */,
 				D15187C8205643A00082E992 /* Main.storyboard in Resources */,
-				D16D92181E849FA3003DBEDF /* TileEditorLogo_512.png in Resources */,
-				D15187C7205643130082E992 /* Images.xcassets in Resources */,
-				D16D92111E849C2E003DBEDF /* TileEditorLogo_32.png in Resources */,
-				D16D92161E849C92003DBEDF /* TileEditorLogo_16.png in Resources */,
-				D16D92121E849C2E003DBEDF /* TileEditorLogo_64.png in Resources */,
-				D16D92141E849C2E003DBEDF /* TileEditorLogo_256.png in Resources */,
-				D16D92131E849C2E003DBEDF /* TileEditorLogo_128.png in Resources */,
+				2037755A2425C46E0040A5B1 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B0C44BD2A55DE716B4015E9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A4C3F693491C2FF69399C1E0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/YKTileEditor/YKTileEditor.framework",
@@ -312,7 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TileEditorPro/Pods-TileEditorPro-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EDC5C7F40D0A757FD634495A /* [CP] Check Pods Manifest.lock */ = {

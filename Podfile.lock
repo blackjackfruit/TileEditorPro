@@ -16,6 +16,14 @@ DEPENDENCIES:
   - YKTileEditor
   - YKUtilities
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - ObjcExceptionBridging
+    - XCGLogger
+  https://github.com/yellokrow/Specs.git:
+    - YKTileEditor
+    - YKUtilities
+
 SPEC CHECKSUMS:
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
   XCGLogger: 4fc1bc0bdd5828cb8dc8da7a843536cda1bea8f3
@@ -24,4 +32,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ee1c7638925d3a73a4cbfa7a58a1fedae07b4800
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.9.1
